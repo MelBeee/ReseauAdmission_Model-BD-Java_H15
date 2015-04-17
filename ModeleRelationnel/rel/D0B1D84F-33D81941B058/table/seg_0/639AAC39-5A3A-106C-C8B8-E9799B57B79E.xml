@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="639AAC39-5A3A-106C-C8B8-E9799B57B79E" name="Section">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:45:16 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDSection" id="4642123F-2F66-FD0A-8662-473200A9FAA3">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:48:42 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDSalle" id="C0498EE0-C2C1-1683-D031-E9A6BFDE0F55">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:48:42 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<delegate>02CBBD72-8C1C-D0AE-68B8-1C889AC2F080</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5A2095BF-AEE3-0F10-4410-7B1D8D4791B1" referredColumn="02CBBD72-8C1C-D0AE-68B8-1C889AC2F080"/>
+</associations>
+</Column>
+<Column name="NbrePlace" id="77C2C298-C20A-E290-765A-D20FBF8749E1">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:48:42 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nom" id="9475D34C-8674-8AE2-765A-F54BB5821ED9">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:48:42 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="54828128-4077-BCCA-07BF-794C7F810F4E" name="Section_PK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:48:42 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4642123F-2F66-FD0A-8662-473200A9FAA3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4DE9FE18-94B7-8E0D-74AB-777F16D4850A" name="Section_Salle_FK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:50:58 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C0498EE0-C2C1-1683-D031-E9A6BFDE0F55"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

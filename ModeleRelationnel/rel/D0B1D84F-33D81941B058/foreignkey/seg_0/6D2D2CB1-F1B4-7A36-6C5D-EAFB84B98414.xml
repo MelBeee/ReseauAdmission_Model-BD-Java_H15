@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="6D2D2CB1-F1B4-7A36-6C5D-EAFB84B98414" name="Billet_Spectacle_FK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:36:46 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<containerWithKeyObject>F67AAC3A-5937-0202-729C-C6F9DBD14671</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>3569F637-473D-E40F-422F-40FA5280376F</localFKIndex>
+<keyObject>F72F3C59-35B0-24B7-66CD-ADFE6C853102</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

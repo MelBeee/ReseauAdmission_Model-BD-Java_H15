@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8FB3AC46-CF53-A085-0FE9-874D98F68438" name="Panier">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:52:18 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDClient" id="79718992-9545-B7E7-8604-42731EBD86D7">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:53:30 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDBillet" id="65415F73-64F5-D262-F036-B4E84385A69A">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:53:30 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<delegate>E07C2D77-442E-692E-D725-9729223F1306</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7C882085-5964-0E29-E245-BD4631208191" referredColumn="E07C2D77-442E-692E-D725-9729223F1306"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="07EDBFC0-A1B4-B97C-2E01-102C15C5EB66" name="Panier_PK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 17:16:26 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="79718992-9545-B7E7-8604-42731EBD86D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6BC2B63F-4765-FE4E-8D98-4BB802EF70DF" name="TABLE_6_Billet_FK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:53:30 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="65415F73-64F5-D262-F036-B4E84385A69A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
