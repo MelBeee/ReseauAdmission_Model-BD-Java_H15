@@ -1,0 +1,18 @@
+- implantation de la Bd
+- Insertion (de base salle plus section etc...)
+- Debut package de base
+- monter le site web
+-(design mise en forme)
+- Affichage de tout les spectacles dispo
+- research particulière
+- gestion du panier( supression ajout)
+-gestion des achats
+-facture
+- inscription
+- application local
+- design
+- ajout spectacle
+- consulter les places disponibles pour un spectacle donné
+-liste des meilleurs ventes
+- liste des meilleurs acheteurs
+-livraison de billet
