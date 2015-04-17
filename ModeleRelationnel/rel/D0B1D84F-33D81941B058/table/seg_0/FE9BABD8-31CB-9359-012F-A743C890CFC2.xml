@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FE9BABD8-31CB-9359-012F-A743C890CFC2" name="Spectacle">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:11:13 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDSpectacle" id="97A96627-5EC5-9F04-2456-91077F8B7D49">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nom" id="A3BFFCF7-EFA8-0510-6E88-276E13D5BC57">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Description" id="3D4C90DE-AA7D-A7A3-BA51-F6B95BA61B2E">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 CHAR</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Affiche" id="4CE60392-596C-7EF9-4268-C5437E299850">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDCategorie" id="DDBFF994-8E88-084C-7E5F-6FFAA77D02D0">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<delegate>85D5EB93-1270-90F1-23C4-2B320AB71FF4</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="409E8701-C0D4-0299-40A4-E1BF9395FB42" referredColumn="85D5EB93-1270-90F1-23C4-2B320AB71FF4"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F72F3C59-35B0-24B7-66CD-ADFE6C853102" name="Spectacle_PK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="97A96627-5EC5-9F04-2456-91077F8B7D49"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A7ACFB4E-DEBA-89FB-97AD-A615DCE2CCA2" name="TABLE_2_Categorie_FK">
+<createdBy>201029426</createdBy>
+<createdTime>2015-04-17 16:19:55 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DDBFF994-8E88-084C-7E5F-6FFAA77D02D0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
