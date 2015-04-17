@@ -1,11 +1,61 @@
 - implantation de la Bd
+{
+ -monter le model relationelle
+ -creation des tables 
+ -sequence + trigger
+
+}
+
 - Insertion (de base salle plus section etc...)
+{
+
+-les insertion de base comme les spectacle
+- les types de spectacles
+- les sections
+-les salles
+-la creation des billet/représentation
+	
+}
+
 - Debut package de base
+{
+ (recherche)
+ -afficher tout
+ -recherche par type
+ -etc
+(panier FAKETure)
+ -panier
+ -ajout
+ -supression
+ -validation achat
+ -validation du nombre de billet
+ (application local)
+  -ajout spectacle
+  -consultation du nombre de place(par représentation)
+  -meilleurs vendeur(Habitude des clients)
+   -meilleur acheteur
+  -livraison des billets
+
+}
+
 - monter le site web
+
 -(design mise en forme)
+{
+
+ -mise en forme du site complet
+
+
+}
+
 - Affichage de tout les spectacles dispo
-- research particulière
-- gestion du panier( supression ajout)
+{
+
+
+
+}
+- research particulière +
+- gestion du panier( supression ajout) ++
 -gestion des achats
 -facture
 - inscription
