@@ -33,6 +33,17 @@
 <colAssociation fkAssociation="7C882085-5964-0E29-E245-BD4631208191" referredColumn="E07C2D77-442E-692E-D725-9729223F1306"/>
 </associations>
 </Column>
+<Column name="NbreBillet" id="539DBDDF-A820-244A-BAB4-1FB3E4AF1589">
+<createdBy>Mélissa</createdBy>
+<createdTime>2015-04-19 15:42:29 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="07EDBFC0-A1B4-B97C-2E01-102C15C5EB66" name="Panier_PK">

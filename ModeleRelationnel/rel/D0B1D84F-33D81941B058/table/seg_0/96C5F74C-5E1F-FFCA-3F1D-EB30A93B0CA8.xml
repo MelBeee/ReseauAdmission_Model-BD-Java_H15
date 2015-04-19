@@ -7,21 +7,6 @@
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="IDClient" id="5E14267D-9C3B-2F19-9974-D3C9FE4ED930">
-<createdBy>201029426</createdBy>
-<createdTime>2015-04-17 17:16:03 UTC</createdTime>
-<generatorID>Généré par l&apos;utilisateur</generatorID>
-<ownerDesignName>ModeleRelationnel</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT019</logicalDatatype>
-<dataTypePrecision>5</dataTypePrecision>
-<delegate>7F978BD2-4CAE-B4FF-7AA1-E0E1DCC19248</delegate>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="16F85109-E5AF-1E97-7D58-E0D272034A86" referredColumn="7F978BD2-4CAE-B4FF-7AA1-E0E1DCC19248"/>
-</associations>
-</Column>
 <Column name="IDBillet" id="0A6B8C2E-72A0-48E3-C7FF-E7E52B4FC414">
 <createdBy>201029426</createdBy>
 <createdTime>2015-04-17 17:16:03 UTC</createdTime>
@@ -46,14 +31,34 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>5</dataTypePrecision>
-<delegate>F978331A-1C8C-147C-D7B6-D50FCFBF178B</delegate>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="28DDE3AF-B348-3ED2-6B90-C91BDB57E107" referredColumn="F978331A-1C8C-147C-D7B6-D50FCFBF178B"/>
-</associations>
+</Column>
+<Column name="NbreBillet" id="6F9A0836-6DFC-1AA1-8B63-80740C822C22">
+<createdBy>Mélissa</createdBy>
+<createdTime>2015-04-19 15:43:41 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D565468B-607A-BA2D-816B-40ABC1FC000C" name="Vente_PK">
+<createdBy>Mélissa</createdBy>
+<createdTime>2015-04-19 15:39:13 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2CC5C81B-7C07-FFE0-8F4E-EAC13AE236E2"/>
+</indexColumnUsage>
+</ind_PK_UK>
 <ind_PK_UK id="AFAA058A-B73D-7341-6F96-A15E5898F204" name="Vente_Client_FK">
 <createdBy>201029426</createdBy>
 <createdTime>2015-04-17 17:19:26 UTC</createdTime>
@@ -61,9 +66,6 @@
 <ownerDesignName>ModeleRelationnel</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="5E14267D-9C3B-2F19-9974-D3C9FE4ED930"/>
-</indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="7E20A963-73D9-5388-EBDC-955089F61ADE" name="Vente_Billet_FK">
 <createdBy>201029426</createdBy>
@@ -76,16 +78,13 @@
 <colUsage columnID="0A6B8C2E-72A0-48E3-C7FF-E7E52B4FC414"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="A765AD42-D8EB-4B07-93AD-6490030316E4" name="Vente_Facture_FK">
+<ind_PK_UK id="A765AD42-D8EB-4B07-93AD-6490030316E4" name="Vente_Client_FKv2">
 <createdBy>201029426</createdBy>
 <createdTime>2015-04-17 17:23:15 UTC</createdTime>
 <generatorID>Généré par l&apos;utilisateur</generatorID>
 <ownerDesignName>ModeleRelationnel</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="2CC5C81B-7C07-FFE0-8F4E-EAC13AE236E2"/>
-</indexColumnUsage>
 </ind_PK_UK>
 </indexes>
 </Table>

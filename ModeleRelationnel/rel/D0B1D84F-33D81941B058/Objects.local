@@ -11,10 +11,10 @@
    <object objectType="Table" objectID="96C5F74C-5E1F-FFCA-3F1D-EB30A93B0CA8" name="Vente" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="6A6C1E8C-C86B-B344-2369-8A8D351B96E6" name="Billet_Section_FK" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="6D2D2CB1-F1B4-7A36-6C5D-EAFB84B98414" name="Billet_Spectacle_FK" seqName="seg_0"/>
-   <object objectType="FKIndexAssociation" objectID="28DDE3AF-B348-3ED2-6B90-C91BDB57E107" name="Vente_Facture_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="6AAC73EB-D05E-60A9-F23D-B703314CAC18" name="Facture_Vente_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="CB04E5CF-0F7B-D777-BF2C-B2C766F8AB88" name="Facture_Client_FK" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="5A2095BF-AEE3-0F10-4410-7B1D8D4791B1" name="Section_Salle_FK" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="409E8701-C0D4-0299-40A4-E1BF9395FB42" name="TABLE_2_Categorie_FK" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="7C882085-5964-0E29-E245-BD4631208191" name="TABLE_6_Billet_FK" seqName="seg_0"/>
    <object objectType="FKIndexAssociation" objectID="35EB7521-39D3-0B88-3CD8-0461924BECD5" name="Vente_Billet_FK" seqName="seg_0"/>
-   <object objectType="FKIndexAssociation" objectID="16F85109-E5AF-1E97-7D58-E0D272034A86" name="Vente_Client_FK" seqName="seg_0"/>
 </oracle.dbtools.crest.model.design.relational.RelationalDesign>

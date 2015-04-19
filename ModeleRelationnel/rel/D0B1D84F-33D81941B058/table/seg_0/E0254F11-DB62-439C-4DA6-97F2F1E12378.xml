@@ -16,7 +16,11 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>5</dataTypePrecision>
+<delegate>2CC5C81B-7C07-FFE0-8F4E-EAC13AE236E2</delegate>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6AAC73EB-D05E-60A9-F23D-B703314CAC18" referredColumn="2CC5C81B-7C07-FFE0-8F4E-EAC13AE236E2"/>
+</associations>
 </Column>
 <Column name="DateAchat" id="E9F3788F-6ABD-410D-B640-20A4430B2DBF">
 <createdBy>201029426</createdBy>
@@ -54,6 +58,21 @@
 <dataTypeScale>2</dataTypeScale>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="IDClient" id="CE3C7DA3-1D78-2413-F1A6-5A3642B13124">
+<createdBy>Mélissa</createdBy>
+<createdTime>2015-04-19 15:40:28 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<delegate>7F978BD2-4CAE-B4FF-7AA1-E0E1DCC19248</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CB04E5CF-0F7B-D777-BF2C-B2C766F8AB88" referredColumn="7F978BD2-4CAE-B4FF-7AA1-E0E1DCC19248"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="2FA9CA4B-A3B9-8C0B-CB31-3C8312CC0DAA" name="Facture_PK">
@@ -63,6 +82,29 @@
 <ownerDesignName>ModeleRelationnel</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F978331A-1C8C-147C-D7B6-D50FCFBF178B"/>
+<colUsage columnID="CE3C7DA3-1D78-2413-F1A6-5A3642B13124"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3547A7C7-AD2E-65F5-F91C-353AEDA3C345" name="Facture_Client_FK">
+<createdBy>Mélissa</createdBy>
+<createdTime>2015-04-19 15:40:28 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CE3C7DA3-1D78-2413-F1A6-5A3642B13124"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E05AE34E-D9A3-5318-0229-A32BB16B21CB" name="Facture_Vente_FK">
+<createdBy>Mélissa</createdBy>
+<createdTime>2015-04-19 15:44:00 UTC</createdTime>
+<generatorID>Généré par l&apos;utilisateur</generatorID>
+<ownerDesignName>ModeleRelationnel</ownerDesignName>
+<indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="F978331A-1C8C-147C-D7B6-D50FCFBF178B"/>
