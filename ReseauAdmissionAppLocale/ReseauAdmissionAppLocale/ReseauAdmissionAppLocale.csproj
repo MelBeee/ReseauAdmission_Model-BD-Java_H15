@@ -45,6 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultationClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsultationClient.Designer.cs">
+      <DependentUpon>ConsultationClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultationPlaces.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsultationPlaces.Designer.cs">
+      <DependentUpon>ConsultationPlaces.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionSpectacle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionSpectacle.Designer.cs">
+      <DependentUpon>GestionSpectacle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rootForm.cs">
@@ -53,6 +71,27 @@
     <Compile Include="rootForm.Designer.cs">
       <DependentUpon>rootForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TopAcheteur.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TopAcheteur.Designer.cs">
+      <DependentUpon>TopAcheteur.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TopVentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TopVentes.Designer.cs">
+      <DependentUpon>TopVentes.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ConsultationClient.resx">
+      <DependentUpon>ConsultationClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsultationPlaces.resx">
+      <DependentUpon>ConsultationPlaces.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionSpectacle.resx">
+      <DependentUpon>GestionSpectacle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -64,6 +103,12 @@
     </Compile>
     <EmbeddedResource Include="rootForm.resx">
       <DependentUpon>rootForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopAcheteur.resx">
+      <DependentUpon>TopAcheteur.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopVentes.resx">
+      <DependentUpon>TopVentes.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

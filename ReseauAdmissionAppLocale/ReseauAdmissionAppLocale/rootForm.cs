@@ -49,7 +49,7 @@ namespace ReseauAdmissionAppLocale
 
       private void panel1_MouseLeave(object sender, EventArgs e)
       {
-         panel2.BackColor = Color.FromArgb(97, 221, 155);
+          panel2.BackColor = Color.FromArgb(97, 221, 155);
       } 
 
       private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -228,6 +228,53 @@ namespace ReseauAdmissionAppLocale
 
          MessageBox.Show(DescriptionErreur, "Erreur #" + ex.Number.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
       }
+
+      private void rootForm_FormClosing(object sender, FormClosingEventArgs e)
+      {
+          oraconnPrincipale.Close();
+      }
+
+      private void Spectacle_Click(object sender, EventArgs e)
+      {
+          GestionSpectacle form = new GestionSpectacle(oraconnPrincipale);
+
+          form.ShowDialog();
+          panel2.BackColor = Color.FromArgb(97, 221, 155);
+      }
+
+      private void Facture_Click(object sender, EventArgs e)
+      {
+          ConsultationClient form = new ConsultationClient(oraconnPrincipale);
+
+          form.ShowDialog();
+          panel3.BackColor = Color.FromArgb(97, 221, 155);
+      }
+
+      private void Seating_Click(object sender, EventArgs e)
+      {
+          ConsultationPlaces form = new ConsultationPlaces(oraconnPrincipale);
+
+          form.ShowDialog();
+          panel4.BackColor = Color.FromArgb(97, 221, 155);
+      }
+
+      private void ClassementVentes_Click(object sender, EventArgs e)
+      {
+          TopVentes form = new TopVentes(oraconnPrincipale);
+
+          form.ShowDialog();
+          panel5.BackColor = Color.FromArgb(97, 221, 155);
+      }
+
+      private void ClassementAcheteurs_Click(object sender, EventArgs e)
+      {
+          TopAcheteur form = new TopAcheteur(oraconnPrincipale);
+
+          form.ShowDialog();
+          panel6.BackColor = Color.FromArgb(97, 221, 155);
+      }
+
+
    
    }
 }
