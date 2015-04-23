@@ -25,26 +25,26 @@ namespace ReseauAdmissionAppLocale
 
       private void rootForm_Load(object sender, EventArgs e)
       {
-         if (!connection)
-         {
-            string Dsource = "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
-                              "(HOST=205.237.244.251)(PORT=1521)))" +
-                              "(CONNECT_DATA=(SERVICE_NAME=ORCL.clg.qc.ca)))";
-            string user = "boucherm";
-            string passwd = "ORACLE2";
-            string chaineconnection = "Data Source = " + Dsource + ";User Id =" + user + "; Password =" + passwd;
+         //if (!connection)
+         //{
+         //   string Dsource = "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)" +
+         //                     "(HOST=205.237.244.251)(PORT=1521)))" +
+         //                     "(CONNECT_DATA=(SERVICE_NAME=ORCL.clg.qc.ca)))";
+         //   string user = "boucherm";
+         //   string passwd = "ORACLE2";
+         //   string chaineconnection = "Data Source = " + Dsource + ";User Id =" + user + "; Password =" + passwd;
 
-            try
-            {
-               oraconnPrincipale.ConnectionString = chaineconnection;
-               oraconnPrincipale.Open();
-               connection = true;
-            }
-            catch (OracleException ex)
-            {
-               SwitchException(ex);
-            }
-         }
+         //   try
+         //   {
+         //      oraconnPrincipale.ConnectionString = chaineconnection;
+         //      oraconnPrincipale.Open();
+         //      connection = true;
+         //   }
+         //   catch (OracleException ex)
+         //   {
+         //      SwitchException(ex);
+         //   }
+         //}
       }
 
       private void panel1_MouseLeave(object sender, EventArgs e)
@@ -231,7 +231,7 @@ namespace ReseauAdmissionAppLocale
 
       private void rootForm_FormClosing(object sender, FormClosingEventArgs e)
       {
-          oraconnPrincipale.Close();
+          //oraconnPrincipale.Close();
       }
 
       private void Spectacle_Click(object sender, EventArgs e)
