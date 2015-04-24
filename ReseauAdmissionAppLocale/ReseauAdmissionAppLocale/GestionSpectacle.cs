@@ -26,5 +26,17 @@ namespace ReseauAdmissionAppLocale
         {
             this.Close();
         }
+
+        private void GestionSpectacle_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTN_Ajouter_Click(object sender, EventArgs e)
+        {
+            Representation form = new Representation(oraconnPrincipale);
+
+            form.ShowDialog();
+        }
     }
 }
