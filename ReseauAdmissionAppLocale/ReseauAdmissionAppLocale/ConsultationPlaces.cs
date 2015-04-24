@@ -26,10 +26,5 @@ namespace ReseauAdmissionAppLocale
         {
             this.Close();
         }
-
-        private void ConsultationPlaces_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

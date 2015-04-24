@@ -18,6 +18,8 @@ namespace ReseauAdmissionAppLocale
       // boolean pour stocker si le form est connecté ou non
       public bool connection = false;
 
+      public bool MouseUp = false; 
+
       public rootForm()
       {
          InitializeComponent();
@@ -124,23 +126,33 @@ namespace ReseauAdmissionAppLocale
 
       private void panel4_MouseUp(object sender, MouseEventArgs e)
       {
-         panel5.BackColor = Color.FromArgb(136, 243, 186);
+         if(MouseUp)
+            panel5.BackColor = Color.FromArgb(136, 243, 186);
+         MouseUp = false;
       }
       private void panel1_MouseUp(object sender, MouseEventArgs e)
       {
-         panel2.BackColor = Color.FromArgb(136, 243, 186);
+         if (!MouseUp)
+            panel2.BackColor = Color.FromArgb(136, 243, 186);
+         MouseUp = false;
       }
       private void panel2_MouseUp(object sender, MouseEventArgs e)
       {
-         panel3.BackColor = Color.FromArgb(136, 243, 186);
+         if (!MouseUp)
+            panel3.BackColor = Color.FromArgb(136, 243, 186);
+         MouseUp = false;
       }
       private void panel3_MouseUp(object sender, MouseEventArgs e)
       {
-         panel4.BackColor = Color.FromArgb(136, 243, 186);
+         if (!MouseUp)
+            panel4.BackColor = Color.FromArgb(136, 243, 186);
+         MouseUp = false;
       }
       private void panel5_MouseUp(object sender, MouseEventArgs e)
       {
-         panel6.BackColor = Color.FromArgb(136, 243, 186);
+         if (!MouseUp)
+            panel6.BackColor = Color.FromArgb(136, 243, 186);
+         MouseUp = false;
       }
 
       private void SwitchException(OracleException ex)
@@ -239,7 +251,7 @@ namespace ReseauAdmissionAppLocale
           GestionSpectacle form = new GestionSpectacle(oraconnPrincipale);
 
           form.ShowDialog();
-          panel2.BackColor = Color.FromArgb(97, 221, 155);
+          MouseUp = true;
       }
 
       private void Facture_Click(object sender, EventArgs e)
@@ -247,7 +259,7 @@ namespace ReseauAdmissionAppLocale
           ConsultationClient form = new ConsultationClient(oraconnPrincipale);
 
           form.ShowDialog();
-          panel3.BackColor = Color.FromArgb(97, 221, 155);
+          MouseUp = true;
       }
 
       private void Seating_Click(object sender, EventArgs e)
@@ -255,7 +267,7 @@ namespace ReseauAdmissionAppLocale
           ConsultationPlaces form = new ConsultationPlaces(oraconnPrincipale);
 
           form.ShowDialog();
-          panel4.BackColor = Color.FromArgb(97, 221, 155);
+          MouseUp = true;
       }
 
       private void ClassementVentes_Click(object sender, EventArgs e)
@@ -263,7 +275,7 @@ namespace ReseauAdmissionAppLocale
           TopVentes form = new TopVentes(oraconnPrincipale);
 
           form.ShowDialog();
-          panel5.BackColor = Color.FromArgb(97, 221, 155);
+          MouseUp = true;
       }
 
       private void ClassementAcheteurs_Click(object sender, EventArgs e)
@@ -271,10 +283,7 @@ namespace ReseauAdmissionAppLocale
           TopAcheteur form = new TopAcheteur(oraconnPrincipale);
 
           form.ShowDialog();
-          panel6.BackColor = Color.FromArgb(97, 221, 155);
+          MouseUp = true;
       }
-
-
-   
    }
 }
