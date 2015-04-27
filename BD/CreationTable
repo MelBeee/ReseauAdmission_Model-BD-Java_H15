@@ -1,0 +1,105 @@
+drop table billet cascade constraints;
+drop table categorie cascade constraints;
+drop table client cascade constraints;
+drop table facture cascade constraints;
+drop table panier cascade constraints;
+drop table salle cascade constraints;
+drop table section cascade constraints;
+drop table spectacle cascade constraints;
+drop table vente cascade constraints;
+
+CREATE TABLE Billet
+  (
+    IDBillet     NUMBER (4) NOT NULL ,
+    IDSpectacle  NUMBER (3) NOT NULL ,
+    IDSection    NUMBER (2) NOT NULL ,
+    Prix         NUMBER (5,2) ,
+    LaDateHeure DATE
+  ) ;
+ALTER TABLE Billet ADD CONSTRAINT Billet_PK PRIMARY KEY ( IDBillet ) ;
+
+CREATE TABLE Categorie
+  (
+    IDCategorie NUMBER (2) NOT NULL ,
+    Nom         VARCHAR2 (30 CHAR)
+  ) ;
+ALTER TABLE Categorie ADD CONSTRAINT Categorie_PK PRIMARY KEY ( IDCategorie ) ;
+
+CREATE TABLE Client
+  (
+    IDClient  NUMBER (5) NOT NULL ,
+    Adresse   VARCHAR2 (100 CHAR) ,
+    Telephone VARCHAR2 (10 CHAR) ,
+    Username  VARCHAR2 (20 CHAR) ,
+    LePassword  VARCHAR2 (20 CHAR)
+  ) ;
+ALTER TABLE Client ADD CONSTRAINT Client_PK PRIMARY KEY ( IDClient ) ;
+
+CREATE TABLE Facture
+  (
+    IDFacture NUMBER (5) NOT NULL ,
+    DateAchat DATE ,
+    Imprimé   CHAR (1 CHAR) ,
+    Total     NUMBER (5,2) ,
+    IDClient  NUMBER (5) NOT NULL
+  ) ;
+ALTER TABLE Facture ADD CONSTRAINT Facture_PK PRIMARY KEY ( IDFacture, IDClient ) ;
+
+CREATE TABLE Panier
+  (
+    IDClient   NUMBER (5) NOT NULL ,
+    IDBillet   NUMBER (4) NOT NULL ,
+    NbreBillet NUMBER
+  ) ;
+ALTER TABLE Panier ADD CONSTRAINT Panier_PK PRIMARY KEY ( IDClient ) ;
+
+CREATE TABLE Salle
+  ( 
+  IDSalle NUMBER (2) NOT NULL , 
+  Nom VARCHAR2 (50 CHAR)
+  ) ;
+ALTER TABLE Salle ADD CONSTRAINT Salle_PK PRIMARY KEY ( IDSalle ) ;
+
+CREATE TABLE Section
+  (
+    IDSection NUMBER (2) NOT NULL ,
+    IDSalle   NUMBER (2) NOT NULL ,
+    NbrePlace NUMBER (3) ,
+    Nom       VARCHAR2 (50 CHAR)
+  ) ;
+ALTER TABLE Section ADD CONSTRAINT Section_PK PRIMARY KEY ( IDSection ) ;
+
+CREATE TABLE Spectacle
+  (
+    IDSpectacle NUMBER (3) NOT NULL ,
+    Nom         VARCHAR2 (100 CHAR) ,
+    Description VARCHAR2 (300 CHAR) ,
+    Affiche     VARCHAR2 (400 CHAR) ,
+    IDCategorie NUMBER (2) NOT NULL
+  ) ;
+ALTER TABLE Spectacle ADD CONSTRAINT Spectacle_PK PRIMARY KEY ( IDSpectacle ) ;
+
+CREATE TABLE Vente
+  (
+    IDBillet   NUMBER (4) NOT NULL ,
+    IDFacture  NUMBER (5) NOT NULL ,
+    NbreBillet NUMBER (5) NOT NULL
+  ) ;
+
+ALTER TABLE Vente ADD CONSTRAINT Vente_PK PRIMARY KEY ( IDFacture ) ;
+
+ALTER TABLE Billet ADD CONSTRAINT Billet_Section_FK FOREIGN KEY ( IDSection ) REFERENCES Section ( IDSection ) ;
+
+ALTER TABLE Billet ADD CONSTRAINT Billet_Spectacle_FK FOREIGN KEY ( IDSpectacle ) REFERENCES Spectacle ( IDSpectacle ) ;
+
+ALTER TABLE Facture ADD CONSTRAINT Facture_Client_FK FOREIGN KEY ( IDClient ) REFERENCES Client ( IDClient ) ;
+
+ALTER TABLE Facture ADD CONSTRAINT Facture_Vente_FK FOREIGN KEY ( IDFacture ) REFERENCES Vente ( IDFacture ) ;
+
+ALTER TABLE Section ADD CONSTRAINT Section_Salle_FK FOREIGN KEY ( IDSalle ) REFERENCES Salle ( IDSalle ) ;
+
+ALTER TABLE Spectacle ADD CONSTRAINT TABLE_2_Categorie_FK FOREIGN KEY ( IDCategorie ) REFERENCES Categorie ( IDCategorie ) ;
+
+ALTER TABLE Panier ADD CONSTRAINT TABLE_6_Billet_FK FOREIGN KEY ( IDBillet ) REFERENCES Billet ( IDBillet ) ;
+
+ALTER TABLE Vente ADD CONSTRAINT Vente_Billet_FK FOREIGN KEY ( IDBillet ) REFERENCES Billet ( IDBillet ) ;
