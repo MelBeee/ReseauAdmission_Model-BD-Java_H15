@@ -1,3 +1,17 @@
+drop sequence SEQ_NumSpectacle;
+drop sequence SEQ_NumClient;
+drop sequence SEQ_NumBillet;
+drop sequence SEQ_NumSalle;
+drop sequence SEQ_NumSection;
+drop sequence SEQ_Facture;
+drop sequence SEQ_Categorie;
+drop sequence SEQ_Vente;
+
+CREATE SEQUENCE SEQ_Vente
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 99999999;
+
 CREATE SEQUENCE SEQ_NumSpectacle 
 INCREMENT BY 1
 START WITH 1
@@ -32,3 +46,5 @@ CREATE SEQUENCE SEQ_CATEGORIE
 INCREMENT BY 1
 START WITH 1
 MAXVALUE 99;
+
+commit;

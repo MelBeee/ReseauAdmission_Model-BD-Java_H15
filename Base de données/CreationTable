@@ -14,7 +14,7 @@ CREATE TABLE Billet
     IDSpectacle  NUMBER (3) NOT NULL ,
     IDSection    NUMBER (2) NOT NULL ,
     Prix         NUMBER (5,2) ,
-    LaDateHeure DATE
+    LaDateHeure  DATE
   ) ;
 ALTER TABLE Billet ADD CONSTRAINT Billet_PK PRIMARY KEY ( IDBillet ) ;
 
@@ -43,7 +43,7 @@ CREATE TABLE Facture
     Total     NUMBER (5,2) ,
     IDClient  NUMBER (5) NOT NULL
   ) ;
-ALTER TABLE Facture ADD CONSTRAINT Facture_PK PRIMARY KEY ( IDFacture, IDClient ) ;
+ALTER TABLE Facture ADD CONSTRAINT Facture_PK PRIMARY KEY ( IDFacture ) ;
 
 CREATE TABLE Panier
   (
@@ -64,7 +64,7 @@ CREATE TABLE Section
   (
     IDSection NUMBER (2) NOT NULL ,
     IDSalle   NUMBER (2) NOT NULL ,
-    NbrePlace NUMBER (3) ,
+    NbrePlace NUMBER (5) ,
     Nom       VARCHAR2 (50 CHAR)
   ) ;
 ALTER TABLE Section ADD CONSTRAINT Section_PK PRIMARY KEY ( IDSection ) ;
@@ -81,12 +81,13 @@ ALTER TABLE Spectacle ADD CONSTRAINT Spectacle_PK PRIMARY KEY ( IDSpectacle ) ;
 
 CREATE TABLE Vente
   (
+    IDVente number (8) NOT NULL,
     IDBillet   NUMBER (4) NOT NULL ,
     IDFacture  NUMBER (5) NOT NULL ,
     NbreBillet NUMBER (5) NOT NULL
   ) ;
 
-ALTER TABLE Vente ADD CONSTRAINT Vente_PK PRIMARY KEY ( IDFacture ) ;
+ALTER TABLE Vente ADD CONSTRAINT Vente_PK PRIMARY KEY ( IDVente ) ;
 
 ALTER TABLE Billet ADD CONSTRAINT Billet_Section_FK FOREIGN KEY ( IDSection ) REFERENCES Section ( IDSection ) ;
 
@@ -94,7 +95,7 @@ ALTER TABLE Billet ADD CONSTRAINT Billet_Spectacle_FK FOREIGN KEY ( IDSpectacle 
 
 ALTER TABLE Facture ADD CONSTRAINT Facture_Client_FK FOREIGN KEY ( IDClient ) REFERENCES Client ( IDClient ) ;
 
-ALTER TABLE Facture ADD CONSTRAINT Facture_Vente_FK FOREIGN KEY ( IDFacture ) REFERENCES Vente ( IDFacture ) ;
+ALTER TABLE Vente ADD CONSTRAINT Facture_Vente_FK FOREIGN KEY ( IDFacture ) REFERENCES Facture ( IDFacture ) ;
 
 ALTER TABLE Section ADD CONSTRAINT Section_Salle_FK FOREIGN KEY ( IDSalle ) REFERENCES Salle ( IDSalle ) ;
 
@@ -103,3 +104,5 @@ ALTER TABLE Spectacle ADD CONSTRAINT TABLE_2_Categorie_FK FOREIGN KEY ( IDCatego
 ALTER TABLE Panier ADD CONSTRAINT TABLE_6_Billet_FK FOREIGN KEY ( IDBillet ) REFERENCES Billet ( IDBillet ) ;
 
 ALTER TABLE Vente ADD CONSTRAINT Vente_Billet_FK FOREIGN KEY ( IDBillet ) REFERENCES Billet ( IDBillet ) ;
+
+commit;

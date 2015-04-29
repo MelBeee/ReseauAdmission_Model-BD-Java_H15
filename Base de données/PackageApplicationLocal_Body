@@ -1,0 +1,29 @@
+
+-- COMMANDE POUR GET TOP BILLET ACHETÉ
+
+select spectacle.nom, SUM(vente.nbrebillet) as nombre, spectacle.affiche
+from spectacle
+left outer join billet on billet.idspectacle = spectacle.idspectacle
+left outer join vente on vente.idbillet = billet.idbillet
+where vente.nbrebillet is not null
+group by spectacle.nom, spectacle.affiche
+order by nombre DESC;
+
+-- COMMANDE POUR GET TOP CLIENT ACHETEUR (NBRE BILLET)
+
+select client.username, sum(vente.nbrebillet) as nombre
+from client
+left outer join facture on facture.idclient = client.IDCLIENT
+left outer join vente on vente.IDFACTURE = facture.IDFACTURE
+where vente.nbrebillet is not null
+group by client.username
+order by nombre desc;
+
+
+-- COMMDANDE POUR GET FACTURES DES CLIENTS (PRENDRE UN IDCLIENT EN PARAMETRE)
+
+select facture.idfacture, imprimé, sum(vente.nbrebillet)
+from facture
+inner join vente on vente.IDFACTURE = facture.IDFACTURE
+where facture.IDCLIENT = 2
+group by facture.idfacture, imprimé;
