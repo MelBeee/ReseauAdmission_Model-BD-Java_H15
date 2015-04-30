@@ -42,7 +42,7 @@
          // 
          this.BTN_Fermer.Font = new System.Drawing.Font("Forte", 13.2F);
          this.BTN_Fermer.Location = new System.Drawing.Point(90, 252);
-         this.BTN_Fermer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.BTN_Fermer.Margin = new System.Windows.Forms.Padding(2);
          this.BTN_Fermer.Name = "BTN_Fermer";
          this.BTN_Fermer.Size = new System.Drawing.Size(72, 27);
          this.BTN_Fermer.TabIndex = 2;
@@ -63,7 +63,7 @@
          // textBox1
          // 
          this.textBox1.Location = new System.Drawing.Point(68, 28);
-         this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.textBox1.Margin = new System.Windows.Forms.Padding(2);
          this.textBox1.Name = "textBox1";
          this.textBox1.Size = new System.Drawing.Size(118, 20);
          this.textBox1.TabIndex = 8;
@@ -76,7 +76,7 @@
             this.Imprimé,
             this.NbreBillet});
          this.dataGridView1.Location = new System.Drawing.Point(9, 53);
-         this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
          this.dataGridView1.Name = "dataGridView1";
          this.dataGridView1.RowHeadersVisible = false;
          this.dataGridView1.RowTemplate.Height = 24;
@@ -115,9 +115,10 @@
          this.Controls.Add(this.label2);
          this.Controls.Add(this.BTN_Fermer);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-         this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+         this.Margin = new System.Windows.Forms.Padding(2);
          this.Name = "ConsultationClient";
          this.Text = "ConsultationClient";
+         this.Load += new System.EventHandler(this.ConsultationClient_Load);
          ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
