@@ -39,5 +39,26 @@ order by section.nom;
 
 -- COMMANDE POUR AJOUTER UN SPECTACLE 
 
+insert into spectacle values (SEQ_NumSpectacle.nextval, 'Martin Garix', 'Musique techno', 'image', 4);
+
 -- COMMANDE POUR AJOUTER DES "BILLETS/REPRESENTATIONS"
+
+insert into billet values (SEQ_Billet.nextval, 2, 19, 75,  '2015-04-29 07:30:00');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
