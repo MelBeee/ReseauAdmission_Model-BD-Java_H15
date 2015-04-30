@@ -44,25 +44,28 @@ insert into spectacle values (SEQ_NumSpectacle.nextval, 'U2 Innoncence',        
 
 alter session set nls_date_format = 'YYYY-MM-DD HH:MI:SS';
 
-insert into billet values (1, 2, 19, 75,  '2015-04-29 07:30:00');
-insert into billet values (2, 2, 20, 100, '2015-04-29 07:30:00');
-insert into billet values (3, 3, 2, 300, '2015-04-29 07:30:00');
-insert into billet values (4, 3, 3, 200, '2015-04-29 07:30:00');
-INSERT INTO BILLET VALUES (5, 4, 12, 130, '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 2, 19, 75,  '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 2, 20, 100, '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 3, 2, 300, '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 3, 3, 200, '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 3, 4, 100, '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 3, 5, 80, '2015-04-29 07:30:00');
+insert into billet values (SEQ_NumBillet.nextval, 3, 6, 50, '2015-04-29 07:30:00');
+INSERT INTO BILLET VALUES (SEQ_NumBillet.nextval, 4, 12, 130, '2015-04-29 07:30:00');
 
-INSERT INTO CLIENT VALUES (1, '100 rue des tests', '4505125860', 'MelBeee', 'asdf');
-INSERT INTO CLIENT VALUES (2, '101 rue des tests', '4385125860', 'Charlie', 'asdf');
-INSERT INTO CLIENT VALUES (3, '101 rue des tests', '4195125860', 'Fred',    'asdf');
+INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '100 rue des tests', '4505125860', 'MelBeee', 'asdf');
+INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '101 rue des tests', '4385125860', 'Charlie', 'asdf');
+INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '101 rue des tests', '4195125860', 'Fred',    'asdf');
 
-INSERT INTO FACTURE VALUES (1, '2015-04-29 07:30:00', '1', 100, 1);
-INSERT INTO FACTURE VALUES (2, '2015-04-29 07:30:00', '0', 100, 2);
-INSERT INTO FACTURE VALUES (3, '2015-04-29 07:30:00', '0', 200, 2);
+INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '1', 100, 1);
+INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '0', 100, 2);
+INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '0', 200, 2);
 
-INSERT INTO VENTE VALUES(1, 1, 1, 10);
-INSERT INTO VENTE VALUES(2, 1, 1, 5);
-INSERT INTO VENTE VALUES(3, 3, 1, 2);
-INSERT INTO VENTE VALUES(4, 3, 1, 8);
-INSERT INTO VENTE VALUES(5, 5, 2, 22);
-insert into vente values(6, 5, 3, 5);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 1, 1, 10);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 1, 1, 5);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 1, 2);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 1, 8);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 5, 2, 22);
+insert into vente values(SEQ_Vente.nextval, 5, 3, 5);
 
 commit;

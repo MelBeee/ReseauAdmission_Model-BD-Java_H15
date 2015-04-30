@@ -19,7 +19,6 @@ where vente.nbrebillet is not null
 group by client.username
 order by nombre desc;
 
-
 -- COMMDANDE POUR GET FACTURES DES CLIENTS (PRENDRE UN IDCLIENT EN PARAMETRE)
 
 select facture.idfacture, imprimé, sum(vente.nbrebillet)
@@ -27,3 +26,18 @@ from facture
 inner join vente on vente.IDFACTURE = facture.IDFACTURE
 where facture.IDCLIENT = 2
 group by facture.idfacture, imprimé;
+
+-- COMMANDE POUR AFFICHER LE NOMBRE DE BILLET QUI RESTE DE DISPONIBLE
+
+select ladateheure, section.nom, sum(nbrebillet),section.nbreplace, section.nbreplace-sum(nbrebillet)
+from vente
+right join billet on billet.idbillet = vente.IDBILLET
+inner join SECTION on SECTION.IDSECTION = billet.IDSECTION
+where idspectacle = 3
+group by section.nom, ladateheure,section.nbreplace
+order by section.nom;
+
+-- COMMANDE POUR AJOUTER UN SPECTACLE 
+
+-- COMMANDE POUR AJOUTER DES "BILLETS/REPRESENTATIONS"
+
