@@ -48,19 +48,36 @@ namespace ReseauAdmissionAppLocale
                 OracleDataReader OraRead = cmdTopVente.ExecuteReader();
 
                 // Gold
-                OraRead.Read();
-                LB_Gold_Nom.Text = OraRead.GetString(0);
-                LB_Gold_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
-
-                // Silver
-                OraRead.Read();
-                LB_Silver_Nom.Text = OraRead.GetString(0);
-                LB_Silver_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
-
-                // Bronze
-                OraRead.Read();
-                LB_Bronze_Nom.Text = OraRead.GetString(0);
-                LB_Bronze_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                if (OraRead.Read())
+                {
+                    LB_Gold_Nom.Text = OraRead.GetString(0);
+                    LB_Gold_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                }
+                else
+                {
+                    LB_Gold_Nom.Text = "Aucune donnée disponible";
+                    LB_Gold_Nombre.Text = "";
+                }
+                if (OraRead.Read())
+                {
+                    LB_Silver_Nom.Text = OraRead.GetString(0);
+                    LB_Silver_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                }
+                else
+                {
+                    LB_Silver_Nom.Text = "Aucune donnée disponible";
+                    LB_Silver_Nombre.Text = "";
+                }
+                if (OraRead.Read())
+                {
+                    LB_Bronze_Nom.Text = OraRead.GetString(0);
+                    LB_Bronze_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                }
+                else
+                {
+                    LB_Bronze_Nom.Text = "Aucune donnée disponible";
+                    LB_Bronze_Nombre.Text = "";
+                }
 
                 cmdTopVente.Dispose();
                 OraRead.Close();

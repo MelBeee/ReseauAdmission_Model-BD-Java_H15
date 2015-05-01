@@ -48,22 +48,46 @@ namespace ReseauAdmissionAppLocale
                 OracleDataReader OraRead = cmdTopVente.ExecuteReader();
 
                 // Gold
-                OraRead.Read();
-                LB_Gold_Nom.Text = OraRead.GetString(0);
-                LB_Gold_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
-                //PB_Gold_Image.ImageLocation = OraRead.GetString(2);
+                if(OraRead.Read())
+                {
+                    LB_Gold_Nom.Text = OraRead.GetString(0);
+                    LB_Gold_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                    //PB_Gold_Image.ImageLocation = OraRead.GetString(2);
+                }
+                else
+                {
+                    LB_Gold_Nom.Text = "Aucune donnée disponible";
+                    LB_Gold_Nombre.Text = "";
+                    //PB_Gold_Image.ImageLocation = "";
+                }
 
                 // Silver
-                OraRead.Read();
-                LB_Silver_Nom.Text = OraRead.GetString(0);
-                LB_Silver_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
-                //PB_Silver_Image.ImageLocation = OraRead.GetString(2);
+                if (OraRead.Read())
+                {
+                    LB_Silver_Nom.Text = OraRead.GetString(0);
+                    LB_Silver_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                    //PB_Silver_Image.ImageLocation = OraRead.GetString(2);
+                }
+                else
+                {
+                    LB_Silver_Nom.Text = "Aucune donnée disponible";
+                    LB_Silver_Nombre.Text = "";
+                    //PB_Silver_Image.ImageLocation = "";
+                }
 
                 // Bronze
-                OraRead.Read();
-                LB_Bronze_Nom.Text = OraRead.GetString(0);
-                LB_Bronze_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
-                //PB_Bronze_Image.ImageLocation = OraRead.GetString(2);
+                if (OraRead.Read())
+                {
+                    LB_Bronze_Nom.Text = OraRead.GetString(0);
+                    LB_Bronze_Nombre.Text = OraRead.GetInt64(1).ToString() + " billets";
+                    //PB_Bronze_Image.ImageLocation = OraRead.GetString(2);
+                }
+                else
+                {
+                    LB_Bronze_Nom.Text = "Aucune donnée disponible";
+                    LB_Bronze_Nombre.Text = "";
+                    //PB_Bronze_Image.ImageLocation = "";
+                }
 
                 cmdTopVente.Dispose();
                 OraRead.Close();
