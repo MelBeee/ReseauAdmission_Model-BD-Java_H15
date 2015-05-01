@@ -55,9 +55,9 @@ namespace ReseauAdmissionAppLocale
                 oraFacture.CommandText = "AppLocale.GetLesFacturesDesClients";
                 oraFacture.CommandType = CommandType.StoredProcedure;
 
-                OracleParameter IdClient = new OracleParameter("PIDClient", OracleDbType.Int64);
+                OracleParameter IdClient = new OracleParameter("PIDClient", OracleDbType.Varchar2);
                 IdClient.Direction = ParameterDirection.Input;
-                IdClient.Value = Convert.ToInt64(TB_NomID.Text);
+                IdClient.Value = TB_NomID.Text;
 
                 OracleParameter Curseur = new OracleParameter("Resultat", OracleDbType.RefCursor);
                 Curseur.Direction = ParameterDirection.Output;
