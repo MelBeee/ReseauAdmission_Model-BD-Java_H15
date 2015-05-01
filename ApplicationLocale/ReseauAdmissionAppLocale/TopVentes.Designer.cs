@@ -69,7 +69,6 @@
          this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
          this.pictureBox1.TabIndex = 5;
          this.pictureBox1.TabStop = false;
-         this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
          // 
          // LB_Gold_Nom
          // 
@@ -81,7 +80,6 @@
          this.LB_Gold_Nom.TabIndex = 14;
          this.LB_Gold_Nom.Text = "Canadiens vs Senateurs";
          this.LB_Gold_Nom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LB_Gold_Nom.Click += new System.EventHandler(this.LB_Gold_Nom_Click);
          // 
          // label1
          // 
@@ -93,7 +91,6 @@
          this.label1.TabIndex = 18;
          this.label1.Text = "Billets les plus vendus";
          this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.label1.Click += new System.EventHandler(this.label1_Click);
          // 
          // LB_Bronze_Nom
          // 
@@ -105,7 +102,6 @@
          this.LB_Bronze_Nom.TabIndex = 19;
          this.LB_Bronze_Nom.Text = "Martin Garix";
          this.LB_Bronze_Nom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LB_Bronze_Nom.Click += new System.EventHandler(this.LB_Bronze_Nom_Click);
          // 
          // LB_Silver_Nom
          // 
@@ -117,7 +113,6 @@
          this.LB_Silver_Nom.TabIndex = 20;
          this.LB_Silver_Nom.Text = "U2 Innocence";
          this.LB_Silver_Nom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LB_Silver_Nom.Click += new System.EventHandler(this.LB_Silver_Nom_Click);
          // 
          // LB_Bronze_Nombre
          // 
@@ -129,7 +124,6 @@
          this.LB_Bronze_Nombre.TabIndex = 23;
          this.LB_Bronze_Nombre.Text = "9000 billets";
          this.LB_Bronze_Nombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LB_Bronze_Nombre.Click += new System.EventHandler(this.LB_Bronze_Nombre_Click);
          // 
          // LB_Gold_Nombre
          // 
@@ -141,7 +135,6 @@
          this.LB_Gold_Nombre.TabIndex = 22;
          this.LB_Gold_Nombre.Text = "15000 billets";
          this.LB_Gold_Nombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LB_Gold_Nombre.Click += new System.EventHandler(this.LB_Gold_Nombre_Click);
          // 
          // LB_Silver_Nombre
          // 
@@ -153,7 +146,6 @@
          this.LB_Silver_Nombre.TabIndex = 21;
          this.LB_Silver_Nombre.Text = "10000 billets";
          this.LB_Silver_Nombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-         this.LB_Silver_Nombre.Click += new System.EventHandler(this.LB_Silver_Nombre_Click);
          // 
          // PB_Silver_Image
          // 
@@ -162,7 +154,6 @@
          this.PB_Silver_Image.Size = new System.Drawing.Size(189, 98);
          this.PB_Silver_Image.TabIndex = 24;
          this.PB_Silver_Image.TabStop = false;
-         this.PB_Silver_Image.Click += new System.EventHandler(this.PB_Silver_Image_Click);
          // 
          // PB_Gold_Image
          // 
@@ -171,7 +162,6 @@
          this.PB_Gold_Image.Size = new System.Drawing.Size(189, 98);
          this.PB_Gold_Image.TabIndex = 25;
          this.PB_Gold_Image.TabStop = false;
-         this.PB_Gold_Image.Click += new System.EventHandler(this.PB_Gold_Image_Click);
          // 
          // PB_Bronze_Image
          // 
@@ -180,7 +170,6 @@
          this.PB_Bronze_Image.Size = new System.Drawing.Size(189, 98);
          this.PB_Bronze_Image.TabIndex = 26;
          this.PB_Bronze_Image.TabStop = false;
-         this.PB_Bronze_Image.Click += new System.EventHandler(this.PB_Bronze_Image_Click);
          // 
          // TopVentes
          // 
