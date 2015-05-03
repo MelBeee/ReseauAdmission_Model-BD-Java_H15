@@ -94,6 +94,7 @@
             this.TB_Nom.Name = "TB_Nom";
             this.TB_Nom.Size = new System.Drawing.Size(321, 31);
             this.TB_Nom.TabIndex = 6;
+            this.TB_Nom.TextChanged += new System.EventHandler(this.TB_Nom_TextChanged);
             // 
             // TB_Description
             // 
@@ -103,6 +104,7 @@
             this.TB_Description.Name = "TB_Description";
             this.TB_Description.Size = new System.Drawing.Size(321, 103);
             this.TB_Description.TabIndex = 7;
+            this.TB_Description.TextChanged += new System.EventHandler(this.TB_Description_TextChanged);
             // 
             // BTN_Parcourir
             // 
@@ -154,6 +156,7 @@
             this.CB_Categorie.Name = "CB_Categorie";
             this.CB_Categorie.Size = new System.Drawing.Size(321, 27);
             this.CB_Categorie.TabIndex = 12;
+            this.CB_Categorie.SelectedIndexChanged += new System.EventHandler(this.CB_Categorie_SelectedIndexChanged);
             // 
             // label4
             // 

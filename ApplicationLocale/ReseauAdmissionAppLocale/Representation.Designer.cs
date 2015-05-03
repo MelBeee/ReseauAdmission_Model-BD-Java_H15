@@ -33,6 +33,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.DTP_DateSpectacle = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BTN_AjouterHeureSalle = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -41,7 +42,8 @@
             this.BTN_AjouterSectionPrix = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.BTN_AjouterHeureSalle = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +52,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 35);
+            this.label1.Location = new System.Drawing.Point(37, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 19);
             this.label1.TabIndex = 0;
@@ -60,7 +62,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 70);
+            this.label2.Location = new System.Drawing.Point(30, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 19);
             this.label2.TabIndex = 1;
@@ -71,7 +73,7 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(87, 66);
+            this.comboBox1.Location = new System.Drawing.Point(98, 94);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(221, 27);
             this.comboBox1.TabIndex = 3;
@@ -81,7 +83,7 @@
             this.DTP_DateSpectacle.CustomFormat = "yyyy-MM-dd hh:mm:ss";
             this.DTP_DateSpectacle.Font = new System.Drawing.Font("Book Antiqua", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DTP_DateSpectacle.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DTP_DateSpectacle.Location = new System.Drawing.Point(87, 29);
+            this.DTP_DateSpectacle.Location = new System.Drawing.Point(98, 58);
             this.DTP_DateSpectacle.MaxDate = new System.DateTime(2100, 5, 3, 0, 0, 0, 0);
             this.DTP_DateSpectacle.MinDate = new System.DateTime(2015, 5, 3, 0, 0, 0, 0);
             this.DTP_DateSpectacle.Name = "DTP_DateSpectacle";
@@ -91,6 +93,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.BTN_AjouterHeureSalle);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.DTP_DateSpectacle);
@@ -100,15 +104,26 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 136);
+            this.groupBox1.Size = new System.Drawing.Size(334, 172);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Où et Quand";
+            this.groupBox1.Text = "Où, Quand et Quoi";
+            // 
+            // BTN_AjouterHeureSalle
+            // 
+            this.BTN_AjouterHeureSalle.Font = new System.Drawing.Font("Forte", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_AjouterHeureSalle.Location = new System.Drawing.Point(111, 129);
+            this.BTN_AjouterHeureSalle.Name = "BTN_AjouterHeureSalle";
+            this.BTN_AjouterHeureSalle.Size = new System.Drawing.Size(110, 29);
+            this.BTN_AjouterHeureSalle.TabIndex = 13;
+            this.BTN_AjouterHeureSalle.Text = "Ajouter";
+            this.BTN_AjouterHeureSalle.UseVisualStyleBackColor = true;
+            this.BTN_AjouterHeureSalle.Click += new System.EventHandler(this.BTN_AjouterHeureSalle_Click);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Forte", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(132, 330);
+            this.button2.Location = new System.Drawing.Point(138, 366);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 29);
             this.button2.TabIndex = 7;
@@ -173,9 +188,9 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Font = new System.Drawing.Font("Forte", 9F);
-            this.groupBox2.Location = new System.Drawing.Point(12, 154);
+            this.groupBox2.Location = new System.Drawing.Point(12, 190);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(325, 136);
+            this.groupBox2.Size = new System.Drawing.Size(334, 136);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Section et Prix";
@@ -184,29 +199,37 @@
             // 
             this.label5.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.DarkRed;
-            this.label5.Location = new System.Drawing.Point(12, 301);
+            this.label5.Location = new System.Drawing.Point(12, 337);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(325, 22);
+            this.label5.Size = new System.Drawing.Size(334, 22);
             this.label5.TabIndex = 14;
             this.label5.Text = "Il faut mettre un prix à toutes les sections";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // BTN_AjouterHeureSalle
+            // label6
             // 
-            this.BTN_AjouterHeureSalle.Font = new System.Drawing.Font("Forte", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_AjouterHeureSalle.Location = new System.Drawing.Point(111, 99);
-            this.BTN_AjouterHeureSalle.Name = "BTN_AjouterHeureSalle";
-            this.BTN_AjouterHeureSalle.Size = new System.Drawing.Size(110, 29);
-            this.BTN_AjouterHeureSalle.TabIndex = 13;
-            this.BTN_AjouterHeureSalle.Text = "Ajouter";
-            this.BTN_AjouterHeureSalle.UseVisualStyleBackColor = true;
-            this.BTN_AjouterHeureSalle.Click += new System.EventHandler(this.BTN_AjouterHeureSalle_Click);
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(2, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(93, 19);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Spectacle : ";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(98, 20);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(221, 31);
+            this.textBox2.TabIndex = 13;
             // 
             // Representation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(189)))), ((int)(((byte)(124)))));
-            this.ClientSize = new System.Drawing.Size(349, 368);
+            this.ClientSize = new System.Drawing.Size(358, 403);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button2);
@@ -239,5 +262,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button BTN_AjouterHeureSalle;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
