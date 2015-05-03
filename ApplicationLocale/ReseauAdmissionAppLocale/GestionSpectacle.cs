@@ -71,13 +71,48 @@ namespace ReseauAdmissionAppLocale
         {
             BTN_Ajouter.Enabled = false;
 
+           
             
         }
 
-        // PNOMSPECTACLE IN SPECTACLE.NOM%TYPE, PCATEGORIE IN CATEGORIE.NOM%TYPE, PAFFICHE IN SPECTACLE.AFFICHE%TYPE, PDESCRIPTION IN SPECTACLE.DESCRIPTION%TYPE
         private void BTN_Ajouter_Click(object sender, EventArgs e)
         {
+            try
+            {
+                OracleCommand cmdInsertSpectacle = new OracleCommand("AppLocale", oraconnPrincipale);
+                cmdInsertSpectacle.CommandType = CommandType.StoredProcedure;
+                cmdInsertSpectacle.CommandText = "AppLocale.getcategorie";
 
+                OracleParameter pNom = new OracleParameter("Resultat", OracleDbType.Varchar2);
+                pNom.Direction = ParameterDirection.Input;
+                OracleParameter pCategorie = new OracleParameter("Resultat", OracleDbType.Varchar2);
+                pNom.Direction = ParameterDirection.Input;
+                OracleParameter pAffiche = new OracleParameter("Resultat", OracleDbType.Varchar2);
+                pNom.Direction = ParameterDirection.Input;
+                OracleParameter pDescription = new OracleParameter("Resultat", OracleDbType.Varchar2);
+                pNom.Direction = ParameterDirection.Input;
+
+                pNom.Value = TB_Nom.Text;
+                pCategorie.Value = CB_Categorie.Text;
+                pAffiche.Value = PB_Affiche.ImageLocation.ToString();
+                pDescription.Value = TB_Description.Text; 
+
+                cmdInsertSpectacle.Parameters.Add(pNom);
+                cmdInsertSpectacle.Parameters.Add(pCategorie);
+                cmdInsertSpectacle.Parameters.Add(pAffiche);
+                cmdInsertSpectacle.Parameters.Add(pDescription);
+
+                cmdInsertSpectacle.ExecuteNonQuery();
+                cmdInsertSpectacle.Dispose();
+            }
+            catch (OracleException oex)
+            {
+                SwitchException(oex);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void SwitchException(OracleException ex)
@@ -168,16 +203,25 @@ namespace ReseauAdmissionAppLocale
 
         private void BTN_Parcourir_Click(object sender, EventArgs e)
         {
-            string file = "Aucune image sélectionnée";
-            string filepath; 
-            DialogResult result = OFD_Affiche.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                file = OFD_Affiche.FileName;
-                filepath = @"" + OFD_Affiche.SafeFileName; 
+            TrouverImage();
+        }
 
+        private void TrouverImage()
+        {
+            OFD_Affiche.Title = "Selectionner une image";
+            OFD_Affiche.CheckFileExists = true;
+            OFD_Affiche.InitialDirectory = @":C\";
+            OFD_Affiche.Filter = "Fichiers images (*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
+            OFD_Affiche.FilterIndex = 1;
+            OFD_Affiche.RestoreDirectory = true;
+
+            if  (OFD_Affiche.ShowDialog() == DialogResult.OK)
+            {
+                PB_Affiche.Image = Image.FromFile(OFD_Affiche.FileName);
+                PB_Affiche.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+                TB_Description.Text = OFD_Affiche.FileName;
+                System.IO.File.Copy(OFD_Affiche.FileName, @"\..\Affiches\");
             }
-            LB_NomFichier.Text = file;
         }
     }
 }

@@ -125,11 +125,11 @@
             // 
             // LB_NomFichier
             // 
-            this.LB_NomFichier.Font = new System.Drawing.Font("Forte", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_NomFichier.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_NomFichier.ForeColor = System.Drawing.Color.White;
-            this.LB_NomFichier.Location = new System.Drawing.Point(212, 210);
+            this.LB_NomFichier.Location = new System.Drawing.Point(220, 210);
             this.LB_NomFichier.Name = "LB_NomFichier";
-            this.LB_NomFichier.Size = new System.Drawing.Size(242, 19);
+            this.LB_NomFichier.Size = new System.Drawing.Size(234, 19);
             this.LB_NomFichier.TabIndex = 10;
             this.LB_NomFichier.Text = "Nom du fichier";
             // 
