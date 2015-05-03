@@ -35,7 +35,36 @@ namespace ReseauAdmissionAppLocale
 
         private void RemplirComboBox()
         {
+            try
+            {
+                OracleCommand oraFacture = new OracleCommand("AppLocale", oraconnPrincipale);
+                oraFacture.CommandText = "AppLocale.GETSPECTACLE";
+                oraFacture.CommandType = CommandType.StoredProcedure;
 
+                OracleParameter Curseur = new OracleParameter("Resultat", OracleDbType.RefCursor);
+                Curseur.Direction = ParameterDirection.Output;
+
+                oraFacture.Parameters.Add(Curseur);
+
+                OracleDataReader OraRead = oraFacture.ExecuteReader();
+
+                while (OraRead.Read())
+                {
+                    CB_Salle.Items.Add(OraRead.GetString(1));
+                    CB_IDSpectacle.Items.Add(OraRead.GetInt64(0));
+                }
+
+                oraFacture.Dispose();
+                OraRead.Close();
+            }
+            catch (OracleException ioe)
+            {
+                MessageBox.Show("Erreur Oracle");
+            }
+            catch (Exception ioe)
+            {
+                MessageBox.Show("Erreur ");
+            }
         }
 
         private void SetWidthColumn()
@@ -49,16 +78,18 @@ namespace ReseauAdmissionAppLocale
 
         private void CB_Salle_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DGV_Place.Rows.Clear();
             bool resultat = false;
             try
             {
                 OracleCommand oraFacture = new OracleCommand("AppLocale", oraconnPrincipale);
-                oraFacture.CommandText = "AppLocale.GetLesFacturesDesClients";
+                oraFacture.CommandText = "AppLocale.GetNbrePlaces";
                 oraFacture.CommandType = CommandType.StoredProcedure;
 
                 OracleParameter IdClient = new OracleParameter("PIDClient", OracleDbType.Int32);
                 IdClient.Direction = ParameterDirection.Input;
-                IdClient.Value = Convert.ToInt32(CB_Salle.SelectedText.ToString());
+                CB_IDSpectacle.SelectedIndex = CB_Salle.SelectedIndex;
+                IdClient.Value = CB_IDSpectacle.Text;
 
                 OracleParameter Curseur = new OracleParameter("Resultat", OracleDbType.RefCursor);
                 Curseur.Direction = ParameterDirection.Output;
@@ -73,7 +104,14 @@ namespace ReseauAdmissionAppLocale
                     DataGridViewRow row = (DataGridViewRow)DGV_Place.Rows[0].Clone();
                     row.Cells[0].Value = OraRead.GetDateTime(0).ToLongDateString();
                     row.Cells[1].Value = OraRead.GetString(1).ToString();
-                    row.Cells[2].Value = AnalyseNombre(Convert.ToInt32(OraRead.GetInt32(4)), Convert.ToInt32(OraRead.GetInt32(3)));
+                    if(!OraRead.IsDBNull(OraRead.GetInt32(4)))
+                    {
+                        row.Cells[2].Value = OraRead.GetInt32(3);
+                    }
+                    else
+                    {
+                        row.Cells[2].Value = OraRead.GetInt32(4);
+                    }
                     DGV_Place.Rows.Add(row);
                     resultat = true;
                 }
@@ -83,11 +121,11 @@ namespace ReseauAdmissionAppLocale
             }
             catch (OracleException ioe)
             {
-
+                MessageBox.Show("Oracle Erreur");
             }
             catch (Exception ioe)
             {
-
+                MessageBox.Show(ioe.Message.ToString());
             }
             finally
             {
@@ -96,18 +134,6 @@ namespace ReseauAdmissionAppLocale
                     MessageBox.Show("Aucune représentation disponible");
                 }
             }
-        }
-
-        private string AnalyseNombre(int nbreplacedispo, int nbreplace)
-        {
-            string nbreplacerestante = nbreplacedispo.ToString();
-
-            if(nbreplacedispo == null)
-            {
-                nbreplacerestante = nbreplace.ToString();
-            }
-
-            return nbreplacerestante;
         }
     }
 }

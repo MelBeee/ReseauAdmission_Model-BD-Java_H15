@@ -38,9 +38,9 @@
             this.BTN_Afficher = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.LB_Telephone = new System.Windows.Forms.Label();
             this.LB_Adresse = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.LB_Telephone = new System.Windows.Forms.Label();
+            this.LB_Username = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_facture)).BeginInit();
             this.SuspendLayout();
@@ -145,38 +145,38 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Telephone :";
             // 
-            // LB_Telephone
-            // 
-            this.LB_Telephone.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_Telephone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-            this.LB_Telephone.Location = new System.Drawing.Point(120, 337);
-            this.LB_Telephone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LB_Telephone.Name = "LB_Telephone";
-            this.LB_Telephone.Size = new System.Drawing.Size(205, 22);
-            this.LB_Telephone.TabIndex = 13;
-            this.LB_Telephone.Text = "120 rue des Rues";
-            // 
             // LB_Adresse
             // 
             this.LB_Adresse.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_Adresse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-            this.LB_Adresse.Location = new System.Drawing.Point(120, 361);
+            this.LB_Adresse.Location = new System.Drawing.Point(120, 337);
             this.LB_Adresse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_Adresse.Name = "LB_Adresse";
             this.LB_Adresse.Size = new System.Drawing.Size(205, 22);
-            this.LB_Adresse.TabIndex = 14;
-            this.LB_Adresse.Text = "514-987-1234";
+            this.LB_Adresse.TabIndex = 13;
+            this.LB_Adresse.Text = "120 rue des Rues";
             // 
-            // label4
+            // LB_Telephone
             // 
-            this.label4.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-            this.label4.Location = new System.Drawing.Point(120, 314);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(205, 22);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "MelBeee";
+            this.LB_Telephone.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Telephone.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.LB_Telephone.Location = new System.Drawing.Point(120, 361);
+            this.LB_Telephone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LB_Telephone.Name = "LB_Telephone";
+            this.LB_Telephone.Size = new System.Drawing.Size(205, 22);
+            this.LB_Telephone.TabIndex = 14;
+            this.LB_Telephone.Text = "514-987-1234";
+            // 
+            // LB_Username
+            // 
+            this.LB_Username.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Username.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.LB_Username.Location = new System.Drawing.Point(120, 314);
+            this.LB_Username.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LB_Username.Name = "LB_Username";
+            this.LB_Username.Size = new System.Drawing.Size(205, 22);
+            this.LB_Username.TabIndex = 16;
+            this.LB_Username.Text = "MelBeee";
             // 
             // label5
             // 
@@ -195,10 +195,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(189)))), ((int)(((byte)(124)))));
             this.ClientSize = new System.Drawing.Size(336, 427);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.LB_Username);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.LB_Adresse);
             this.Controls.Add(this.LB_Telephone);
+            this.Controls.Add(this.LB_Adresse);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BTN_Afficher);
@@ -229,9 +229,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NbreBillet;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label LB_Telephone;
         private System.Windows.Forms.Label LB_Adresse;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label LB_Telephone;
+        private System.Windows.Forms.Label LB_Username;
         private System.Windows.Forms.Label label5;
     }
 }

@@ -73,6 +73,7 @@ namespace ReseauAdmissionAppLocale
                     row.Cells[0].Value = OraRead.GetInt64(0).ToString();
                     row.Cells[1].Value = AnalyseColImprime(OraRead.GetString(1).ToString());
                     row.Cells[2].Value = OraRead.GetInt64(2).ToString();
+                    TB_NomID.Text = OraRead.GetInt64(3).ToString();
                     DGV_facture.Rows.Add(row);
                     resultat = true; 
                 }
@@ -93,6 +94,45 @@ namespace ReseauAdmissionAppLocale
                 if (!resultat)
                 {
                     MessageBox.Show("Utilisateur n'existe pas/Aucune facture trouvée");
+                }
+            }
+            if(resultat)
+            {
+                try
+                {
+                    OracleCommand oraClient = new OracleCommand("AppLocal", oraconnPrincipale);
+                    oraClient.CommandText = "AppLocale.GETINFOCLIENT";
+                    oraClient.CommandType = CommandType.StoredProcedure;
+
+                    OracleParameter IdClient = new OracleParameter("PIDClient", OracleDbType.Int64);
+                    IdClient.Direction = ParameterDirection.Input;
+                    IdClient.Value = TB_NomID.Text;
+
+                    OracleParameter Curseur = new OracleParameter("Resultat", OracleDbType.RefCursor);
+                    Curseur.Direction = ParameterDirection.Output;
+
+                    oraClient.Parameters.Add(Curseur);
+                    oraClient.Parameters.Add(IdClient);
+     
+                    OracleDataReader OraRead = oraClient.ExecuteReader();
+
+                    while (OraRead.Read())
+                    {
+                        LB_Username.Text = OraRead.GetString(0);
+                        LB_Telephone.Text = OraRead.GetString(1);
+                        LB_Adresse.Text = OraRead.GetString(2);
+                    }
+
+                    oraClient.Dispose();
+                    OraRead.Close();
+                }
+                catch(OracleException oe)
+                {
+                    MessageBox.Show(oe.Message.ToString());
+                }
+                catch(Exception ex)
+                {
+
                 }
             }
         }

@@ -56,7 +56,7 @@
             this.CB_Salle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CB_Salle.FormattingEnabled = true;
             this.CB_Salle.Location = new System.Drawing.Point(11, 39);
-            this.CB_Salle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CB_Salle.Margin = new System.Windows.Forms.Padding(4);
             this.CB_Salle.Name = "CB_Salle";
             this.CB_Salle.Size = new System.Drawing.Size(455, 24);
             this.CB_Salle.TabIndex = 4;
@@ -75,14 +75,13 @@
             // 
             // DGV_Place
             // 
-            this.DGV_Place.AllowUserToAddRows = false;
             this.DGV_Place.AllowUserToDeleteRows = false;
             this.DGV_Place.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Place.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DateHeure,
             this.Section,
             this.NbrePlace});
-            this.DGV_Place.Location = new System.Drawing.Point(11, 69);
+            this.DGV_Place.Location = new System.Drawing.Point(10, 69);
             this.DGV_Place.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DGV_Place.Name = "DGV_Place";
             this.DGV_Place.ReadOnly = true;
@@ -114,21 +113,19 @@
             // 
             // CB_IDSpectacle
             // 
-            this.CB_IDSpectacle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.CB_IDSpectacle.FormattingEnabled = true;
             this.CB_IDSpectacle.Location = new System.Drawing.Point(108, 131);
             this.CB_IDSpectacle.Margin = new System.Windows.Forms.Padding(4);
             this.CB_IDSpectacle.Name = "CB_IDSpectacle";
             this.CB_IDSpectacle.Size = new System.Drawing.Size(274, 24);
             this.CB_IDSpectacle.TabIndex = 8;
-            this.CB_IDSpectacle.Visible = false;
             // 
             // ConsultationPlaces
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(189)))), ((int)(((byte)(124)))));
-            this.ClientSize = new System.Drawing.Size(476, 487);
+            this.ClientSize = new System.Drawing.Size(477, 487);
             this.Controls.Add(this.DGV_Place);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CB_Salle);
