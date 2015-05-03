@@ -248,7 +248,7 @@ namespace ReseauAdmissionAppLocale
 
       private void Spectacle_Click(object sender, EventArgs e)
       {
-          GestionSpectacle form = new GestionSpectacle(oraconnPrincipale);
+          GestionDesSpectaclesEtRepresentation form = new GestionDesSpectaclesEtRepresentation(oraconnPrincipale);
 
           form.ShowDialog();
           MouseUpB = true;

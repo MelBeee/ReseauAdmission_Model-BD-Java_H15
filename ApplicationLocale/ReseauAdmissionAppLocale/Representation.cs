@@ -26,5 +26,20 @@ namespace ReseauAdmissionAppLocale
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BTN_AjouterHeureSalle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTN_AjouterSectionPrix_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

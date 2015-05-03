@@ -38,13 +38,15 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.LB_NomFichier = new System.Windows.Forms.Label();
             this.BTN_Ajouter = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // BTN_Fermer
             // 
             this.BTN_Fermer.Font = new System.Drawing.Font("Forte", 13.2F);
-            this.BTN_Fermer.Location = new System.Drawing.Point(237, 337);
+            this.BTN_Fermer.Location = new System.Drawing.Point(237, 373);
             this.BTN_Fermer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BTN_Fermer.Name = "BTN_Fermer";
             this.BTN_Fermer.Size = new System.Drawing.Size(107, 33);
@@ -57,7 +59,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(55, 25);
+            this.label1.Location = new System.Drawing.Point(60, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 22);
             this.label1.TabIndex = 3;
@@ -67,7 +69,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 80);
+            this.label2.Location = new System.Drawing.Point(7, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 22);
             this.label2.TabIndex = 4;
@@ -77,7 +79,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(36, 227);
+            this.label3.Location = new System.Drawing.Point(41, 263);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 22);
             this.label3.TabIndex = 5;
@@ -103,7 +105,7 @@
             // BTN_Parcourir
             // 
             this.BTN_Parcourir.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_Parcourir.Location = new System.Drawing.Point(133, 168);
+            this.BTN_Parcourir.Location = new System.Drawing.Point(133, 204);
             this.BTN_Parcourir.Name = "BTN_Parcourir";
             this.BTN_Parcourir.Size = new System.Drawing.Size(103, 32);
             this.BTN_Parcourir.TabIndex = 8;
@@ -112,7 +114,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(133, 206);
+            this.pictureBox1.Location = new System.Drawing.Point(133, 242);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(321, 116);
             this.pictureBox1.TabIndex = 9;
@@ -122,7 +124,7 @@
             // 
             this.LB_NomFichier.AutoSize = true;
             this.LB_NomFichier.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_NomFichier.Location = new System.Drawing.Point(241, 176);
+            this.LB_NomFichier.Location = new System.Drawing.Point(241, 212);
             this.LB_NomFichier.Name = "LB_NomFichier";
             this.LB_NomFichier.Size = new System.Drawing.Size(117, 19);
             this.LB_NomFichier.TabIndex = 10;
@@ -131,7 +133,7 @@
             // BTN_Ajouter
             // 
             this.BTN_Ajouter.Font = new System.Drawing.Font("Forte", 13.2F);
-            this.BTN_Ajouter.Location = new System.Drawing.Point(124, 337);
+            this.BTN_Ajouter.Location = new System.Drawing.Point(124, 373);
             this.BTN_Ajouter.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BTN_Ajouter.Name = "BTN_Ajouter";
             this.BTN_Ajouter.Size = new System.Drawing.Size(107, 33);
@@ -140,12 +142,34 @@
             this.BTN_Ajouter.UseVisualStyleBackColor = true;
             this.BTN_Ajouter.Click += new System.EventHandler(this.BTN_Ajouter_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("Forte", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(133, 168);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(321, 27);
+            this.comboBox1.TabIndex = 12;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(21, 168);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(107, 22);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Catégorie : ";
+            // 
             // GestionSpectacle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(189)))), ((int)(((byte)(124)))));
-            this.ClientSize = new System.Drawing.Size(466, 378);
+            this.ClientSize = new System.Drawing.Size(466, 413);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.BTN_Ajouter);
             this.Controls.Add(this.LB_NomFichier);
             this.Controls.Add(this.pictureBox1);
@@ -159,7 +183,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GestionSpectacle";
-            this.Text = "GestionSpectacle";
+            this.Text = "Nouveau spectacle";
             this.Load += new System.EventHandler(this.GestionSpectacle_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -179,5 +203,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label LB_NomFichier;
         private System.Windows.Forms.Button BTN_Ajouter;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label4;
     }
 }
