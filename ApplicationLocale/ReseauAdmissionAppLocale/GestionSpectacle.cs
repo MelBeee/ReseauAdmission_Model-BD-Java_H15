@@ -17,6 +17,7 @@ namespace ReseauAdmissionAppLocale
     {
         // variable contenant la connection a la bd 
         OracleConnection oraconnPrincipale = new OracleConnection();
+        string nomfichier = "";
 
         public GestionSpectacle(OracleConnection connection)
         {
@@ -31,6 +32,7 @@ namespace ReseauAdmissionAppLocale
 
         private void GestionSpectacle_Load(object sender, EventArgs e)
         {
+            BTN_Ajouter.Enabled = false;
             LoadCategorie();
         }
 
@@ -49,7 +51,7 @@ namespace ReseauAdmissionAppLocale
 
                 OracleDataReader OraRead = cmdTopVente.ExecuteReader();
 
-                while(OraRead.Read())
+                while (OraRead.Read())
                 {
                     CB_Categorie.Items.Add(OraRead.GetString(0));
                 }
@@ -63,25 +65,30 @@ namespace ReseauAdmissionAppLocale
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
         private void UpdateControl()
         {
-            BTN_Ajouter.Enabled = false;
-
-           
-            
+            if (nomfichier == "" || TB_Description.Text == "" || TB_Nom.Text == "" || CB_Categorie.Text == "")
+            {
+                BTN_Ajouter.Enabled = false;
+            }
+            else
+            {
+                BTN_Ajouter.Enabled = true;
+            }
         }
 
         private void BTN_Ajouter_Click(object sender, EventArgs e)
         {
+            bool reussi = true;
             try
             {
                 OracleCommand cmdInsertSpectacle = new OracleCommand("AppLocale", oraconnPrincipale);
                 cmdInsertSpectacle.CommandType = CommandType.StoredProcedure;
-                cmdInsertSpectacle.CommandText = "AppLocale.getcategorie";
+                cmdInsertSpectacle.CommandText = "AppLocale.InsertionSpectacle";
 
                 OracleParameter pNom = new OracleParameter("Resultat", OracleDbType.Varchar2);
                 pNom.Direction = ParameterDirection.Input;
@@ -94,8 +101,8 @@ namespace ReseauAdmissionAppLocale
 
                 pNom.Value = TB_Nom.Text;
                 pCategorie.Value = CB_Categorie.Text;
-                pAffiche.Value = PB_Affiche.ImageLocation.ToString();
-                pDescription.Value = TB_Description.Text; 
+                pAffiche.Value = nomfichier;
+                pDescription.Value = TB_Description.Text;
 
                 cmdInsertSpectacle.Parameters.Add(pNom);
                 cmdInsertSpectacle.Parameters.Add(pCategorie);
@@ -108,10 +115,24 @@ namespace ReseauAdmissionAppLocale
             catch (OracleException oex)
             {
                 SwitchException(oex);
+                reussi = false; 
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
+                reussi = false;
+            }
+            finally
+            {
+                if(reussi)
+                {
+                    MessageBox.Show("Insertion reussite");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Insertion non reussite");
+                }
             }
         }
 
@@ -204,6 +225,7 @@ namespace ReseauAdmissionAppLocale
         private void BTN_Parcourir_Click(object sender, EventArgs e)
         {
             TrouverImage();
+            UpdateControl();
         }
 
         private void TrouverImage()
@@ -215,13 +237,30 @@ namespace ReseauAdmissionAppLocale
             OFD_Affiche.FilterIndex = 1;
             OFD_Affiche.RestoreDirectory = true;
 
-            if  (OFD_Affiche.ShowDialog() == DialogResult.OK)
+            if (OFD_Affiche.ShowDialog() == DialogResult.OK)
             {
                 PB_Affiche.Image = Image.FromFile(OFD_Affiche.FileName);
                 PB_Affiche.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-                TB_Description.Text = OFD_Affiche.FileName;
-                System.IO.File.Copy(OFD_Affiche.FileName, @"\..\Affiches\");
+                LB_NomFichier.Text = OFD_Affiche.FileName;
+
+                nomfichier = Guid.NewGuid().ToString();
+                
             }
+        }
+
+        private void TB_Nom_TextChanged(object sender, EventArgs e)
+        {
+            UpdateControl();
+        }
+
+        private void TB_Description_TextChanged(object sender, EventArgs e)
+        {
+            UpdateControl();
+        }
+
+        private void CB_Categorie_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateControl();
         }
     }
 }
