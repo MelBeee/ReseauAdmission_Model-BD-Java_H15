@@ -15,6 +15,8 @@ namespace ReseauAdmissionAppLocale
     {
         // variable contenant la connection a la bd 
         OracleConnection oraconnPrincipale = new OracleConnection();
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+
 
         public Representation(OracleConnection oraconn)
         {
@@ -25,6 +27,16 @@ namespace ReseauAdmissionAppLocale
         private void Representation_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams mdiCp = base.CreateParams;
+                mdiCp.ClassStyle = mdiCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return mdiCp;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
