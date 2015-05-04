@@ -104,13 +104,13 @@ namespace ReseauAdmissionAppLocale
                DataGridViewRow row = (DataGridViewRow)DGV_Place.Rows[0].Clone();
                row.Cells[0].Value = OraRead.GetDateTime(0).ToLongDateString();
                row.Cells[1].Value = OraRead.GetString(1).ToString();
-               if (!OraRead.IsDBNull(OraRead.GetInt32(4)))
+               if (!OraRead.IsDBNull(4))
                {
-                  row.Cells[2].Value = OraRead.GetInt32(3);
+                  row.Cells[2].Value = OraRead.GetInt32(4);
                }
                else
                {
-                  row.Cells[2].Value = OraRead.GetInt32(4);
+                  row.Cells[2].Value = OraRead.GetInt32(3);
                }
                DGV_Place.Rows.Add(row);
                resultat = true;
