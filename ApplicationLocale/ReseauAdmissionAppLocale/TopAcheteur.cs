@@ -85,11 +85,11 @@ namespace ReseauAdmissionAppLocale
             }
             catch (OracleException oex)
             {
-                SwitchException(oex);
+               SwitchException(oex);
             }
             catch (Exception ex)
             {
-
+               MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -149,7 +149,7 @@ namespace ReseauAdmissionAppLocale
             }
             catch (Exception ex)
             {
-                
+               MessageBox.Show(ex.Message.ToString());
             }
         }
 

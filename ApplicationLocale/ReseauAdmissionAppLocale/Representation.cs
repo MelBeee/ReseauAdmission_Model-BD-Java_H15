@@ -64,13 +64,13 @@ namespace ReseauAdmissionAppLocale
                 oraFacture.Dispose();
                 OraRead.Close();
             }
-            catch (OracleException ioe)
+            catch (OracleException oex)
             {
-                MessageBox.Show("Erreur Oracle");
+               SwitchException(oex);
             }
-            catch (Exception ioe)
+            catch (Exception ex)
             {
-                MessageBox.Show(ioe.ToString());
+               MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -99,11 +99,11 @@ namespace ReseauAdmissionAppLocale
             }
             catch (OracleException oex)
             {
-                SwitchException(oex);
+               SwitchException(oex);
             }
             catch (Exception ex)
             {
-
+               MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -191,11 +191,11 @@ namespace ReseauAdmissionAppLocale
             }
             catch (OracleException oex)
             {
-                SwitchException(oex);
+               SwitchException(oex);
             }
             catch (Exception ex)
             {
-
+               MessageBox.Show(ex.Message.ToString());
             }
         }
 

@@ -92,9 +92,13 @@ namespace ReseauAdmissionAppLocale
                 cmdTopVente.Dispose();
                 OraRead.Close();
             }
-            catch(OracleException oex)
+            catch (OracleException oex)
             {
-                SwitchException(oex);
+               SwitchException(oex);
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show(ex.Message.ToString());
             }
         }
 

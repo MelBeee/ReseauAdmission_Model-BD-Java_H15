@@ -155,6 +155,51 @@ namespace ReseauAdmissionAppLocale
          MouseUpB = false;
       }
 
+      private void rootForm_FormClosing(object sender, FormClosingEventArgs e)
+      {
+          oraconnPrincipale.Close();
+      }
+
+      private void Spectacle_Click(object sender, EventArgs e)
+      {
+          GestionDesSpectaclesEtRepresentation form = new GestionDesSpectaclesEtRepresentation(oraconnPrincipale);
+
+          form.ShowDialog();
+          MouseUpB = true;
+      }
+
+      private void Facture_Click(object sender, EventArgs e)
+      {
+          ConsultationClient form = new ConsultationClient(oraconnPrincipale);
+
+          form.ShowDialog();
+          MouseUpB = true;
+      }
+
+      private void Seating_Click(object sender, EventArgs e)
+      {
+          ConsultationPlaces form = new ConsultationPlaces(oraconnPrincipale);
+
+          form.ShowDialog();
+          MouseUpB = true;
+      }
+
+      private void ClassementVentes_Click(object sender, EventArgs e)
+      {
+          TopVentes form = new TopVentes(oraconnPrincipale);
+
+          form.ShowDialog();
+          MouseUpB = true;
+      }
+
+      private void ClassementAcheteurs_Click(object sender, EventArgs e)
+      {
+          TopAcheteur form = new TopAcheteur(oraconnPrincipale);
+
+          form.ShowDialog();
+          MouseUpB = true;
+      }
+
       private void SwitchException(OracleException ex)
       {
          string DescriptionErreur;
@@ -239,51 +284,6 @@ namespace ReseauAdmissionAppLocale
          }
 
          MessageBox.Show(DescriptionErreur, "Erreur #" + ex.Number.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-      }
-
-      private void rootForm_FormClosing(object sender, FormClosingEventArgs e)
-      {
-          oraconnPrincipale.Close();
-      }
-
-      private void Spectacle_Click(object sender, EventArgs e)
-      {
-          GestionDesSpectaclesEtRepresentation form = new GestionDesSpectaclesEtRepresentation(oraconnPrincipale);
-
-          form.ShowDialog();
-          MouseUpB = true;
-      }
-
-      private void Facture_Click(object sender, EventArgs e)
-      {
-          ConsultationClient form = new ConsultationClient(oraconnPrincipale);
-
-          form.ShowDialog();
-          MouseUpB = true;
-      }
-
-      private void Seating_Click(object sender, EventArgs e)
-      {
-          ConsultationPlaces form = new ConsultationPlaces(oraconnPrincipale);
-
-          form.ShowDialog();
-          MouseUpB = true;
-      }
-
-      private void ClassementVentes_Click(object sender, EventArgs e)
-      {
-          TopVentes form = new TopVentes(oraconnPrincipale);
-
-          form.ShowDialog();
-          MouseUpB = true;
-      }
-
-      private void ClassementAcheteurs_Click(object sender, EventArgs e)
-      {
-          TopAcheteur form = new TopAcheteur(oraconnPrincipale);
-
-          form.ShowDialog();
-          MouseUpB = true;
       }
    }
 }
