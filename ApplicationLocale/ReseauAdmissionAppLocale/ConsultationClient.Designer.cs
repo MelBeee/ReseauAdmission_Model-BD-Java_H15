@@ -61,12 +61,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Forte", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 9);
+            this.label2.Location = new System.Drawing.Point(28, 8);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(190, 22);
+            this.label2.Size = new System.Drawing.Size(165, 22);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Nom ou # d\'adherent";
+            this.label2.Text = "numéro d\'adherent";
             // 
             // TB_NomID
             // 
@@ -154,7 +154,6 @@
             this.LB_Adresse.Name = "LB_Adresse";
             this.LB_Adresse.Size = new System.Drawing.Size(205, 22);
             this.LB_Adresse.TabIndex = 13;
-            this.LB_Adresse.Text = "120 rue des Rues";
             // 
             // LB_Telephone
             // 
@@ -165,7 +164,6 @@
             this.LB_Telephone.Name = "LB_Telephone";
             this.LB_Telephone.Size = new System.Drawing.Size(205, 22);
             this.LB_Telephone.TabIndex = 14;
-            this.LB_Telephone.Text = "514-987-1234";
             // 
             // LB_Username
             // 
@@ -176,7 +174,6 @@
             this.LB_Username.Name = "LB_Username";
             this.LB_Username.Size = new System.Drawing.Size(205, 22);
             this.LB_Username.TabIndex = 16;
-            this.LB_Username.Text = "MelBeee";
             // 
             // label5
             // 

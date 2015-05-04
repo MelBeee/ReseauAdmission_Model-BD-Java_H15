@@ -85,7 +85,7 @@ namespace ReseauAdmissionAppLocale
             {
 
             }
-            catch(Exception ioe)
+            catch(Exception ioe) 
             {
 
             }
@@ -93,46 +93,49 @@ namespace ReseauAdmissionAppLocale
             {
                 if (!resultat)
                 {
-                    MessageBox.Show("Utilisateur n'existe pas/Aucune facture trouvée");
+                    LB_Adresse.Text = "";
+                    LB_Telephone.Text = "";
+                    LB_Username.Text = "";
+                    MessageBox.Show("Aucune facture trouvée ou id utilisateur incorrecte");
                 }
-            }
-            if(resultat)
-            {
-                try
+                else
                 {
-                    OracleCommand oraClient = new OracleCommand("AppLocal", oraconnPrincipale);
-                    oraClient.CommandText = "AppLocale.GETINFOCLIENT";
-                    oraClient.CommandType = CommandType.StoredProcedure;
-
-                    OracleParameter IdClient = new OracleParameter("PIDClient", OracleDbType.Int64);
-                    IdClient.Direction = ParameterDirection.Input;
-                    IdClient.Value = TB_NomID.Text;
-
-                    OracleParameter Curseur = new OracleParameter("Resultat", OracleDbType.RefCursor);
-                    Curseur.Direction = ParameterDirection.Output;
-
-                    oraClient.Parameters.Add(Curseur);
-                    oraClient.Parameters.Add(IdClient);
-     
-                    OracleDataReader OraRead = oraClient.ExecuteReader();
-
-                    while (OraRead.Read())
+                    try
                     {
-                        LB_Username.Text = OraRead.GetString(0);
-                        LB_Telephone.Text = OraRead.GetString(1);
-                        LB_Adresse.Text = OraRead.GetString(2);
+                        OracleCommand oraClient = new OracleCommand("AppLocal", oraconnPrincipale);
+                        oraClient.CommandText = "AppLocale.GETINFOCLIENT";
+                        oraClient.CommandType = CommandType.StoredProcedure;
+
+                        OracleParameter IdClient = new OracleParameter("PIDClient", OracleDbType.Int64);
+                        IdClient.Direction = ParameterDirection.Input;
+                        IdClient.Value = TB_NomID.Text;
+
+                        OracleParameter Curseur = new OracleParameter("Resultat", OracleDbType.RefCursor);
+                        Curseur.Direction = ParameterDirection.Output;
+
+                        oraClient.Parameters.Add(Curseur);
+                        oraClient.Parameters.Add(IdClient);
+
+                        OracleDataReader OraRead = oraClient.ExecuteReader();
+
+                        while (OraRead.Read())
+                        {
+                            LB_Username.Text = OraRead.GetString(0);
+                            LB_Telephone.Text = OraRead.GetString(1);
+                            LB_Adresse.Text = OraRead.GetString(2);
+                        }
+
+                        oraClient.Dispose();
+                        OraRead.Close();
                     }
+                    catch (OracleException oe)
+                    {
+                        MessageBox.Show(oe.Message.ToString());
+                    }
+                    catch (Exception ex)
+                    {
 
-                    oraClient.Dispose();
-                    OraRead.Close();
-                }
-                catch(OracleException oe)
-                {
-                    MessageBox.Show(oe.Message.ToString());
-                }
-                catch(Exception ex)
-                {
-
+                    }
                 }
             }
         }

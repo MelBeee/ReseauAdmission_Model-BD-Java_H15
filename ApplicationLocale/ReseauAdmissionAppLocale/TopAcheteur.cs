@@ -25,11 +25,72 @@ namespace ReseauAdmissionAppLocale
         private void TopAcheteur_Load(object sender, EventArgs e)
         {
             AfficherTopAcheteur();
+            AfficherTopCategorie();
         }
 
         private void BTN_Fermer_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void AfficherTopCategorie()
+        {
+            try
+            {
+                OracleCommand cmdTopVente = new OracleCommand("AppLocale", oraconnPrincipale);
+                cmdTopVente.CommandType = CommandType.StoredProcedure;
+                cmdTopVente.CommandText = "AppLocale.GetTopCategorie";
+
+                OracleParameter unCursor = new OracleParameter("Resultat", OracleDbType.RefCursor);
+                unCursor.Direction = ParameterDirection.Output;
+
+                cmdTopVente.Parameters.Add(unCursor);
+
+                OracleDataReader OraRead = cmdTopVente.ExecuteReader();
+
+                // Gold
+                if (OraRead.Read())
+                {
+                    LB_NomCat_Gold.Text = OraRead.GetString(0);
+                    LB_NbreCat_Gold.Text = OraRead.GetInt64(1).ToString() + " billets";
+                }
+                else
+                {
+                    LB_NomCat_Gold.Text = "";
+                    LB_NbreCat_Gold.Text = "";
+                }
+                if (OraRead.Read())
+                {
+                    LB_NomCat_Silver.Text = OraRead.GetString(0);
+                    LB_NbreCat_Silver.Text = OraRead.GetInt64(1).ToString() + " billets";
+                }
+                else
+                {
+                    LB_NomCat_Silver.Text = "";
+                    LB_NbreCat_Silver.Text = "";
+                }
+                if (OraRead.Read())
+                {
+                    LB_NomCat_Bronze.Text = OraRead.GetString(0);
+                    LB_NbreCat_Bronze.Text = OraRead.GetInt64(1).ToString() + " billets";
+                }
+                else
+                {
+                    LB_NomCat_Bronze.Text = "";
+                    LB_NbreCat_Bronze.Text = "";
+                }
+
+                cmdTopVente.Dispose();
+                OraRead.Close();
+            }
+            catch (OracleException oex)
+            {
+                SwitchException(oex);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void AfficherTopAcheteur()
@@ -55,7 +116,7 @@ namespace ReseauAdmissionAppLocale
                 }
                 else
                 {
-                    LB_Gold_Nom.Text = "Aucune donnée disponible";
+                    LB_Gold_Nom.Text = "";
                     LB_Gold_Nombre.Text = "";
                 }
                 if (OraRead.Read())
@@ -65,7 +126,7 @@ namespace ReseauAdmissionAppLocale
                 }
                 else
                 {
-                    LB_Silver_Nom.Text = "Aucune donnée disponible";
+                    LB_Silver_Nom.Text = "";
                     LB_Silver_Nombre.Text = "";
                 }
                 if (OraRead.Read())
@@ -75,7 +136,7 @@ namespace ReseauAdmissionAppLocale
                 }
                 else
                 {
-                    LB_Bronze_Nom.Text = "Aucune donnée disponible";
+                    LB_Bronze_Nom.Text = "";
                     LB_Bronze_Nombre.Text = "";
                 }
 
