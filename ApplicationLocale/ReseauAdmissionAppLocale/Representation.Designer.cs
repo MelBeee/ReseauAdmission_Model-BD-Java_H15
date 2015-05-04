@@ -84,7 +84,7 @@
          // 
          // DTP_DateSpectacle
          // 
-         this.DTP_DateSpectacle.CustomFormat = "yyyy-MM-dd hh:mm:ss";
+         this.DTP_DateSpectacle.CustomFormat = "yyyy-MM-dd HH:MM:ss";
          this.DTP_DateSpectacle.Font = new System.Drawing.Font("Book Antiqua", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.DTP_DateSpectacle.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
          this.DTP_DateSpectacle.Location = new System.Drawing.Point(74, 47);
@@ -171,7 +171,7 @@
          this.CB_Section.Location = new System.Drawing.Point(62, 21);
          this.CB_Section.Margin = new System.Windows.Forms.Padding(2);
          this.CB_Section.Name = "CB_Section";
-         this.CB_Section.Size = new System.Drawing.Size(184, 23);
+         this.CB_Section.Size = new System.Drawing.Size(193, 23);
          this.CB_Section.TabIndex = 8;
          this.CB_Section.SelectedIndexChanged += new System.EventHandler(this.CB_Section_SelectedIndexChanged);
          // 
@@ -182,7 +182,7 @@
          this.TB_Prix.Margin = new System.Windows.Forms.Padding(2);
          this.TB_Prix.MaxLength = 6;
          this.TB_Prix.Name = "TB_Prix";
-         this.TB_Prix.Size = new System.Drawing.Size(184, 26);
+         this.TB_Prix.Size = new System.Drawing.Size(193, 26);
          this.TB_Prix.TabIndex = 9;
          this.TB_Prix.TextChanged += new System.EventHandler(this.TB_Prix_TextChanged);
          this.TB_Prix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Prix_KeyPress);

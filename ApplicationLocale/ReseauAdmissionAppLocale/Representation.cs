@@ -17,7 +17,6 @@ namespace ReseauAdmissionAppLocale
       OracleConnection oraconnPrincipale = new OracleConnection();
       private const int CP_NOCLOSE_BUTTON = 0x200;
       const char BACKSPACE = '\b';
-
       string NomSpectacle = "";
       string NomSalle = "";
       string DateSpectacle = "";
