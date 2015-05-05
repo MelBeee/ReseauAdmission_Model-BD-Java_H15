@@ -38,9 +38,9 @@ insert into section values (SEQ_NumSection.nextval, 8, 150,   'VIP Zone');
 
 -- INSERTION DE TEST A ENLEVER AVANT REMIS DU PROJET
 
-insert into spectacle values (SEQ_NumSpectacle.nextval, 'Martin Garix',           'Musique techno', 'image', 4);
-insert into spectacle values (SEQ_NumSpectacle.nextval, 'Canadiens vs Senateurs', 'Match de Hockey','image', 7);
-insert into spectacle values (SEQ_NumSpectacle.nextval, 'U2 Innoncence',          'Musique fif',    'image', 4);
+insert into spectacle values (SEQ_NumSpectacle.nextval, 'Martin Garix',           'Musique techno', 'blabla.png', 4);
+insert into spectacle values (SEQ_NumSpectacle.nextval, 'Canadiens vs Senateurs', 'Match de Hockey','blabla.png', 7);
+insert into spectacle values (SEQ_NumSpectacle.nextval, 'U2 Innoncence',          'Musique fif',    'blabla.png', 4);
 
 alter session set nls_date_format = 'YYYY-MM-DD HH:MI:SS';
 
@@ -57,15 +57,19 @@ INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '100 rue des tests', '45051258
 INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '101 rue des tests', '4385125860', 'Charlie', 'asdf');
 INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '101 rue des tests', '4195125860', 'Fred',    'asdf');
 
-INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '1', 100, 1);
-INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '0', 100, 2);
-INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '0', 200, 2);
+INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '1', 100, 2);
+INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '0', 100, 3);
+INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29 07:30:00', '0', 200, 4);
 
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 1, 1, 10);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 1, 1, 5);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 1, 2);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 1, 8);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 5, 2, 22);
-insert into vente values(SEQ_Vente.nextval, 5, 3, 5);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 2, 2, 10);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 2, 3, 5);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 2, 4, 2);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 2, 2);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 3, 8);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 4, 7);
+INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 4, 2, 22);
+insert into vente values(SEQ_Vente.nextval, 4, 3, 5);
+insert into vente values(SEQ_Vente.nextval, 4, 4, 1);
+insert into vente values(SEQ_Vente.nextval, 9, 4, 5);
 
 commit;

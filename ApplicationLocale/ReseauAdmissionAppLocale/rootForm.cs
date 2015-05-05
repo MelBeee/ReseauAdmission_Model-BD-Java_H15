@@ -126,7 +126,7 @@ namespace ReseauAdmissionAppLocale
 
       private void panel4_MouseUp(object sender, MouseEventArgs e)
       {
-         if(MouseUpB)
+         if(!MouseUpB)
             panel5.BackColor = Color.FromArgb(136, 243, 186);
          MouseUpB = false;
       }

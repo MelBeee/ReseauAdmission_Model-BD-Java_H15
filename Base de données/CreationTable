@@ -14,7 +14,7 @@ CREATE TABLE Billet
     IDSpectacle  NUMBER (3) NOT NULL ,
     IDSection    NUMBER (2) NOT NULL ,
     Prix         NUMBER (5,2) ,
-    LaDateHeure  VARCHAR2(20)
+    LaDateHeure  VARCHAR2(20 CHAR)
   ) ;
 ALTER TABLE Billet ADD CONSTRAINT Billet_PK PRIMARY KEY ( IDBillet ) ;
 
@@ -38,7 +38,7 @@ ALTER TABLE Client ADD CONSTRAINT Client_PK PRIMARY KEY ( IDClient ) ;
 CREATE TABLE Facture
   (
     IDFacture NUMBER (5) NOT NULL ,
-    DateAchat DATE ,
+    DateAchat VARCHAR2(20 CHAR) ,
     Imprimé   CHAR (1 CHAR) ,
     Total     NUMBER (5,2) ,
     IDClient  NUMBER (5) NOT NULL

@@ -218,7 +218,6 @@ namespace ReseauAdmissionAppLocale
          }
       }
 
-      // PNomSPECTACLE IN SPECTACLE.Nom%TYPE, PSECTION IN BILLET.IDSECTION%TYPE, PDATE IN BILLET.LADATEHEURE%TYPE, PPRIX IN BILLET.PRIX%TYPE
       private bool AjoutRepresentation()
       {
          bool reussi = true;
@@ -226,13 +225,13 @@ namespace ReseauAdmissionAppLocale
          {
             OracleCommand cmdInsertSpectacle = new OracleCommand("AppLocale", oraconnPrincipale);
             cmdInsertSpectacle.CommandType = CommandType.StoredProcedure;
-            cmdInsertSpectacle.CommandText = "AppLocale.InsertionSpectacle";
+            cmdInsertSpectacle.CommandText = "AppLocale.InsertionRepresentation";
 
             OracleParameter pNom = new OracleParameter("PNomSPECTACLE", OracleDbType.Varchar2);
             pNom.Direction = ParameterDirection.Input;
             OracleParameter pSection = new OracleParameter("PSECTION", OracleDbType.Varchar2);
             pNom.Direction = ParameterDirection.Input;
-            OracleParameter pDate = new OracleParameter("PDATE", OracleDbType.Date);
+            OracleParameter pDate = new OracleParameter("PDATE", OracleDbType.Varchar2, 20);
             pNom.Direction = ParameterDirection.Input;
             OracleParameter pPrix = new OracleParameter("PPRIX", OracleDbType.Int32);
             pNom.Direction = ParameterDirection.Input;
@@ -242,7 +241,7 @@ namespace ReseauAdmissionAppLocale
             pNom.Value = NomSpectacle;
             pSection.Value = Section;
             pDate.Value = DateSpectacle;
-            pPrix.Value = Prix;
+            pPrix.Value = Int32.Parse(Prix);
             pSalle.Value = NomSalle;
 
             cmdInsertSpectacle.Parameters.Add(pNom);

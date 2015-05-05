@@ -102,7 +102,7 @@ namespace ReseauAdmissionAppLocale
             while (OraRead.Read())
             {
                DataGridViewRow row = (DataGridViewRow)DGV_Place.Rows[0].Clone();
-               row.Cells[0].Value = OraRead.GetDateTime(0).ToLongDateString();
+               row.Cells[0].Value = OraRead.GetString(0).ToString();
                row.Cells[1].Value = OraRead.GetString(1).ToString();
                if (!OraRead.IsDBNull(4))
                {

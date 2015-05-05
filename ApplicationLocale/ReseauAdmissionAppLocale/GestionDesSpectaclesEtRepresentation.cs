@@ -34,7 +34,7 @@ namespace ReseauAdmissionAppLocale
 
         private void panel2_MouseUp(object sender, MouseEventArgs e)
         {
-            if (MouseUpB)
+            if (!MouseUpB)
                 panel1.BackColor = Color.FromArgb(136, 243, 186);
             MouseUpB = false;
         }
@@ -61,7 +61,7 @@ namespace ReseauAdmissionAppLocale
 
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (MouseUpB)
+            if (!MouseUpB)
                 panel2.BackColor = Color.FromArgb(136, 243, 186);
             MouseUpB = false;
         }
