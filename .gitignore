@@ -155,3 +155,4 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 /App_Web_2.0/nbproject/private/
+/App_Web_2.0/dist/

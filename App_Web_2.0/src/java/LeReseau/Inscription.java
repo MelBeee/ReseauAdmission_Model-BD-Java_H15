@@ -7,27 +7,25 @@ package LeReseau;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.DriverManager;
+import java.sql.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
-import oracle.jdbc.OracleDriver;
-import javax.servlet.http.HttpSession;
 import oracle.jdbc.OracleTypes;
 
 /**
  *
- * @author 201356187
+ * @author Charlie
  */
-@WebServlet(name = "ConnectionOracle", urlPatterns = {"/ConnectionOracle"})
-public class ConnectionOracle extends HttpServlet {
-    
+@WebServlet(name = "Inscription", urlPatterns = {"/Inscription"})
+public class Inscription extends HttpServlet {
     String url = "jdbc:oracle:thin:@205.237.244.251:1521:orcl";
-    String Username ;
-    String Password;
+String Username;
+String Password;
+String Adresse;
+String Telephone;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,68 +43,57 @@ public class ConnectionOracle extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Connection</title>");            
-            out.println("</head>");            
+            out.println("<title>Servlet Inscription</title>");
+            out.println("</head>");
             out.println("<body>");
-            
-            //Connection de l'usager
-            out.println("<form action=\"ConnectionOracle\" method=\"post\">");
+
+            out.println("<form action=\"Inscription\" method=\"post\">");
                 out.println("<table>");
                     out.println("<tr>");
                         out.println("<td>");
-                            out.println("Username :");                           
+                             out.println("Username :");
                         out.println("</td>");
                         out.println("<td>");
-                            out.println("Username : <input type=\"text\" name=\"Username\" value=\"Nom d'utilisateur\"><br>");
+                             out.println("<input type=\"text\" name=\"Username\"><br>");
                         out.println("</td>");
                     out.println("</tr>");
                     out.println("<tr>");
                         out.println("<td>");
-                                out.println("Password :");                           
+                             out.println("Password :");
                         out.println("</td>");
                         out.println("<td>");
-                                out.println("<input type=\"Password\" name=\"Password\" value=\"Password\"><br>"); 
+                             out.println("<input type=\"Password\" name=\"Password\"><br>");
                         out.println("</td>");
                     out.println("</tr>");
                     out.println("<tr>");
                         out.println("<td>");
-                                out.println("<input type=\"submit\" value=\"Connecter\">"); 
+                             out.println("Addresse :");
                         out.println("</td>");
+                        out.println("<td>");
+                             out.println("<input type=\"text\" name=\"Adresse\"><br>");
+                        out.println("</td>");          
+                    out.println("</tr>");
+                    out.println("<tr>");
+                        out.println("<td>");
+                             out.println("Telephone :");
+                        out.println("</td>");
+                        out.println("<td>");
+                             out.println("<input type=\"text\" name=\"Telephone\"><br>");
+                        out.println("</td>");            
+                    out.println("</tr>");
+                    out.println("<tr>");
+                        out.println("<td>");
+                             out.println("<input type=\"submit\" value=\"Inscription\">");
+                        out.println("</td>");           
                     out.println("</tr>");
                 out.println("</table>");
-            out.println("</form>");           
-            
-             
-            
+            out.println("</form>");
+
             out.println("</body>");
             out.println("</html>");
         }
     }
-    
-    public boolean ConnectionUsager(String Username, String Password)
-    {      
-        boolean ConnexionReussie = false;
-        try
-        {
-             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-             Connection conn = DriverManager.getConnection(url,"BoucherM","ORACLE2");
-             CallableStatement  ConnexionStm = conn.prepareCall("{ ? = call GESTIONUSAGER.CONNEXION(?,?)}");         
-             ConnexionStm.registerOutParameter(1, OracleTypes.INTEGER);
-             ConnexionStm.setString(2, Username);
-             ConnexionStm.setString(3, Password);
-             ConnexionStm.execute();
-             if(ConnexionStm.getInt(1)== 1)             
-             {
-                ConnexionReussie = true; 
-             }            
-             
-        }catch(SQLException connEX)
-        {           
-            
-        }
-        return ConnexionReussie;
-        
-    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -120,7 +107,6 @@ public class ConnectionOracle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-   
     }
 
     /**
@@ -133,24 +119,55 @@ public class ConnectionOracle extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
-        try (PrintWriter out = response.getWriter()) {
-            
-       HttpSession session = request.getSession();    
+            throws ServletException, IOException {
+         try (PrintWriter out = response.getWriter()) {
        Username = request.getParameter("Username");
        Password = request.getParameter("Password");
-      
-        if(ConnectionUsager(Username, Password))
+       Adresse = request.getParameter("Adresse");
+       Telephone = request.getParameter("Telephone");
+       
+       if(InscriptionClient(Username,Password,Adresse,Telephone))
+       {
+           response.sendRedirect("Acceuil");           
+       }
+       else
+       {
+            out.println("<h1 style =\"Color:Red\"> Votre nom d'utilisateur est déja utiliser ou certains champs sont mal remplient </h1>");
+            processRequest(request, response);            
+       }
+       }
+       
+    }
+    private boolean InscriptionClient(String Username,String Password,String Adresse, String Telephone)
+    {
+        boolean InscriptionReussie = false;
+        try
         {
-            response.sendRedirect("Acceuil");
-            session.setAttribute("UserName", Username);
-        }else
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+            Connection conn = DriverManager.getConnection(url,"BoucherM","ORACLE2");
+            CallableStatement  CheckUsername = conn.prepareCall("{ ? = call GESTIONUSAGER.USERNAMEEXISTE(?)}");
+            CheckUsername.registerOutParameter(1, OracleTypes.INTEGER);
+            CheckUsername.setString(2, Username);
+            CheckUsername.execute();
+             if(CheckUsername.getInt(1)== 0)             
+             {
+                CallableStatement  InscriptionStm = conn.prepareCall("{call GESTIONUSAGER.AUTHENTIFICATI0N(?,?,?,?)}");
+                
+                InscriptionStm.setString(1, Adresse);
+                InscriptionStm.setString(2, Telephone);
+                InscriptionStm.setString(3, Username);
+                InscriptionStm.setString(4, Password);                
+                InscriptionStm.executeUpdate();                
+                InscriptionReussie =true;
+                
+             }                  
+             
+            
+        }catch(SQLException ez)
         {
-            out.println("<h1 style =\"Color:Red\"> Veuillez entrez un Nom d'usager ou un mot de passe valide </h1>");
-            processRequest(request, response);
             
         }
-        }
+        return InscriptionReussie;
     }
 
     /**
