@@ -40,7 +40,14 @@ public class Acceuil extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Acceuil</title>");            
+            out.println("<title>Servlet Acceuil</title>"); 
+            out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">\n" +
+                        "\n" +
+                        "<!-- Optional theme -->\n" +
+                        "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css\">\n" +
+                        "\n" +
+                        "<!-- Latest compiled and minified JavaScript -->\n" +
+                        "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
             out.println("</head>");
             out.println("<body bgcolor=\"#95BABF\"");
              out.println("<div>");
@@ -116,15 +123,18 @@ public class Acceuil extends HttpServlet {
                     "            <span class=\"clearfix borda\"></span>\n" +
                         "        </article>"
                                          );
-
-                                 
-            
+                                          
              out.println("</body>");
              out.println("</html>");
              
         }
     }
      
+    private void Research(){
+      
+    
+    }
+    
   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
