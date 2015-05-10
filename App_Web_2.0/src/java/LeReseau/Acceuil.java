@@ -118,7 +118,7 @@ public class Acceuil extends HttpServlet {
                     "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
                     "                <ul class=\"meta-search\">\n" +
                     "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1) +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
                     "                </ul>\n" +
                     "            </div>\n" +
@@ -128,12 +128,11 @@ public class Acceuil extends HttpServlet {
                     "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
                     "            </div>\n" +
                     "            <span class=\"clearfix borda\"></span>\n" +
-                    "        </article>\n" );
-                
+                    "        </article>\n" );                
             }
-      }
-      catch(SQLException se){
-      }
+          }
+         catch(SQLException se){
+         }
       
     CloseConnection();
     }
