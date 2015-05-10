@@ -10,11 +10,17 @@ package LeReseau;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.pool.OracleDataSource;
 
 /**
  *
@@ -22,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Acceuil", urlPatterns = {"/Acceuil"})
 public class Acceuil extends HttpServlet {
-
+ Connection conn = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -64,7 +70,7 @@ public class Acceuil extends HttpServlet {
                             + "</ul>"
                      +  "</div>"
                       + "<div>"
-                      + "<form action=\"post\">"
+                      + "<form action=\"\" method=\"post\">"
                       + "<input type=\"text\"> "
                       +"<input type=\"submit\" value=\"Search\">"
                       +"</br>"
@@ -84,55 +90,74 @@ public class Acceuil extends HttpServlet {
                        
                      +"</form>"
                       +"</div>"
-                     +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n" +
-                    "        <article class=\"search-result row\">\n" +
+                     +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n");
+                     ResearchAll(out);
+                     out.println( "</section>");       
+                                      
+                     
+                                          
+             out.println("</body>");
+             out.println("</html>");
+                        
+        }
+    }
+     
+    private void ResearchAll(PrintWriter out){
+      OpenConnection();
+      try{
+            CallableStatement Callist = conn.prepareCall("{ call  RECHERCHE.SelectAll(?)}");
+            Callist.registerOutParameter(1,OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(1);        
+            while(rst.next()){
+               
+                 out.println("<article class=\"search-result row\">\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
                     "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
                     "            </div>\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
                     "                <ul class=\"meta-search\">\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>Categorie</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>Prix Moyen</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>Salle</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1) +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
                     "                </ul>\n" +
                     "            </div>\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
-                    "                <h3><a href=\"#\" title=\"\">Voluptatem, exercitationem, suscipit, distinctio</a></h3>\n" +
-                    "                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>\n" +
+                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
+                    "                <p>"+rst.getString(6)+".</p>\n" +
                     "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
                     "            </div>\n" +
                     "            <span class=\"clearfix borda\"></span>\n" +
-                    "        </article>\n" +
-                    "\n" +
-                    "        <article class=\"search-result row\">\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
-                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/food\" alt=\"Lorem ipsum\" /></a>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
-                    "                <ul class=\"meta-search\">\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>Categorie</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>Prix Moyen</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>Salle</span></li>\n" +
-                    "                </ul>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-7\">\n" +
-                    "                <h3><a href=\"#\" title=\"\">Voluptatem, exercitationem, suscipit, distinctio</a></h3>\n" +
-                    "                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>\n" +
-                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
-                    "            </div>\n" +
-                    "            <span class=\"clearfix borda\"></span>\n" +
-                        "        </article>"
-                                         );
-                                          
-             out.println("</body>");
-             out.println("</html>");
-             
-        }
-    }
-     
-    private void Research(){
+                    "        </article>\n" );
+                
+            }
+      }
+      catch(SQLException se){
+      }
       
+    CloseConnection();
+    }
     
+    private void OpenConnection(){    
+        try{
+        OracleDataSource ods = new OracleDataSource();
+        ods.setURL("jdbc:oracle:thin:@205.237.244.251:1521:orcl");
+        ods.setUser("BoucherM");
+        ods.setPassword("ORACLE2");
+        this.conn = ods.getConnection();       
+        }
+        catch(SQLException se){
+        
+        }
+        
+    }
+    private void CloseConnection(){
+    
+     try{
+         this.conn.close();
+     }
+     catch(SQLException se){
+     }
     }
     
   
@@ -162,6 +187,7 @@ public class Acceuil extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         processRequest(request, response);
     }
 
