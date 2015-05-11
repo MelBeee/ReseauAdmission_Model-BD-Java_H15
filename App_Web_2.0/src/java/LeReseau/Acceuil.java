@@ -46,6 +46,7 @@ public class Acceuil extends HttpServlet {
            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+            out.println(" <script src=\"GestionRecherche.js\"> </script> ");
             out.println("<title>Servlet Acceuil</title>"); 
             out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">\n" +
                         "\n" +
@@ -77,15 +78,16 @@ public class Acceuil extends HttpServlet {
                out.println("<div>"
                       + "<form action=\"\" method=\"post\">"
                       + "<input type=\"text\" name=\"artiste\"> "
-                      +"<input type=\"submit\" value=\"Search\">"
+                      +"<button type=\"button\">Click Me!</button>"
                       +"</br>"
                      + "Salle:"
                          +"<select>\n" );
                         SetComboBox(out);
-             out.println( "</select>" +
+             out.println( "</select>" 
+                      +"<button type=\"button\">Click Me!</button>"+
                        "</br>");
                        SetCheckBoxGroup(out);            
-         out.println("<input type=\"submit\" value=\"Search\">"                     
+            out.println("<button type=\"button\" onclick=\"GestionCheckBox();\">Click Me!</button>"           
                      +"</form>"
                       +"</div>"
                      +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n");
@@ -158,7 +160,7 @@ public class Acceuil extends HttpServlet {
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(1);        
             while(rst.next()){
-               out.println(   " <input type=\"checkbox\" name=\"chk_group\" value=\"" + rst.getString(1)+"\" />"+rst.getString(1)+"<br />\n" );         
+               out.println(   " <input type=\"checkbox\" class=\"chk_group\" value=\"" + rst.getString(1)+"\" />"+rst.getString(1)+"<br />\n" );         
             }
       }
       catch(SQLException se){
@@ -167,9 +169,7 @@ public class Acceuil extends HttpServlet {
         CloseConnection();
       }
     }
-    
-    
-    
+         
  /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void OpenConnection(){    

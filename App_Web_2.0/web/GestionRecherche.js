@@ -1,35 +1,25 @@
-function GestionCheckBox(){
+function GestionCheckBox(className){
+ var checkBoxArray =  document.getElementsByClassName("chk_group");
 
-function iterateCheckBoxList(className) 
-{
- var elementRef =  document.getElementsByClassName(className);
- var checkBoxArray = elementRef.getElementsByTagName('input');
- var checkedValues = ' ?';
+ var checkedValues = '?';
 
- //alert('List length: ' + checkBoxArray.length);
-
+ alert('List length: ' + checkBoxArray.length);
+var nb = 0;
  for (var i=0; i<checkBoxArray.length; i++) 
  { 
   var checkBoxRef = checkBoxArray[i];
-
+   
   if ( checkBoxRef.checked == true ) 
   {
-  
-  // if ( labelArray.length > 0 )
-  // {
-    if ( checkedValues.length > 0 )
-     checkedValues += 'cat'+i +' ';
-
-    checkedValues += labelArray[0].innerHTML + ' & ';
+    if ( checkedValues.length > 0 ){  
+     checkedValues += 'cat'+nb +'=';
+     checkedValues += checkBoxRef.value + '&';
+     nb++;
    }
   }
- //}
-
- //alert('Items checked: ' + checkedValues);
+}
+checkedValues = checkedValues.slice(0,checkedValues.length -1);
+ alert('Items checked: ' + checkedValues);
 
   window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil' + checkedValues;
-}
-
-
-
 }
