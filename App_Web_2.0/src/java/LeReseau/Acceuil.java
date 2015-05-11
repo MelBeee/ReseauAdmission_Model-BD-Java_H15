@@ -43,7 +43,7 @@ public class Acceuil extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+           out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet Acceuil</title>"); 
@@ -55,21 +55,26 @@ public class Acceuil extends HttpServlet {
                         "<!-- Latest compiled and minified JavaScript -->\n" +
                         "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
              out.println("</head>");
-             out.println("<body bgcolor=\"#95BABF\"");
-             out.println("<div>");
-             out.println(    "<img  src= \"Image/BanniereCirque.png;\"></img>" );
-             out.println(    "<h1 >Reseau Admission </h1>");
-             out.println("</div>");
-             out.println("<div style= \"background-color=\"#587C81;\">"
-                             +"<ul> "
-                                 + "<a href=# style=\"text-decoration:none;\" <li> Acceuil  </li></a>"
-                                 + "<a href=# style=\"text-decoration:none;\"<li> Connexion  </li></a>"
-                                 + "<a href=# style=\"text-decoration:none;\"<li> Inscription  </li></a>"
-                                 + "<a href=# style=\"text-decoration:none;\"<li> Panier  </li></a>"
-                                 + "<a href=# style=\"text-decoration:none;\"<li> Historique D'achat  </li></a>"              
-                            + "</ul>"
-                     +  "</div>"
-                      + "<div>"
+             out.println("<body style=\"background-color:#587C81;\">");         
+             out.println("<div style= \"background-color=\"#587C81;\">");
+             out.println("<img style=\"width:100%; height:200px\"  src= \"Image/BanniereCirque.png;\"></img>");
+             out.println("</div>"); 
+             out.println("<table style=\"border-collapse: separate;  border-spacing: 10px; position:relative; left:40%;\">");
+             out.println("<tr>");
+             out.println("<th colspan=\"6\"><h1>Réseau Admission</h1></th>");                            
+             out.println("</tr>");              
+             out.println("<tr>");
+             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none; color:Red;\">  Accueil  </a></td>");
+             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\" style=\"text-decoration:none;  color:Red;\">   Connexion  </a></td>");
+             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/Inscription\" style=\"text-decoration:none;  color:Red;\"> Inscription  </a></td>");
+             out.println("<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">  Panier </a></td>");
+             out.println("<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">   Historique d'achat </a></td>");
+             out.println( "</tr>");
+             out.println("</table>");
+             out.println("</br>");    
+                     
+                     
+               out.println("<div>"
                       + "<form action=\"\" method=\"post\">"
                       + "<input type=\"text\" name=\"artiste\"> "
                       +"<input type=\"submit\" value=\"Search\">"
