@@ -18,8 +18,15 @@ var nb = 0;
    }
   }
 }
-checkedValues = checkedValues.slice(0,checkedValues.length -1);
+checkedValues = checkedValues.slice(0,checkedValues.length - 1);
  alert('Items checked: ' + checkedValues);
 
   window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil' + checkedValues;
+}
+
+function GestionRechercheArtiste(){
+var boxValue = document.getElementById("Rartiste");
+
+window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil ?value=' + boxValue.value;
+
 }

@@ -77,8 +77,8 @@ public class Acceuil extends HttpServlet {
                      
              out.println("<div>"
                       + "<form action=\"\" method=\"post\">"
-                      + "<input type=\"text\" name=\"artiste\"> "
-                      +"<button type=\"button\">Click Me!</button>"
+                      + "<input type=\"text\" name=\"artiste\" id=\"Rartiste\"> "
+                      +"<button type=\"button\" onclick=\"GestionRechercheArtiste();\">Click Me!</button>"
                       +"</br>"
                      + "Salle:"
                          +"<select>\n" );
