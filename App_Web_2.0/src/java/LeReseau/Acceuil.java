@@ -54,8 +54,8 @@ public class Acceuil extends HttpServlet {
                         "\n" +
                         "<!-- Latest compiled and minified JavaScript -->\n" +
                         "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
-            out.println("</head>");
-            out.println("<body bgcolor=\"#95BABF\"");
+             out.println("</head>");
+             out.println("<body bgcolor=\"#95BABF\"");
              out.println("<div>");
              out.println(    "<img  src= \"Image/BanniereCirque.png;\"></img>" );
              out.println(    "<h1 >Reseau Admission </h1>");
@@ -71,31 +71,21 @@ public class Acceuil extends HttpServlet {
                      +  "</div>"
                       + "<div>"
                       + "<form action=\"\" method=\"post\">"
-                      + "<input type=\"text\"> "
+                      + "<input type=\"text\" name=\"artiste\"> "
                       +"<input type=\"submit\" value=\"Search\">"
                       +"</br>"
                      + "Salle:"
-                         +"<select>\n" +
-                        "  <option value=\"volvo\">Volvo</option>\n" +
-                            " <option value=\"saab\">Saab</option>\n" +
-                           " <option value=\"mercedes\">Mercedes</option>\n" +
-                       
-                        " <option value=\"audi\">Audi</option>\n" +
-                      "</select>" +
-                       "</br>"+
-                      " <input type=\"checkbox\" name=\"chk_group\" value=\"value1\" />Value 1<br />\n" +
-"                       <input type=\"checkbox\" name=\"chk_group\" value=\"value2\" />Value 2<br />\n" +
-"                       <input type=\"checkbox\" name=\"chk_group\" value=\"value3\" />Value 3<br />"                    
-                        +"<input type=\"submit\" value=\"Search\">"
-                       
+                         +"<select>\n" );
+                        SetComboBox(out);
+             out.println( "</select>" +
+                       "</br>");
+                       SetCheckBoxGroup(out);            
+         out.println("<input type=\"submit\" value=\"Search\">"                     
                      +"</form>"
                       +"</div>"
                      +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n");
                      ResearchAll(out);
-                     out.println( "</section>");       
-                                      
-                     
-                                          
+                     out.println( "</section>");                                                                                                         
              out.println("</body>");
              out.println("</html>");
                         
@@ -131,12 +121,52 @@ public class Acceuil extends HttpServlet {
                     "        </article>\n" );                
             }
           }
-         catch(SQLException se){
+        catch(SQLException se){
          }
-      
-    CloseConnection();
+        finally{
+        CloseConnection();
+      }
+     
+    }
+    private void SetComboBox(PrintWriter out){
+     OpenConnection();
+      try{
+            CallableStatement Callist = conn.prepareCall("{ call  APPLOCALE.GETSALLE(?)}");
+            Callist.registerOutParameter(1,OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(1);        
+            while(rst.next()){
+               out.println( "  <option value=\"" + rst.getString(1)+"\">"+rst.getString(1)+"</option>\n");                     
+            }
+      }
+      catch(SQLException se){
+         }
+        finally{
+        CloseConnection();
+      }     
+    }
+    private void SetCheckBoxGroup(PrintWriter out){
+     OpenConnection();
+      try{
+            CallableStatement Callist = conn.prepareCall("{ call  APPLOCALE.GETCATEGORIE(?)}");
+            Callist.registerOutParameter(1,OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(1);        
+            while(rst.next()){
+               out.println(   " <input type=\"checkbox\" name=\"chk_group\" value=\"" + rst.getString(1)+"\" />"+rst.getString(1)+"<br />\n" );         
+            }
+      }
+      catch(SQLException se){
+         }
+        finally{
+        CloseConnection();
+      }
     }
     
+    
+    
+ /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void OpenConnection(){    
         try{
         OracleDataSource ods = new OracleDataSource();
@@ -145,8 +175,7 @@ public class Acceuil extends HttpServlet {
         ods.setPassword("ORACLE2");
         this.conn = ods.getConnection();       
         }
-        catch(SQLException se){
-        
+        catch(SQLException se){       
         }
         
     }
