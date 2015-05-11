@@ -44,6 +44,16 @@ String Telephone;
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet Inscription</title>");
+            out.println("<script language=\"javascript\">function isNumber(evt) {\n" +
+                        "    evt = (evt) ? evt : window.event;\n" +
+                        "    var charCode = (evt.which) ? evt.which : evt.keyCode;\n" +
+                        "    if (charCode > 31 && (charCode < 48 || charCode > 57)) {\n" +
+                        "        return false;\n" +
+                        "    }\n" +
+                        "    return true;\n" +
+                        "} "+
+                        "</script>");
+            
             out.println("</head>");
             out.println("<body>");
 
@@ -78,7 +88,7 @@ String Telephone;
                              out.println("Telephone :");
                         out.println("</td>");
                         out.println("<td>");
-                             out.println("<input type=\"text\" name=\"Telephone\"><br>");
+                             out.println("<input type=\"text\" maxlength=\"10\" value=\"\" id=\"extra7\" name=\"extra7\" onkeypress=\"return isNumber(event)\" /><br>");
                         out.println("</td>");            
                     out.println("</tr>");
                     out.println("<tr>");

@@ -57,7 +57,7 @@ public class ConnectionOracle extends HttpServlet {
                             out.println("Username :");                           
                         out.println("</td>");
                         out.println("<td>");
-                            out.println("Username : <input type=\"text\" name=\"Username\" value=\"Nom d'utilisateur\"><br>");
+                            out.println("<input type=\"text\" name=\"Username\" value=\"Nom d'utilisateur\"><br>");
                         out.println("</td>");
                     out.println("</tr>");
                     out.println("<tr>");
