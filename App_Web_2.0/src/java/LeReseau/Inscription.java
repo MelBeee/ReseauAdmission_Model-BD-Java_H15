@@ -82,7 +82,7 @@ String Telephone;
     
 
             out.println("<form action=\"Inscription\" method=\"post\">");
-                out.println("<table>");
+                out.println("<table style=\"position:relative; left:40%;\">");
                     out.println("<tr>");
                         out.println("<td>");
                              out.println("Username :");
