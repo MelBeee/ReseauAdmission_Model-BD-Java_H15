@@ -143,7 +143,8 @@ String Telephone;
        else
        {
             out.println("<h1 style =\"Color:Red\"> Votre nom d'utilisateur est déja utiliser ou certains champs sont mal remplient </h1>");
-            processRequest(request, response);            
+            processRequest(request, response);   
+            
        }
        }
        
