@@ -26,7 +26,13 @@ checkedValues = checkedValues.slice(0,checkedValues.length - 1);
 
 function GestionRechercheArtiste(){
 var boxValue = document.getElementById("Rartiste");
+ alert(boxValue.value);
+window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil?Artiste=' + boxValue.value;
 
-window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil ?value=' + boxValue.value;
+}
 
+function Gestion(){
+  var  combo = document.getElementById("combo");
+    window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil?Salle=' + combo[combo.selectedIndex].text;
+;
 }

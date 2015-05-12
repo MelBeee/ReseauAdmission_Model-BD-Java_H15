@@ -81,17 +81,17 @@ public class Acceuil extends HttpServlet {
                       +"<button type=\"button\" onclick=\"GestionRechercheArtiste();\">Click Me!</button>"
                       +"</br>"
                      + "Salle:"
-                         +"<select>\n" );
+                         +"<select id=\"combo\">\n" );
                         SetComboBox(out);
              out.println( "</select>" 
-                      +"<button type=\"button\">Click Me!</button>"+
+                      +"<button type=\"button\" onclick=\"Gestion();\">Click Me!</button>"+
                        "</br>");
                        SetCheckBoxGroup(out);            
             out.println("<button type=\"button\" onclick=\"GestionCheckBox();\">Click Me!</button>"           
                      +"</form>"
                       +"</div>"
                      +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n");
-                     ResearchAll(out);
+                    SetResearch(request,out);
                      out.println( "</section>");                                                                                                         
              out.println("</body>");
              out.println("</html>");
@@ -169,7 +169,147 @@ public class Acceuil extends HttpServlet {
         CloseConnection();
       }
     }
-         
+     private void SetResearch(HttpServletRequest request,PrintWriter out){
+      if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
+           SetResearchBySalle(out,request.getParameter("Salle"));
+      }
+      else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
+          SetResearchArtiste(out,request.getParameter("Artiste"));
+      }
+      else if( request.getParameter("cat0")!=null&&!request.getParameter("cat0").isEmpty()){
+          SetResearchByCat(request,out);
+      }
+      else{
+          ResearchAll(out);
+      }
+        
+      }
+       private void SetResearchArtiste(PrintWriter out,String Artiste){
+       
+         OpenConnection();
+      try{
+            CallableStatement Callist = conn.prepareCall("{ call  RECHERCHE.SelectByArtiste(?,?)}");
+            Callist.setString(1,Artiste);
+            Callist.registerOutParameter(2,OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(2);        
+            while(rst.next()){
+               
+                 out.println("<article class=\"search-result row\">\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
+                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
+                    "                <ul class=\"meta-search\">\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                </ul>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
+                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
+                    "                <p>"+rst.getString(6)+".</p>\n" +
+                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "            </div>\n" +
+                    "            <span class=\"clearfix borda\"></span>\n" +
+                    "        </article>\n" );                
+            }
+          }
+        catch(SQLException se){
+         }
+        finally{
+        CloseConnection();
+      }
+     } 
+      private void SetResearchBySalle(PrintWriter out,String Salle){
+       OpenConnection();
+      try{
+            CallableStatement Callist = conn.prepareCall("{ call  RECHERCHE.SelectBySalle(?,?)}");
+            Callist.setString(1,Salle);
+            Callist.registerOutParameter(2,OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(2);        
+            while(rst.next()){
+               
+                 out.println("<article class=\"search-result row\">\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
+                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
+                    "                <ul class=\"meta-search\">\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                </ul>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
+                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
+                    "                <p>"+rst.getString(6)+".</p>\n" +
+                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "            </div>\n" +
+                    "            <span class=\"clearfix borda\"></span>\n" +
+                    "        </article>\n" );                
+            }
+          }
+        catch(SQLException se){
+         }
+        finally{
+        CloseConnection();
+      }
+      
+      }
+      
+      private void SetResearchByCat(HttpServletRequest request,PrintWriter out){    
+          int i = 0;
+           while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
+              ResearchByCat(out,request.getParameter("cat"+i));
+              i++;
+           }
+          
+          
+      }
+      
+     private void ResearchByCat(PrintWriter out,String cat){
+      OpenConnection();
+      try{
+            CallableStatement Callist = conn.prepareCall("{ call  RECHERCHE.SelectByCat(?,?)}");
+            Callist.setString(1,cat);
+            Callist.registerOutParameter(2,OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(2);        
+            while(rst.next()){
+               
+                 out.println("<article class=\"search-result row\">\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
+                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
+                    "                <ul class=\"meta-search\">\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                </ul>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
+                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
+                    "                <p>"+rst.getString(6)+".</p>\n" +
+                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "            </div>\n" +
+                    "            <span class=\"clearfix borda\"></span>\n" +
+                    "        </article>\n" );                
+            }
+          }
+        catch(SQLException se){
+         }
+        finally{
+        CloseConnection();
+      }
+     
+     }
+      
+     
+       
+       
  /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void OpenConnection(){    
