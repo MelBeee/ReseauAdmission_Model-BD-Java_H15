@@ -40,7 +40,7 @@ public class Acceuil extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
            out.println("<!DOCTYPE html>");
@@ -56,7 +56,7 @@ public class Acceuil extends HttpServlet {
                         "<!-- Latest compiled and minified JavaScript -->\n" +
                         "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
              out.println("</head>");
-             out.println("<body style=\"background-color:#587C81;\">");         
+             out.println("<body style=\"background-color:#587C81;\">");               
              out.println("<div style= \"background-color=\"#587C81;\">");
              out.println("<img style=\"width:100%; height:200px\"  src= \"Image/BanniereCirque.png;\"></img>");
              out.println("</div>"); 
@@ -92,7 +92,8 @@ public class Acceuil extends HttpServlet {
                       +"</div>"
                      +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n");
                     SetResearch(request,out);
-                     out.println( "</section>");                                                                                                         
+                     out.println( "</section>");  
+                       SetSetting(request,out);
              out.println("</body>");
              out.println("</html>");
                         
@@ -189,7 +190,7 @@ public class Acceuil extends HttpServlet {
          OpenConnection();
       try{
             CallableStatement Callist = conn.prepareCall("{ call  RECHERCHE.SelectByArtiste(?,?)}");
-            Callist.setString(1,Artiste);
+            Callist.setString(1,"%"+Artiste+"%");
             Callist.registerOutParameter(2,OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(2);        
@@ -307,6 +308,28 @@ public class Acceuil extends HttpServlet {
      
      }
       
+     private void SetSetting(HttpServletRequest request,PrintWriter out){
+         
+      if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
+          out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
+      }
+      else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
+           out.println("<script> GestionSetting(\"Artiste\",\""+request.getParameter("Artiste")+"\")</script>");
+      }
+      else if( request.getParameter("cat0")!=null&&!request.getParameter("cat0").isEmpty()){
+           int i = 0;
+           String value ="";
+           while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
+                 value+= request.getParameter("cat"+i);
+               i++;
+              }
+               
+            out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
+           }
+      }
+     
+        
+         
      
        
        

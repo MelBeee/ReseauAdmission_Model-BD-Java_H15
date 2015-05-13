@@ -34,5 +34,34 @@ window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil?Artiste=' + bo
 function Gestion(){
   var  combo = document.getElementById("combo");
     window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil?Salle=' + combo[combo.selectedIndex].text;
-;
+}
+
+function GestionSetting(){
+   var length = arguments.length;  
+   alert(length);
+    alert(arguments[0]+" "+arguments[1]);
+    if(arguments[0]==="categorie"){      
+       var checkBoxArray =  document.getElementsByClassName("chk_group");
+       
+       for (var i=0; i< checkBoxArray.length; i++){            
+             for (var j=0; j < length; j++){                
+              if( checkBoxArray[i].value === arguments[j]){              
+                  checkBoxArray[i].checked = true;
+              }                 
+          }
+       }
+    }
+    else if(arguments[0]==="Artiste"){       
+        var boxValue = document.getElementById("Rartiste");
+        boxValue.value = arguments[1];
+    }
+    else{
+        var  combo = document.getElementById("combo");
+        	for(var i=0; i<=combo.length; i++){
+                 if (combo[i].text === arguments[1]){
+                     combo.selectedIndex = i;
+                 }                    
+         }   
+    }
+       
 }
