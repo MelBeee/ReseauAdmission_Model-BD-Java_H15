@@ -2,196 +2,134 @@
     ViewBag.Title = "About";
 }
 
-<div class="col-sm-12">
-    <table>
-        <tr> 
-            <td rowspan="6">
-                <div class="btn-group show-on-hover">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width:250px;">
-                        <span class="uneclasse" style="text-align:left;">Chercher par salle</span><span class="glyphicon glyphicon-search"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" style="width:250px;">
-                        <li><a href="#">Metropolis</a></li>
-                        <li><a href="#">Centre Bell</a></li>
-                        <li><a href="#">Parc Jean Drapeau</a></li>
-                        <li><a href="#">New City Gas</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td rowspan="6">
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input type="text" class="  search-query form-control" placeholder="Chercher par artiste" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-info" type="button">
-                                <span class=" glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Jeunesse
-                    </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Theatre
-                    </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Musique
-                    </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Cirque
-                    </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Humour
-                    </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Sport
-                    </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Festival
-                    </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Arts
-                    </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                        Cinéma
-                    </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <button class="btn btn-info btn-block btn-pressure btn-sensitive">Chercher par catégorie</button>
-            </td>
-        </tr>
-    </table>
-</div>
+<style type="text/css">
+    .center-block {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
 
-<div class="container">
 
-    <hgroup class="mb20">
-        <h1>Search Results</h1>
-        <h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>
-    </hgroup>
-
-    <section class="col-xs-12 col-sm-6 col-md-12">
-        <article class="search-result row">
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                    <li><i class="glyphicon glyphicon-calendar"></i> <span>Categorie</span></li>
-                    <li><i class="glyphicon glyphicon-time"></i> <span>Prix Moyen</span></li>
-                    <li><i class="glyphicon glyphicon-tags"></i> <span>Salle</span></li>
+<table style="margin-left:auto; margin-right:auto;">
+    <tr>
+        <td rowspan="5">
+            <div class="btn-group show-on-hover">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width:250px;">
+                    <span class="uneclasse" style="text-align:left;">Chercher par salle</span><span class="glyphicon glyphicon-search"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" style="width:250px;">
+                    <li><a href="#">Metropolis</a></li>
+                    <li><a href="#">Centre Bell</a></li>
+                    <li><a href="#">Parc Jean Drapeau</a></li>
+                    <li><a href="#">New City Gas</a></li>
                 </ul>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
-                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
+        </td>
+        <td rowspan="5">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="  search-query form-control" placeholder="Chercher par artiste" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button">
+                            <span class=" glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
             </div>
-            <span class="clearfix borda"></span>
-        </article>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Jeunesse
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Theatre
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Musique
+                </label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Cirque
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Humour
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Sport
+                </label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Festival
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Arts
+                </label>
+            </div>
+        </td>
+        <td>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Cinéma
+                </label>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <button class="btn btn-info btn-block btn-pressure btn-sensitive">Chercher par catégorie</button>
+        </td>
+    </tr>
+</table>
 
-        <article class="search-result row">
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                    <li><i class="glyphicon glyphicon-calendar"></i> <span>Categorie</span></li>
-                    <li><i class="glyphicon glyphicon-time"></i> <span>Prix Moyen</span></li>
-                    <li><i class="glyphicon glyphicon-tags"></i> <span>Salle</span></li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-7">
-                <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
-                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
-            </div>
-            <span class="clearfix borda"></span>
-        </article>
-
-        <article class="search-result row">
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                    <li><i class="glyphicon glyphicon-calendar"></i> <span>Categorie</span></li>
-                    <li><i class="glyphicon glyphicon-time"></i> <span>Prix Moyen</span></li>
-                    <li><i class="glyphicon glyphicon-tags"></i> <span>Salle</span></li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-7">
-                <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
-                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
-            </div>
-            <span class="clearfix border"></span>
-        </article>
-
-    </section>
-</div>

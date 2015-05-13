@@ -122,7 +122,7 @@ String Telephone;
             out.println("<div class=\"jumbotron\">\n" +
                         "</div>\n");
             
-            out.println("<section style=\"  color: #1fa67b;\n" +
+            out.println("<section style=\"  color: #000000;\n" +
                         "                   font-size: 18px;\n" +
                         "                   text-align: center;\n" +
                         "                   font-weight: bold;\">\n" +
@@ -130,6 +130,8 @@ String Telephone;
                         "</section>"); 
             
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
+            
+            // PAS TOUCHE ^ 
     
 
             out.println("<form action=\"Inscription\" method=\"post\">");
@@ -168,7 +170,11 @@ String Telephone;
                     out.println("</tr>");
                     out.println("<tr>");
                         out.println("<td>");
-                             out.println("<input type=\"submit\" value=\"Inscription\">");
+                   out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n" +
+"                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"button\" >\n" +
+                                " S'inscrire " +
+"                           </button>\n" +
+"                       </span>");
                         out.println("</td>");           
                     out.println("</tr>");
                 out.println("</table>");

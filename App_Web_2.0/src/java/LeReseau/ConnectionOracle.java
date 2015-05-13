@@ -89,7 +89,7 @@ out.println("<!DOCTYPE html>");
             out.println("<div class=\"jumbotron\">\n" +
                         "</div>\n");
              
-            out.println("<section style=\"  color: #1fa67b;\n" +
+            out.println("<section style=\"  color: #000000;\n" +
                         "                   font-size: 18px;\n" +
                         "                   text-align: center;\n" +
                         "                   font-weight: bold;\">\n" +
@@ -98,7 +98,9 @@ out.println("<!DOCTYPE html>");
             
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
           
-                 
+            // PAS TOUCHE ^      
+            
+            
             //Connection de l'usager
             out.println("<form action=\"ConnectionOracle\" method=\"post\">");
                 out.println("<table style=\"position:relative; left:40%;\" >");
