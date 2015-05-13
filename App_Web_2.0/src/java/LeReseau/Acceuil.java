@@ -90,7 +90,7 @@ public class Acceuil extends HttpServlet {
             out.println("<div class=\"jumbotron\">\n" +
                         "</div>\n");
               
-            out.println("<section style=\"  color: #1fa67b;\n" +
+            out.println("<section style=\"  color: #000000;\n" +
                         "                   font-size: 18px;\n" +
                         "                   text-align: center;\n" +
                         "                   font-weight: bold;\">\n" +
@@ -98,12 +98,14 @@ public class Acceuil extends HttpServlet {
                         "</section>"); 
             
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
+            
+            // PAS TOUCHE ^ 
                      
-            out.println("<table>");
+            out.println("<table style=\"margin-left:auto; margin-right:auto;\" >");
             out.println("<tr>");
-            out.println("<td rowspan=\"6\">");
+            out.println("<td rowspan=\"5\" style=\"padding-right:60px;\">");
             // TEXTBOX DES ARTISTES 
-            out.println("<div id=\"custom-search-input\" style=\"width:300px; padding-bottom:5px;\">\n" +
+            out.println("<div id=\"custom-search-input\" style=\"width:300px; padding-bottom:20px; \">\n" +
             "                <div class=\"input-group col-md-12\">\n" +
             "                    <input type=\"text\" class=\"  search-query form-control\" placeholder=\"Chercher par artiste\" />\n" +
             "                    <span class=\"input-group-btn\">\n" +
@@ -113,37 +115,35 @@ public class Acceuil extends HttpServlet {
             "                    </span>\n" +
             "                </div>\n" +
             "            </div>");
-            out.println("</td>");
-            out.println("</tr>");
-            
-            out.println("<tr>");
-            out.println("<td rowspan=\"6\">");
+
             // COMBOBOX DES SALLES 
-            out.println("<div >");
-            out.println("<select id=\"combo\" class=\"form-control\" style=\"width:300px; \">\n");
+            out.println("<div style=\"padding-top:10px;\" >");
+            out.println("<select id=\"combo\" class=\"form-control\" style=\"width:300px;  \">\n");
                 SetComboBox(out);
             out.println("</select >");
-            out.println(" <span class=\"input-group-btn\" style=\"padding-top:5px;\" >\n" +
-"                        <button style=\"width:230px;\" class=\"btn btn-info\" type=\"button\" onclick=\"Gestion();\">\n" +
-                            " Rechercher par salle " +
-"                        </button>\n" +
-"                    </span>");
+            out.println(" <span class=\"input-group-btn\" style=\"padding-top:5px; \" >\n" +
+"                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"button\" onclick=\"Gestion();\">\n" +
+                                " Rechercher par salle " +
+"                           </button>\n" +
+"                       </span>");
             out.println("</div>");
             
             out.println("</td>");
             out.println("</tr>");
             
             // CHECKBOX DES CATEGORIES 
+            out.println("<div style=\"padding-right:10px; padding-left:10px;\" >");
                 SetCheckBoxGroup(out);  
             out.println("<tr>");  
             out.println("<td colspan=\"3\">");
             out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n" +
-"                           <button style=\"width:230px;\" class=\"btn btn-info\" type=\"button\" onclick=\"GestionCheckBox();\">\n" +
+"                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"button\" onclick=\"GestionCheckBox();\">\n" +
                                 " Rechercher par catégorie " +
 "                           </button>\n" +
 "                       </span>");
             out.println("</td>");
             out.println("</tr>");
+            out.println("</div>");
             out.println("</table>");
 
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
@@ -221,21 +221,22 @@ public class Acceuil extends HttpServlet {
             ResultSet rst = (ResultSet)Callist.getObject(1);        
             int cpt = 0;
             while(rst.next()){
-                if(cpt == 0 || cpt == 2 || cpt == 5)
+                if(cpt == 3 || cpt == 6 || cpt == 9)
+                {
+                    out.println("</tr>");
+                } 
+                if(cpt == 0 || cpt == 3 || cpt == 6)
                 {
                     out.println("<tr>");
                 }
-               out.println( "<td> <div class=\"checkbox\">\n" +
-                            "   <label>\n" +
-                            "       <input type=\"checkbox\" value=\"" + rst.getString(1)+ "\">\n" +
-                                    rst.getString(1)+
-                            "   </label>\n" +
+               out.println( "<td> <div class=\"checkbox\">" +
+                            "   <label>" +
+                            "       <input type=\"checkbox\" value=\"" + rst.getString(1)+ "\">" +
+                                    rst.getString(1) +
+                            "   </label>" +
                             " </div> </td>");
-                if(cpt == 0 || cpt == 2 || cpt == 5)
-                {
-                    out.println("</tr>");
-                }
-               cpt++;
+
+               cpt += 1;
             }
       }
       catch(SQLException se){
