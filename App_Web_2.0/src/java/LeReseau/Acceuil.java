@@ -14,6 +14,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,7 @@ public class Acceuil extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           out.println("<!DOCTYPE html>");
+                       out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println(" <script src=\"GestionRecherche.js\"> </script> ");
@@ -55,47 +56,105 @@ public class Acceuil extends HttpServlet {
                         "\n" +
                         "<!-- Latest compiled and minified JavaScript -->\n" +
                         "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
-             out.println("</head>");
-             out.println("<body style=\"background-color:#587C81;\">");               
-             out.println("<div style= \"background-color=\"#587C81;\">");
-             out.println("<img style=\"width:100%; height:200px\"  src= \"Image/BanniereCirque.png;\"></img>");
-             out.println("</div>"); 
-             out.println("<table style=\"border-collapse: separate;  border-spacing: 10px; position:relative; left:40%;\">");
-             out.println("<tr>");
-             out.println("<th colspan=\"6\"><h1>Réseau Admission</h1></th>");                            
-             out.println("</tr>");              
-             out.println("<tr>");
-             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none; color:Red;\">  Accueil  </a></td>");
-             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\" style=\"text-decoration:none;  color:Red;\">   Connexion  </a></td>");
-             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/Inscription\" style=\"text-decoration:none;  color:Red;\"> Inscription  </a></td>");
-             out.println("<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">  Panier </a></td>");
-             out.println("<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">   Historique d'achat </a></td>");
-             out.println( "</tr>");
-             out.println("</table>");
-             out.println("</br>");    
+            out.println("<style>");
+            out.println(".jumbotron {\n" +
+                        "    height:300px;\n" +
+                        "    overflow:hidden;\n" +
+                        "    background-size:cover;\n" +
+                        "    background-image: url(Image/" + getImageAleatoire() + ".png); \n" +
+                        "}");
+            out.println("</style>");
+             out.println("</head>"); 
+             
+             out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">\n" +
+                        "        <div class=\"container\">\n" +
+                        "            <div class=\"navbar-header\">\n" +
+                        "                <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
+                        "                    <span class=\"icon-bar\"></span>\n" +
+                        "                    <span class=\"icon-bar\"></span>\n" +
+                        "                    <span class=\"icon-bar\"></span>\n" +
+                        "                </button>\n" +
+                        "                <p style=\"color:white; font-size:30px;\"> Reseau Admission </p> " +
+                        "            </div>\n" +
+                        "            <div class=\"navbar-collapse collapse\">\n" +
+                        "                <ul class=\"nav navbar-nav\">\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n" +
+                        "                </ul>\n" +
+                        "            </div>\n" +
+                        "        </div>\n" +
+                        "    </div>");
+            out.println("<div class=\"jumbotron\">\n" +
+                        "</div>\n");
+              
+            out.println("<section style=\"  color: #1fa67b;\n" +
+                        "                   font-size: 18px;\n" +
+                        "                   text-align: center;\n" +
+                        "                   font-weight: bold;\">\n" +
+                        "    <h1 style=\"text-align:center; font-size:50px;\">Accueil</h1> \n" +
+                        "</section>"); 
+            
+            out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
                      
-                     
-             out.println("<div>"
-                      + "<form action=\"\" method=\"post\">"
-                      + "<input type=\"text\" name=\"artiste\" id=\"Rartiste\"> "
-                      +"<button type=\"button\" onclick=\"GestionRechercheArtiste();\">Click Me!</button>"
-                      +"</br>"
-                     + "Salle:"
-                         +"<select id=\"combo\">\n" );
-                        SetComboBox(out);
-             out.println( "</select>" 
-                      +"<button type=\"button\" onclick=\"Gestion();\">Click Me!</button>"+
-                       "</br>");
-                       SetCheckBoxGroup(out);            
-            out.println("<button type=\"button\" onclick=\"GestionCheckBox();\">Click Me!</button>"           
-                     +"</form>"
-                      +"</div>"
-                     +" <section class=\"col-xs-12 col-sm-6 col-md-12\">\n");
-                    SetResearch(request,out);
-                     out.println( "</section>");  
-                       SetSetting(request,out);
-             out.println("</body>");
-             out.println("</html>");
+            out.println("<table>");
+            out.println("<tr>");
+            out.println("<td rowspan=\"6\">");
+            // TEXTBOX DES ARTISTES 
+            out.println("<div id=\"custom-search-input\" style=\"width:300px; padding-bottom:5px;\">\n" +
+            "                <div class=\"input-group col-md-12\">\n" +
+            "                    <input type=\"text\" class=\"  search-query form-control\" placeholder=\"Chercher par artiste\" />\n" +
+            "                    <span class=\"input-group-btn\">\n" +
+            "                        <button class=\"btn btn-info\" type=\"button\" onclick=\"GestionRechercheArtiste();\">\n" +
+            "                            <span class=\" glyphicon glyphicon-search\"></span>\n" +
+            "                        </button>\n" +
+            "                    </span>\n" +
+            "                </div>\n" +
+            "            </div>");
+            out.println("</td>");
+            out.println("</tr>");
+            
+            out.println("<tr>");
+            out.println("<td rowspan=\"6\">");
+            // COMBOBOX DES SALLES 
+            out.println("<div >");
+            out.println("<select id=\"combo\" class=\"form-control\" style=\"width:300px; \">\n");
+                SetComboBox(out);
+            out.println("</select >");
+            out.println(" <span class=\"input-group-btn\" style=\"padding-top:5px;\" >\n" +
+"                        <button style=\"width:230px;\" class=\"btn btn-info\" type=\"button\" onclick=\"Gestion();\">\n" +
+                            " Rechercher par salle " +
+"                        </button>\n" +
+"                    </span>");
+            out.println("</div>");
+            
+            out.println("</td>");
+            out.println("</tr>");
+            
+            // CHECKBOX DES CATEGORIES 
+                SetCheckBoxGroup(out);  
+            out.println("<tr>");  
+            out.println("<td colspan=\"3\">");
+            out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n" +
+"                           <button style=\"width:230px;\" class=\"btn btn-info\" type=\"button\" onclick=\"GestionCheckBox();\">\n" +
+                                " Rechercher par catégorie " +
+"                           </button>\n" +
+"                       </span>");
+            out.println("</td>");
+            out.println("</tr>");
+            out.println("</table>");
+
+            out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
+                        
+                SetResearch(request,out);
+            out.println( "</section>");  
+            
+                SetSetting(request,out);
+            
+            out.println("</body>");
+            out.println("</html>");
                         
         }
     }
@@ -160,8 +219,23 @@ public class Acceuil extends HttpServlet {
             Callist.registerOutParameter(1,OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(1);        
+            int cpt = 0;
             while(rst.next()){
-               out.println(   " <input type=\"checkbox\" class=\"chk_group\" value=\"" + rst.getString(1)+"\" />"+rst.getString(1)+"<br />\n" );         
+                if(cpt == 0 || cpt == 2 || cpt == 5)
+                {
+                    out.println("<tr>");
+                }
+               out.println( "<td> <div class=\"checkbox\">\n" +
+                            "   <label>\n" +
+                            "       <input type=\"checkbox\" value=\"" + rst.getString(1)+ "\">\n" +
+                                    rst.getString(1)+
+                            "   </label>\n" +
+                            " </div> </td>");
+                if(cpt == 0 || cpt == 2 || cpt == 5)
+                {
+                    out.println("</tr>");
+                }
+               cpt++;
             }
       }
       catch(SQLException se){
@@ -329,7 +403,38 @@ public class Acceuil extends HttpServlet {
       }
      
         
-         
+    private String getImageAleatoire()
+    {
+        int maximum = 7;
+        int minimum = 1;
+        Random rn = new Random();
+        int range = maximum - minimum + 1;
+        int randomNum =  rn.nextInt(range) + minimum;
+        String imageaAfficher = "BanniereCirque";
+        
+        switch(randomNum)
+        {
+            case 1: imageaAfficher = "BanniereCinema";
+                break;
+            case 2: imageaAfficher = "BanniereArts";
+                break;
+            case 3: imageaAfficher = "BanniereFestival";
+                break;
+            case 4: imageaAfficher = "BanniereMusique";
+                break;
+            case 5: imageaAfficher = "BanniereSport";
+                break;
+            case 6: imageaAfficher = "BanniereTheatre";
+                break;
+            case 7: imageaAfficher = "BanniereCirque";
+                break;
+            default: imageaAfficher = "BanniereCirque";
+                break;
+        }
+        
+        
+        return imageaAfficher;
+    }
      
        
        

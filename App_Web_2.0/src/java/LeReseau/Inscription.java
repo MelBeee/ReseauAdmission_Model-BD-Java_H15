@@ -8,6 +8,7 @@ package LeReseau;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,24 +36,50 @@ String Telephone;
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
+ private String getImageAleatoire()
+    {
+        int maximum = 7;
+        int minimum = 1;
+        Random rn = new Random();
+        int range = maximum - minimum + 1;
+        int randomNum =  rn.nextInt(range) + minimum;
+        String imageaAfficher = "BanniereCirque";
+        
+        switch(randomNum)
+        {
+            case 1: imageaAfficher = "BanniereCinema";
+                break;
+            case 2: imageaAfficher = "BanniereArts";
+                break;
+            case 3: imageaAfficher = "BanniereFestival";
+                break;
+            case 4: imageaAfficher = "BanniereMusique";
+                break;
+            case 5: imageaAfficher = "BanniereSport";
+                break;
+            case 6: imageaAfficher = "BanniereTheatre";
+                break;
+            case 7: imageaAfficher = "BanniereCirque";
+                break;
+            default: imageaAfficher = "BanniereCirque";
+                break;
+        }
+        
+        
+        return imageaAfficher;
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-                out.println("<!DOCTYPE html>");
+     out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<script language=\"javascript\">function isNumber(evt) {\n" +
-                        "    evt = (evt) ? evt : window.event;\n" +
-                        "    var charCode = (evt.which) ? evt.which : evt.keyCode;\n" +
-                        "    if (charCode > 31 && (charCode < 48 || charCode > 57)) {\n" +
-                        "        return false;\n" +
-                        "    }\n" +
-                        "    return true;\n" +
-                        "} "+
-                        "</script>");
+            out.println(" <script src=\"GestionRecherche.js\"> </script> ");
             out.println("<title>Servlet Acceuil</title>"); 
             out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">\n" +
                         "\n" +
@@ -61,24 +88,48 @@ String Telephone;
                         "\n" +
                         "<!-- Latest compiled and minified JavaScript -->\n" +
                         "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
-             out.println("</head>");
-             out.println("<body style=\"background-color:#587C81;\">");         
-             out.println("<div style= \"background-color=\"#587C81;\">");
-             out.println("<img style=\"width:100%; height:200px\"  src= \"Image/BanniereCirque.png;\"></img>");
-             out.println("</div>"); 
-             out.println("<table style=\"border-collapse: separate;  border-spacing: 10px; position:relative; left:40%;\">");
-             out.println("<tr>");
-             out.println("<th colspan=\"6\"><h1>Réseau Admission</h1></th>");                            
-             out.println("</tr>");              
-             out.println("<tr>");
-             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">  Accueil  </a></td>");
-             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\" style=\"text-decoration:none;  color:Red;\">   Connexion  </a></td>");
-             out.println( "<td><a href=\"http://localhost:8084/App_Web_2.0/Inscription\" style=\"text-decoration:none;  color:Red;\"> Inscription  </a></td>");
-             out.println("<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">  Panier </a></td>");
-             out.println("<td><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\" style=\"text-decoration:none;  color:Red;\">   Historique d'achat </a></td>");
-             out.println( "</tr>");
-             out.println("</table>");
-             out.println("</br>");       
+            out.println("<style>");
+            out.println(".jumbotron {\n" +
+                        "    height:300px;\n" +
+                        "    overflow:hidden;\n" +
+                        "    background-size:cover;\n" +
+                        "    background-image: url(Image/" + getImageAleatoire() + ".png); \n" +
+                        "}");
+            out.println("</style>");
+             out.println("</head>"); 
+             
+             out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">\n" +
+                        "        <div class=\"container\">\n" +
+                        "            <div class=\"navbar-header\">\n" +
+                        "                <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
+                        "                    <span class=\"icon-bar\"></span>\n" +
+                        "                    <span class=\"icon-bar\"></span>\n" +
+                        "                    <span class=\"icon-bar\"></span>\n" +
+                        "                </button>\n" +
+                        "                <p style=\"color:white; font-size:30px;\"> Reseau Admission </p> " +
+                        "            </div>\n" +
+                        "            <div class=\"navbar-collapse collapse\">\n" +
+                        "                <ul class=\"nav navbar-nav\">\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n" +
+                        "                </ul>\n" +
+                        "            </div>\n" +
+                        "        </div>\n" +
+                        "    </div>");
+            out.println("<div class=\"jumbotron\">\n" +
+                        "</div>\n");
+            
+            out.println("<section style=\"  color: #1fa67b;\n" +
+                        "                   font-size: 18px;\n" +
+                        "                   text-align: center;\n" +
+                        "                   font-weight: bold;\">\n" +
+                        "    <h1 style=\"text-align:center; font-size:50px;\">Inscription</h1> \n" +
+                        "</section>"); 
+            
+            out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
     
 
             out.println("<form action=\"Inscription\" method=\"post\">");
@@ -126,6 +177,7 @@ String Telephone;
             out.println("</body>");
             out.println("</html>");
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

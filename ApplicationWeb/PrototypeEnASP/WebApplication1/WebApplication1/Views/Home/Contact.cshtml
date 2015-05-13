@@ -4,14 +4,24 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<table>
+    <tr>
+        <td>
+            <select class="form-control">
+                SetComboBox(out);
+            </select>
+        </td>
+        <td>
+            <div id="custom-search-input" style="width:200px; padding-bottom:5px;">
+                <div class="input-group col-md-12">
+                    <input type="text" class="  search-query form-control" placeholder="Chercher par artiste" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" onclick="GestionRechercheArtiste();">
+                            <span class=" glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
