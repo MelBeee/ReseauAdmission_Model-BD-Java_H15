@@ -395,10 +395,10 @@ public class Acceuil extends HttpServlet {
            int i = 0;
            String value ="";
            while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
-                 value+= request.getParameter("cat"+i);
+                 value+= "\"" + request.getParameter("cat"+i)+ "\"" + ",";
                i++;
               }
-               
+               value = value.substring(1,value.length() - 2);
             out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
            }
       }
