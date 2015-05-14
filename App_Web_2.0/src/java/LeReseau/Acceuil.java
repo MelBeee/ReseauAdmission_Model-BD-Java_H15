@@ -107,7 +107,7 @@ public class Acceuil extends HttpServlet {
             // TEXTBOX DES ARTISTES 
             out.println("<div id=\"custom-search-input\" style=\"width:300px; padding-bottom:20px; \">\n" +
             "                <div class=\"input-group col-md-12\">\n" +
-            "                    <input type=\"text\" class=\"  search-query form-control\" placeholder=\"Chercher par artiste\" />\n" +
+            "                    <input id=\"Rartiste\" type=\"text\" class=\"  search-query form-control\" placeholder=\"Chercher par artiste\" />\n" +
             "                    <span class=\"input-group-btn\">\n" +
             "                        <button class=\"btn btn-info\" type=\"button\" onclick=\"GestionRechercheArtiste();\">\n" +
             "                            <span class=\" glyphicon glyphicon-search\"></span>\n" +
@@ -231,7 +231,7 @@ public class Acceuil extends HttpServlet {
                 }
                out.println( "<td> <div class=\"checkbox\">" +
                             "   <label>" +
-                            "       <input type=\"checkbox\" value=\"" + rst.getString(1)+ "\">" +
+                            "       <input class=\"chk_group\" type=\"checkbox\" value=\"" + rst.getString(1)+ "\">" +
                                     rst.getString(1) +
                             "   </label>" +
                             " </div> </td>");

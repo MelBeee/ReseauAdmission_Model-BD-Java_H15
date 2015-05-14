@@ -9,7 +9,7 @@ var nb = 0;
  { 
   var checkBoxRef = checkBoxArray[i];
    
-  if ( checkBoxRef.checked == true ) 
+  if ( checkBoxRef.checked === true ) 
   {
     if ( checkedValues.length > 0 ){  
      checkedValues += 'cat'+nb +'=';
