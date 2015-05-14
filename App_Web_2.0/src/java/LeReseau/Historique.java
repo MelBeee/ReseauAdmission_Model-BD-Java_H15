@@ -7,7 +7,9 @@ package LeReseau;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import oracle.jdbc.pool.OracleDataSource;
 import java.util.Random;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -79,20 +82,21 @@ public class Historique extends HttpServlet {
              
             out.println("<section style=\"  color: #000000;\n" +
                         "                   font-size: 18px;\n" +
-                        "                   text-align: center;\n" +
                         "                   font-weight: bold;\">\n" +
                         "    <h1 style=\"text-align:center; font-size:50px;\">Mes factures</h1> \n" +
                         "</section>"); 
             
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
-            if(EstConnecte)
-            {
-                
-            }
-            else
-            {
-                
-            }
+            
+            out.println("<div style=\"height:600px; width:70%; overflow:auto; background-color:lightgrey; margin:auto;\">");
+            out.println("<div style=\"width:95%;\">");
+            GetFacture(out);
+            out.println("</div>");
+            out.println("</div>");
+            
+            out.println("<div style=\"height:50px; width:100%; overflow:auto; background-color:white; margin:auto;\">");
+            out.println("</div>");
+            
             out.println("</body>");
             out.println("</html>");
         }
@@ -129,6 +133,103 @@ public class Historique extends HttpServlet {
         
         
         return imageaAfficher;
+    }
+    
+    private void GetFacture(PrintWriter out)
+    {
+        OpenConnection();
+        int idclient = 4;
+        try
+        {
+            CallableStatement Callist = conn.prepareCall("{call facturation.getlesfactures(?, ?) }");
+            Callist.setInt(1, idclient);
+            Callist.registerOutParameter(2, OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(2);
+            
+            while(rst.next())
+            {
+                out.println(" <article class=\"search-result row\">\n" +
+                            "   <div class=\" col-md-2\">\n" +
+                            "       <ul class=\"meta-search\" style=\"list-style-type: none; color:black; font-size:18px;\">\n" +
+                            "           <li><i class=\"glyphicon glyphicon-barcode\"></i> <span>"+rst.getInt(1)+"</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(2)+"</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-print\"></i> <span>"+ AnalyseImprime(rst.getString(3)) + "</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-usd\"></i> <span>"+rst.getInt(4)+"</span></li>\n" +
+                            "       </ul>\n" +
+                            "   </div>");
+                out.println("<div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\" style=\"width:80%;\">\n" +
+                            "   <table style=\"width: 100%; color: black; font-size: 15px;\">");
+                out.println("<tr style=\"font-weight:bold;\"><td>Spectacle</td><td>Salle</td><td>Section</td><td>Date et Heure</td><td>Nombre</td><td>Prix/Billet</td></tr>");
+                GetVenteBillet(rst.getInt(1), out);
+                out.println("   </table>\n" +
+                            "</div>");
+                out.println(" </article>\n" +
+                            " <hr style=\"height: 1px; border: none; margin: 0px; color: gray; background-color: gray;\" />");
+            }
+        }
+        catch(SQLException se)
+        {
+            
+        }
+        finally
+        {
+            CloseConnection();
+        }
+    }
+    
+    private void GetVenteBillet(int idfacture, PrintWriter out)
+    {
+        OpenConnection();
+        try
+        {
+            CallableStatement Callist = conn.prepareCall("{call facturation.getlesventes(?, ?) }");
+            Callist.setInt(1, idfacture);
+            Callist.registerOutParameter(2, OracleTypes.CURSOR);
+            Callist.execute();
+            ResultSet rst = (ResultSet)Callist.getObject(2);
+            
+            int cpt = 1; 
+            while(rst.next())
+            {
+                if(cpt%2==0)
+                {
+                    out.println("<tr style=\"background-color:#C5CADE;\">"); 
+                }
+                else
+                {
+                    out.println("<tr style=\"background-color:#BACEDB;\">"); 
+                }
+                out.println("<td>" + cpt + ". " + rst.getString(2) + "</td>");
+                out.println("<td> <span class=\"glyphicon glyphicons-google-maps\"></span> " + rst.getString(6) + "</td>");
+                out.println("<td> "+ rst.getString(7) + "</td>");
+                out.println("<td> <span class=\"glyphicon glyphicons-calendar\"></span> " + rst.getString(4) + " </td>");
+                out.println("<td> <span class=\"glyphicon glyphicons-sampler\"></span> " + rst.getInt(1) + " billets </td>");
+                out.println("<td> <span class=\"glyphicon glyphicons-coins\"></span> " + rst.getInt(5) + "$ </td>");
+                out.println("</tr>");
+                cpt ++;
+            }   
+        }
+        catch(SQLException se)
+        {
+
+        }
+        finally
+        {
+            CloseConnection();
+        }
+    }
+    
+    private String AnalyseImprime(String imprime)
+    {
+        String imprimeoupas = "Imprime";
+        
+        if(imprime == "1")
+        {
+            imprimeoupas = "Pas Imprime";
+        }
+        
+        return imprimeoupas;
     }
            
  /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
