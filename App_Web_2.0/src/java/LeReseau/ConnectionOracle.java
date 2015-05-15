@@ -129,7 +129,11 @@ public class ConnectionOracle extends HttpServlet {
                     out.println("</tr>");
                     out.println("<tr>");
                         out.println("<td>");
-                                out.println("<input type=\"submit\" value=\"Connecter\">"); 
+                            out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
+                                    + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
+                                    + " Connexion "
+                                    + "                           </button>\n"
+                                    + "                       </span>");
                         out.println("</td>");
                     out.println("</tr>");
                 out.println("</table>");
