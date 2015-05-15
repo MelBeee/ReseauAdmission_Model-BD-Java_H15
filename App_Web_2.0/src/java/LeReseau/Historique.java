@@ -171,7 +171,6 @@ public class Historique extends HttpServlet {
 
     private void GetFacture(PrintWriter out) {
         OpenConnection();
-
         try {
             CallableStatement Callist = conn.prepareCall("{call facturation.getlesfactures(?, ?) }");
             Callist.setInt(1, idclient);

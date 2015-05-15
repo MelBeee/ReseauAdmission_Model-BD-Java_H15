@@ -25,44 +25,6 @@ public class Inscription extends HttpServlet {
     Connection conn = null;
     boolean FlagErreurInscription = false;
 
-    private String getImageAleatoire() {
-        int maximum = 7;
-        int minimum = 1;
-        Random rn = new Random();
-        int range = maximum - minimum + 1;
-        int randomNum = rn.nextInt(range) + minimum;
-        String imageaAfficher = "BanniereCirque";
-
-        switch (randomNum) {
-            case 1:
-                imageaAfficher = "BanniereCinema";
-                break;
-            case 2:
-                imageaAfficher = "BanniereArts";
-                break;
-            case 3:
-                imageaAfficher = "BanniereFestival";
-                break;
-            case 4:
-                imageaAfficher = "BanniereMusique";
-                break;
-            case 5:
-                imageaAfficher = "BanniereSport";
-                break;
-            case 6:
-                imageaAfficher = "BanniereTheatre";
-                break;
-            case 7:
-                imageaAfficher = "BanniereCirque";
-                break;
-            default:
-                imageaAfficher = "BanniereCirque";
-                break;
-        }
-
-        return imageaAfficher;
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -139,6 +101,44 @@ public class Inscription extends HttpServlet {
         }
 
     }
+    
+     private String getImageAleatoire() {
+        int maximum = 7;
+        int minimum = 1;
+        Random rn = new Random();
+        int range = maximum - minimum + 1;
+        int randomNum = rn.nextInt(range) + minimum;
+        String imageaAfficher = "BanniereCirque";
+
+        switch (randomNum) {
+            case 1:
+                imageaAfficher = "BanniereCinema";
+                break;
+            case 2:
+                imageaAfficher = "BanniereArts";
+                break;
+            case 3:
+                imageaAfficher = "BanniereFestival";
+                break;
+            case 4:
+                imageaAfficher = "BanniereMusique";
+                break;
+            case 5:
+                imageaAfficher = "BanniereSport";
+                break;
+            case 6:
+                imageaAfficher = "BanniereTheatre";
+                break;
+            case 7:
+                imageaAfficher = "BanniereCirque";
+                break;
+            default:
+                imageaAfficher = "BanniereCirque";
+                break;
+        }
+
+        return imageaAfficher;
+    }
 
     private void BoxInscription(PrintWriter out, boolean FlagErreurInscription) {
         if (FlagErreurInscription) {
@@ -175,13 +175,13 @@ public class Inscription extends HttpServlet {
         out.println("Telephone :");
         out.println("</td>");
         out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"10\" value=\"\" id=\"extra7\" name=\"extra7\" onkeypress=\"return isNumber(event)\" /><br>");
+        out.println("<input type=\"text\" maxlength=\"10\" value=\"\" id=\"Telephone\" name=\"Telephone\" onkeypress=\"return isNumber(event)\" /><br>");
         out.println("</td>");
         out.println("</tr>");
         out.println("<tr>");
         out.println("<td>");
         out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
-                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"button\" >\n"
+                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
                 + " S'inscrire "
                 + "                           </button>\n"
                 + "                       </span>");
@@ -245,39 +245,42 @@ public class Inscription extends HttpServlet {
             Password = request.getParameter("Password");
             Adresse = request.getParameter("Adresse");
             Telephone = request.getParameter("Telephone");
-
-            if (InscriptionClient(Username, Password, Adresse, Telephone)) 
+            
+            if(Username != "" && Password != "" && Adresse != "" && Telephone != "")
             {
-                response.sendRedirect("Acceuil");
-            } else {
+                if (InscriptionClient(Username, Password, Adresse, Telephone)) 
+                {
+                    response.sendRedirect("Acceuil");
+                } else {
+                    FlagErreurInscription = true;
+                    processRequest(request, response);
+                }
+            }
+            else
+            {
                 FlagErreurInscription = true;
                 processRequest(request, response);
             }
         }
     }
 
-    private boolean InscriptionClient(String Username, String Password, String Adresse, String Telephone) {
+    private boolean InscriptionClient(String Username1, String Password, String Adresse, String Telephone) {
         boolean InscriptionReussie = false;
         try {
             OpenConnection();
             try (CallableStatement CheckUsername = conn.prepareCall("{ call GESTIONUSAGER.USAGEREXISTE(?, ?)}")) {
-                CheckUsername.setString(1, Username);
+                CheckUsername.setString(1, Username1);
                 CheckUsername.registerOutParameter(2, OracleTypes.CURSOR);
                 CheckUsername.execute();
-                ResultSet rst = (ResultSet)CheckUsername.getObject(1);
-                log("test avant rst.next()");
+                ResultSet rst = (ResultSet)CheckUsername.getObject(2);
                 if(rst.next())
                 {
-                    log("test apres rst.next()");
-                    log("test de value de rst.getint" + rst.getString(1));
-                    if (rst.getString(1) == Username)
-                    {
-                        log("test de value apres si == de rst.getint" + rst.getString(1));
-                        
+                    if (rst.getString(1) != Username1)
+                    {                      
                         try (CallableStatement InscriptionStm = conn.prepareCall("{call GESTIONUSAGER.AUTHENTIFICATI0N(?,?,?,?)}")) {
                             InscriptionStm.setString(1, Adresse);
                             InscriptionStm.setString(2, Telephone);
-                            InscriptionStm.setString(3, Username);
+                            InscriptionStm.setString(3, Username1);
                             InscriptionStm.setString(4, Password);
                             InscriptionStm.executeUpdate();
                             InscriptionReussie = true;

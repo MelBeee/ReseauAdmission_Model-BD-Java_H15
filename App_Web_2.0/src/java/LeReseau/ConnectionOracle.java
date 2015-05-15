@@ -260,7 +260,6 @@ public class ConnectionOracle extends HttpServlet {
       
         if(ConnectionUsager(Username, Password))
         {
-            
             HttpSession session = request.getSession();
             session.setAttribute("UserName", Username);
             response.sendRedirect("Acceuil");
