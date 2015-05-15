@@ -1,11 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//div contain back color #BCD6DA
-  //DIV RECHERCHE BACK COLOR #6E9DA3
 package LeReseau;
 
 import java.io.IOException;
@@ -14,35 +6,32 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
 
-/**
- *
- * @author 201037629
- */
+
 @WebServlet(name = "Acceuil", urlPatterns = {"/Acceuil"})
 public class Acceuil extends HttpServlet {
  Connection conn = null;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+     Integer idclient;
+
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         
         try (PrintWriter out = response.getWriter()) {
+            
+            HttpSession session  = request.getSession();          
+           
+            idclient = GetClientID((String)session.getAttribute("UserName"));  
             /* TODO output your page here. You may use following sample code. */
                        out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -78,10 +67,17 @@ public class Acceuil extends HttpServlet {
                         "            </div>\n" +
                         "            <div class=\"navbar-collapse collapse\">\n" +
                         "                <ul class=\"nav navbar-nav\">\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n");        
+                        if(idclient == null)
+                        {
+                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n");
+                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n"); 
+                        }
+                        else
+                        {
+                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Deconnection  </a></li>\n");
+                        }                   
+                        out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n" +
                         "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n" +
                         "                </ul>\n" +
                         "            </div>\n" +
@@ -159,6 +155,28 @@ public class Acceuil extends HttpServlet {
         }
     }
      
+    private Integer GetClientID(String Username)
+    {
+        Integer LeID = null;
+        OpenConnection();
+        ResultSet rst;
+        try
+        {
+            Statement stmGetClientID = conn.createStatement();
+            stmGetClientID.execute("Select idclient from client where Username = '"+Username+"'");
+            rst = stmGetClientID.getResultSet();
+            while(rst.next())
+            {
+                LeID = rst.getInt(1);
+            }            
+        }catch(SQLException ez)
+        {
+            
+        }
+        
+        CloseConnection();
+        return LeID;
+    }
     private void ResearchAll(PrintWriter out){
       OpenConnection();
       try{

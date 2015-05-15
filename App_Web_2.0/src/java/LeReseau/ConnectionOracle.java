@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package LeReseau;
 
 import java.io.IOException;
@@ -18,32 +14,29 @@ import java.util.Random;
 import oracle.jdbc.OracleDriver;
 import javax.servlet.http.HttpSession;
 import oracle.jdbc.OracleTypes;
+import oracle.jdbc.pool.OracleDataSource;
 
-/**
- *
- * @author 201356187
- */
+
 @WebServlet(name = "ConnectionOracle", urlPatterns = {"/ConnectionOracle"})
 public class ConnectionOracle extends HttpServlet {
     
     String url = "jdbc:oracle:thin:@205.237.244.251:1521:orcl";
     String Username ;
     String Password;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    Integer idclient;
+    Connection conn = null;
+    boolean FlagErreurConnection =false;
+  
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            HttpSession session  = request.getSession(); 
+            session.invalidate();   
             /* TODO output your page here. You may use following sample code. */
-out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println(" <script src=\"GestionRecherche.js\"> </script> ");
@@ -63,9 +56,9 @@ out.println("<!DOCTYPE html>");
                         "    background-image: url(Image/" + getImageAleatoire() + ".png); \n" +
                         "}");
             out.println("</style>");
-             out.println("</head>"); 
+            out.println("</head>"); 
              
-             out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">\n" +
+            out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">\n" +
                         "        <div class=\"container\">\n" +
                         "            <div class=\"navbar-header\">\n" +
                         "                <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
@@ -77,10 +70,10 @@ out.println("<!DOCTYPE html>");
                         "            </div>\n" +
                         "            <div class=\"navbar-collapse collapse\">\n" +
                         "                <ul class=\"nav navbar-nav\">\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n" +
+                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n");                   
+                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n");
+                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n");                                          
+                        out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n" +
                         "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n" +
                         "                </ul>\n" +
                         "            </div>\n" +
@@ -88,7 +81,7 @@ out.println("<!DOCTYPE html>");
                         "    </div>");
             out.println("<div class=\"jumbotron\">\n" +
                         "</div>\n");
-             
+              
             out.println("<section style=\"  color: #000000;\n" +
                         "                   font-size: 18px;\n" +
                         "                   text-align: center;\n" +
@@ -102,14 +95,28 @@ out.println("<!DOCTYPE html>");
             
             
             //Connection de l'usager
-            out.println("<form action=\"ConnectionOracle\" method=\"post\">");
+            BoxConnection(out,FlagErreurConnection);
+            FlagErreurConnection = false;
+             
+            
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+    private void BoxConnection(PrintWriter out, boolean FlagErreurConnection )
+    {
+               if(FlagErreurConnection)
+                   out.println("Erreur dans vos paremètre de connexion!");
+                           
+                           
+               out.println("<form action=\"ConnectionOracle\" method=\"post\">");
                 out.println("<table style=\"position:relative; left:40%;\" >");
                     out.println("<tr>");
                         out.println("<td>");
                             out.println("Username :");                           
                         out.println("</td>");
                         out.println("<td>");
-                            out.println("<input type=\"text\" name=\"Username\" value=\"Nom d'utilisateur\"><br>");
+                            out.println("<input type=\"text\" name=\"Username\" placeholder=\"Nom d'utilisateur\"><br>");
                         out.println("</td>");
                     out.println("</tr>");
                     out.println("<tr>");
@@ -117,7 +124,7 @@ out.println("<!DOCTYPE html>");
                                 out.println("Password :");                           
                         out.println("</td>");
                         out.println("<td>");
-                                out.println("<input type=\"Password\" name=\"Password\" value=\"Password\"><br>"); 
+                                out.println("<input type=\"Password\" name=\"Password\" placeholder=\"Password\"><br>"); 
                         out.println("</td>");
                     out.println("</tr>");
                     out.println("<tr>");
@@ -128,11 +135,50 @@ out.println("<!DOCTYPE html>");
                 out.println("</table>");
             out.println("</form>");           
             
-             
+    }
+    private Integer GetClientID(String Username)
+    {
+        Integer LeID = null;
+        OpenConnection();
+        ResultSet rst;
+        try
+        {
+            Statement stmGetClientID = conn.createStatement();
+            stmGetClientID.execute("Select idclient from client where Username = '"+Username+"'");
+            rst = stmGetClientID.getResultSet();
+            while(rst.next())
+            {
+                LeID = rst.getInt(1);
+            }            
+        }catch(SQLException ez)
+        {
             
-            out.println("</body>");
-            out.println("</html>");
         }
+        
+        CloseConnection();
+        return LeID;
+    }
+   
+    private void OpenConnection(){    
+        try
+        {
+            OracleDataSource ods = new OracleDataSource();
+            ods.setURL("jdbc:oracle:thin:@205.237.244.251:1521:orcl");
+            ods.setUser("BoucherM");
+            ods.setPassword("ORACLE2");
+            this.conn = ods.getConnection();       
+        }
+        catch(SQLException se){       
+        }
+        
+    }
+    private void CloseConnection(){
+    
+     try{
+         this.conn.close();
+     }
+     catch(SQLException se){
+     }
     }
     
     private String getImageAleatoire()
@@ -173,8 +219,7 @@ out.println("<!DOCTYPE html>");
         boolean ConnexionReussie = false;
         try
         {
-             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-             Connection conn = DriverManager.getConnection(url,"BoucherM","ORACLE2");
+             OpenConnection();
              CallableStatement  ConnexionStm = conn.prepareCall("{ ? = call GESTIONUSAGER.CONNEXION(?,?)}");         
              ConnexionStm.registerOutParameter(1, OracleTypes.INTEGER);
              ConnexionStm.setString(2, Username);
@@ -189,18 +234,14 @@ out.println("<!DOCTYPE html>");
         {           
             
         }
+        finally
+        {
+            CloseConnection();
+        }
         return ConnexionReussie;
         
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -208,41 +249,30 @@ out.println("<!DOCTYPE html>");
    
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {       
-        try (PrintWriter out = response.getWriter()) {
-            
-       HttpSession session = request.getSession();    
+        try (PrintWriter out = response.getWriter()) {            
+         
        Username = request.getParameter("Username");
        Password = request.getParameter("Password");
       
         if(ConnectionUsager(Username, Password))
         {
-            response.sendRedirect("Acceuil");
-            session.setAttribute("UserName", Username);
-        }else
-        {
-            out.println("<h1 style =\"Color:Red\"> Veuillez entrez un Nom d'usager ou un mot de passe valide </h1>");
-            processRequest(request, response);
             
+            HttpSession session = request.getSession();
+            session.setAttribute("UserName", Username);
+            response.sendRedirect("Acceuil");
+            
+        }else
+        {            
+            FlagErreurConnection=true;
+            processRequest(request, response);             
         }
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
