@@ -260,35 +260,35 @@ public class Inscription extends HttpServlet {
         boolean InscriptionReussie = false;
         try {
             OpenConnection();
-            CallableStatement CheckUsername = conn.prepareCall("{ ? = call GESTIONUSAGER.USERNAMEEXISTE(?)}");
-            CheckUsername.registerOutParameter(1, OracleTypes.INTEGER);
-            CheckUsername.setString(2, Username);
-            CheckUsername.execute();
-            ResultSet rst = (ResultSet)CheckUsername.getObject(1);
-            System.out.println("test");
-            if(rst.next())
-            {
-                System.out.println("test" + rst.getInt(1));
-                if (rst.getInt(1) == 0) 
-                { 
-                    System.out.println("test" + rst.getInt(1));
-                    
-                    CallableStatement InscriptionStm = conn.prepareCall("{call GESTIONUSAGER.AUTHENTIFICATI0N(?,?,?,?)}");
-
-                    InscriptionStm.setString(1, Adresse);
-                    InscriptionStm.setString(2, Telephone);
-                    InscriptionStm.setString(3, Username);
-                    InscriptionStm.setString(4, Password);
-                    InscriptionStm.executeUpdate();
-                    InscriptionReussie = true;
-                    
-                    InscriptionStm.clearParameters();
-                    InscriptionStm.close();
-                }            
+            try (CallableStatement CheckUsername = conn.prepareCall("{ call GESTIONUSAGER.USAGEREXISTE(?, ?)}")) {
+                CheckUsername.setString(1, Username);
+                CheckUsername.registerOutParameter(2, OracleTypes.CURSOR);
+                CheckUsername.execute();
+                ResultSet rst = (ResultSet)CheckUsername.getObject(1);
+                log("test avant rst.next()");
+                if(rst.next())
+                {
+                    log("test apres rst.next()");
+                    log("test de value de rst.getint" + rst.getString(1));
+                    if (rst.getString(1) == Username)
+                    {
+                        log("test de value apres si == de rst.getint" + rst.getString(1));
+                        
+                        try (CallableStatement InscriptionStm = conn.prepareCall("{call GESTIONUSAGER.AUTHENTIFICATI0N(?,?,?,?)}")) {
+                            InscriptionStm.setString(1, Adresse);
+                            InscriptionStm.setString(2, Telephone);
+                            InscriptionStm.setString(3, Username);
+                            InscriptionStm.setString(4, Password);
+                            InscriptionStm.executeUpdate();
+                            InscriptionReussie = true;
+                            
+                            InscriptionStm.clearParameters();
+                        }
+                    }
+                }
+                
+                CheckUsername.clearParameters();
             }
-            
-            CheckUsername.clearParameters();
-            CheckUsername.close();
         } catch (SQLException ez) 
         {
             
