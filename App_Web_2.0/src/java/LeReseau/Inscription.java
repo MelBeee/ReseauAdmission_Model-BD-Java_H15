@@ -101,8 +101,8 @@ public class Inscription extends HttpServlet {
         }
 
     }
-    
-     private String getImageAleatoire() {
+
+    private String getImageAleatoire() {
         int maximum = 7;
         int minimum = 1;
         Random rn = new Random();
@@ -144,51 +144,37 @@ public class Inscription extends HttpServlet {
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
-        out.println("<form action=\"Inscription\" method=\"post\">");
-        out.println("<table style=\"position:relative; left:40%;\">");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Username :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"20\" name=\"Username\"><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Password :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"Password\" maxlength=\"20\" name=\"Password\"><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Addresse :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"100\" name=\"Adresse\"><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Telephone :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"10\" value=\"\" id=\"Telephone\" name=\"Telephone\" onkeypress=\"return isNumber(event)\" /><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
+        out.println("<section id=\"login\" style=\"padding-top: 15px\">");
+        out.println("	<div class=\"container\">\n"
+                + "        <div class=\"row\">\n"
+                + "            <div class=\"col-xs-12\">\n"
+                + "                <div class=\"form-wrap\">\n"
+                + "                    <div class=\"col-xs-2 col-xs-12\" style=\"margin-left: 10px\">\n"
+                + "                        <form role=\"form\" action=\"javascript:;\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
+                + "                            <div class=\"form-group\">\n"
+                + "                                <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
+                + "                            </div>\n"
+                + "                            <div class=\"form-group\">\n"
+                + "                                <input type=\"password\" name=\"Password\" maxlength=\"20\" class=\"form-control\" placeholder=\"Mot de passe\">\n"
+                + "                            </div>\n"
+                + "                            <div class=\"form-group\">\n"
+                + "                                <input type=\"text\" name=\"Adresse\" maxlength=\"100\" class=\"form-control\" placeholder=\"Adresse\">\n"
+                + "                            </div>\n"
+                + "                            <div class=\"form-group\">\n"
+                + "                                <input type=\"text\" name=\"Telephone\" maxlength=\"10\" class=\"form-control\" placeholder=\"Telephone\" onkeypress=\"return isNumber(event)\">\n"
+                + "                            </div>\n");
         out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
                 + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
                 + " S'inscrire "
                 + "                           </button>\n"
                 + "                       </span>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("</table>");
-        out.println("</form>");
+        out.println("                        </form>\n"
+                + "                    </div>\n"
+                + "                </div>\n"
+                + "            </div> \n"
+                + "        </div> \n"
+                + "    </div> ");
+        out.println("</section>");
 
     }
 
@@ -245,19 +231,15 @@ public class Inscription extends HttpServlet {
             Password = request.getParameter("Password");
             Adresse = request.getParameter("Adresse");
             Telephone = request.getParameter("Telephone");
-            
-            if(Username != "" && Password != "" && Adresse != "" && Telephone != "")
-            {
-                if (InscriptionClient(Username, Password, Adresse, Telephone)) 
-                {
+
+            if (Username != "" && Password != "" && Adresse != "" && Telephone != "") {
+                if (InscriptionClient(Username, Password, Adresse, Telephone)) {
                     response.sendRedirect("Acceuil");
                 } else {
                     FlagErreurInscription = true;
                     processRequest(request, response);
                 }
-            }
-            else
-            {
+            } else {
                 FlagErreurInscription = true;
                 processRequest(request, response);
             }
@@ -272,11 +254,9 @@ public class Inscription extends HttpServlet {
                 CheckUsername.setString(1, Username1);
                 CheckUsername.registerOutParameter(2, OracleTypes.CURSOR);
                 CheckUsername.execute();
-                ResultSet rst = (ResultSet)CheckUsername.getObject(2);
-                if(rst.next())
-                {
-                    if (rst.getString(1) != Username1)
-                    {                      
+                ResultSet rst = (ResultSet) CheckUsername.getObject(2);
+                if (rst.next()) {
+                    if (rst.getString(1) != Username1) {
                         try (CallableStatement InscriptionStm = conn.prepareCall("{call GESTIONUSAGER.AUTHENTIFICATI0N(?,?,?,?)}")) {
                             InscriptionStm.setString(1, Adresse);
                             InscriptionStm.setString(2, Telephone);
@@ -284,19 +264,17 @@ public class Inscription extends HttpServlet {
                             InscriptionStm.setString(4, Password);
                             InscriptionStm.executeUpdate();
                             InscriptionReussie = true;
-                            
+
                             InscriptionStm.clearParameters();
                         }
                     }
                 }
-                
+
                 CheckUsername.clearParameters();
             }
-        } catch (SQLException ez) 
-        {
-            
-        } 
-        finally {
+        } catch (SQLException ez) {
+
+        } finally {
             CloseConnection();
         }
         return InscriptionReussie;
