@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import oracle.jdbc.pool.OracleDataSource;
 public class Acceuil extends HttpServlet {
  Connection conn = null;
      Integer idclient;
+     Cookie lastRecherche = null;
 
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -144,10 +146,10 @@ public class Acceuil extends HttpServlet {
 
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
                         
-                SetResearch(request,out);
+                SetResearch(request,out,response);
             out.println( "</section>");  
             
-                SetSetting(request,out);
+                SetSetting(request,out,response);
             
             out.println("</body>");
             out.println("</html>");
@@ -263,9 +265,27 @@ public class Acceuil extends HttpServlet {
         CloseConnection();
       }
     }
-     private void SetResearch(HttpServletRequest request,PrintWriter out){
+     private void SetResearch(HttpServletRequest request,PrintWriter out,HttpServletResponse response){
       if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
            SetResearchBySalle(out,request.getParameter("Salle"));
+           if(  lastRecherche!= null){
+            lastRecherche = new Cookie("Salle",request.getParameter("Salle"));
+           lastRecherche.setMaxAge(100000000);
+           
+           response.addCookie(lastRecherche);
+           SetResearchBySalle(out,request.getParameter("Salle"));
+           }
+           else
+           {
+                lastRecherche.setValue(request.getParameter("Salle"));
+               
+             Cookie[] tab = request.getCookies();
+             for (Cookie cookie :tab) {       
+               if(cookie.getName().equals("Salle"))   
+                   SetResearchBySalle(out,cookie.getValue());
+           }
+           
+           }     
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
           SetResearchArtiste(out,request.getParameter("Artiste"));
@@ -401,10 +421,19 @@ public class Acceuil extends HttpServlet {
      
      }
       
-     private void SetSetting(HttpServletRequest request,PrintWriter out){
+     private void SetSetting(HttpServletRequest request,PrintWriter out ,HttpServletResponse response){
          
+          Cookie[] tab = request.getCookies();
+          for (Cookie cookie :tab) {       
+          if(cookie.getName().equals("Salle"))           
+          out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue()+"\")</script>");
+          
+          }
+          
       if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
+         
           out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
+          
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
            out.println("<script> GestionSetting(\"Artiste\",\""+request.getParameter("Artiste")+"\")</script>");
