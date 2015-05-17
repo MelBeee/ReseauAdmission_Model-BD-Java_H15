@@ -124,6 +124,9 @@ public class Historique extends HttpServlet {
             while (rst.next()) {
                 LeID = rst.getInt(1);
             }
+            
+            stmGetClientID.close();
+            rst.close();
         } catch (SQLException ez) {
 
         }
@@ -198,6 +201,9 @@ public class Historique extends HttpServlet {
                 out.println(" </article>\n"
                         + " <hr style=\"height: 1px; border: none; margin: 0px; color: gray; background-color: gray;\" />");
             }
+            
+            rst.close();
+            Callist.close();
         } catch (SQLException se) {
 
         } finally {
@@ -229,9 +235,12 @@ public class Historique extends HttpServlet {
                 out.println("</tr>");
                 cpt++;
             }
+            Callist.close();
+            rst.close();
         } catch (SQLException se) {
 
         } finally {
+            
             CloseConnection();
         }
     }
