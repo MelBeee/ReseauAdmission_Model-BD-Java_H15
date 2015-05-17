@@ -105,40 +105,28 @@ public class ConnectionOracle extends HttpServlet {
     }
     private void BoxConnection(PrintWriter out, boolean FlagErreurConnection )
     {
-               if(FlagErreurConnection)
-                   out.println("Erreur dans vos paremètre de connexion!");
-                           
-                           
-               out.println("<form action=\"ConnectionOracle\" method=\"post\">");
-                out.println("<table style=\"position:relative; left:40%;\" >");
-                    out.println("<tr>");
-                        out.println("<td>");
-                            out.println("Username :");                           
-                        out.println("</td>");
-                        out.println("<td>");
-                            out.println("<input type=\"text\" name=\"Username\" placeholder=\"Nom d'utilisateur\"><br>");
-                        out.println("</td>");
-                    out.println("</tr>");
-                    out.println("<tr>");
-                        out.println("<td>");
-                                out.println("Password :");                           
-                        out.println("</td>");
-                        out.println("<td>");
-                                out.println("<input type=\"Password\" name=\"Password\" placeholder=\"Password\"><br>"); 
-                        out.println("</td>");
-                    out.println("</tr>");
-                    out.println("<tr>");
-                        out.println("<td>");
-                            out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
-                                    + "     <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
-                                    + "         Connexion "
-                                    + "     </button>\n"
-                                    + " </span>");
-                        out.println("</td>");
-                    out.println("</tr>");
-                out.println("</table>");
-            out.println("</form>");           
-            
+        out.println("<div style=\"padding-top:15px; margin: 0 auto; text-align:center;\">");
+        if(FlagErreurConnection)
+            out.println("Erreur dans vos paremètre de connexion!");
+        
+        out.println(  "<div class=\"container\" style=\" margin: 0 auto;\">\n"
+                    + "     <form role=\"form\" action=\"ConnectionOracle\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
+                    + "     <div style=\"width:230px;  margin: 0 auto;\"> "
+                    + "         <div class=\"form-group\">\n"
+                    + "             <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
+                    + "         </div>\n"
+                    + "         <div class=\"form-group\">\n"
+                    + "             <input type=\"password\" name=\"Password\" maxlength=\"20\" class=\"form-control\" placeholder=\"Mot de passe\">\n"
+                    + "         </div>\n");
+        out.println("           <span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
+                    + "             <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
+                    + "                 Se connecter "
+                    + "             </button>\n"
+                    + "         </span>"
+                    + "     </div>");
+        out.println("       </form>\n"
+                + "         </div> ");
+        out.println("</div>");
     }
     private Integer GetClientID(String Username)
     {

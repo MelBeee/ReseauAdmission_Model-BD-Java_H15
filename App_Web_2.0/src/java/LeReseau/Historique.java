@@ -124,6 +124,9 @@ public class Historique extends HttpServlet {
             while (rst.next()) {
                 LeID = rst.getInt(1);
             }
+            
+            stmGetClientID.close();
+            rst.close();
         } catch (SQLException ez) {
 
         }
@@ -173,16 +176,16 @@ public class Historique extends HttpServlet {
     private void GetFacture(PrintWriter out) {
         OpenConnection();
         try {
+
             CallableStatement Callist = conn.prepareCall("{call facturation.getlesfactures(?, ?) }");
             Callist.setInt(1, idclient);
             Callist.registerOutParameter(2, OracleTypes.CURSOR);
             Callist.execute();
-            ResultSet rst = (ResultSet) Callist.getObject(2);
-
+            ResultSet rst = (ResultSet) Callist.getObject(2); 
             while (rst.next()) {
-                out.println(" <article class=\"search-result row\">\n"
-                        + "   <div class=\" col-md-2\">\n"
-                        + "       <ul class=\"meta-search\" style=\"list-style-type: none; color:black; font-size:18px;\">\n"
+                out.println(" <article class=\"row\">\n"
+                        + "   <div class=\"col-md-2\" style=\"text-align:left;\" >\n"
+                        + "       <ul class=\"meta-search\" style=\"list-style-type: none; color:black; font-size:14px;\">\n"
                         + "           <li><i class=\"glyphicon glyphicon-barcode\"></i> <span>" + rst.getInt(1) + "</span></li>\n"
                         + "           <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>" + rst.getString(2) + "</span></li>\n"
                         + "           <li><i class=\"glyphicon glyphicon-print\"></i> <span>" + AnalyseImprime(rst.getString(3)) + "</span></li>\n"
@@ -198,6 +201,9 @@ public class Historique extends HttpServlet {
                 out.println(" </article>\n"
                         + " <hr style=\"height: 1px; border: none; margin: 0px; color: gray; background-color: gray;\" />");
             }
+            
+            rst.close();
+            Callist.close();
         } catch (SQLException se) {
 
         } finally {
@@ -213,7 +219,6 @@ public class Historique extends HttpServlet {
             Callist.registerOutParameter(2, OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet) Callist.getObject(2);
-
             int cpt = 1;
             while (rst.next()) {
                 if (cpt % 2 == 0) {
@@ -230,20 +235,22 @@ public class Historique extends HttpServlet {
                 out.println("</tr>");
                 cpt++;
             }
+            Callist.close();
+            rst.close();
         } catch (SQLException se) {
 
         } finally {
+            
             CloseConnection();
         }
     }
 
     private String AnalyseImprime(String imprime) {
-        String imprimeoupas = "Imprime";
+        String imprimeoupas = "Pas Imprime";
 
-        if (imprime == "1") {
-            imprimeoupas = "Pas Imprime";
+        if ("1".equals(imprime)) {
+            imprimeoupas = "Imprime";
         }
-
         return imprimeoupas;
     }
 
