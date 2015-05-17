@@ -142,9 +142,11 @@ public class Inscription extends HttpServlet {
 
     private void BoxInscription(PrintWriter out, boolean FlagErreurInscription) {
 
+        out.println("<div style=\"padding-top:15px; margin: 0 auto;\">");
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
+<<<<<<< HEAD
         out.println("<form action=\"InscriptionOracle\" method=\"post\">");
         out.println("<table style=\"position:relative; left:40%;\">");
         out.println("<tr>");
@@ -190,6 +192,32 @@ public class Inscription extends HttpServlet {
         out.println("</tr>");
         out.println("</table>");
         out.println("</form>");
+=======
+        out.println(  "<div class=\"container\">\n"
+                    + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
+                    + "     <div style=\"width:230px;\"> "
+                    + "         <div class=\"form-group\">\n"
+                    + "             <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
+                    + "         </div>\n"
+                    + "         <div class=\"form-group\">\n"
+                    + "             <input type=\"password\" name=\"Password\" maxlength=\"20\" class=\"form-control\" placeholder=\"Mot de passe\">\n"
+                    + "         </div>\n"
+                    + "         <div class=\"form-group\">\n"
+                    + "             <input type=\"text\" name=\"Adresse\" maxlength=\"100\" class=\"form-control\" placeholder=\"Adresse\">\n"
+                    + "         </div>\n"
+                    + "         <div class=\"form-group\">\n"
+                    + "             <input type=\"text\" name=\"Telephone\" maxlength=\"10\" class=\"form-control\" placeholder=\"Telephone\" onkeypress=\"return isNumber(event)\">\n"
+                    + "         </div>\n"
+                    + "     </div>");
+        out.println("           <span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
+                    + "             <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
+                    + "                 S'inscrire "
+                    + "             </button>\n"
+                    + "         </span>");
+        out.println("       </form>\n"
+                + "         </div> ");
+        out.println("</div>");
+>>>>>>> origin/master
     }
 
     private Integer GetClientID(String Username) {
