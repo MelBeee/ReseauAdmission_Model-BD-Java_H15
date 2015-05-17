@@ -51,7 +51,7 @@ CREATE TABLE Panier
     IDBillet   NUMBER (4) NOT NULL ,
     NbreBillet NUMBER
   ) ;
-ALTER TABLE Panier ADD CONSTRAINT Panier_PK PRIMARY KEY ( IDClient ) ;
+ALTER TABLE Panier ADD CONSTRAINT Panier_PK PRIMARY KEY ( IDClient, IDBillet ) ;
 
 CREATE TABLE Salle
   ( 
