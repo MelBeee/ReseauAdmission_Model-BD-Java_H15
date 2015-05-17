@@ -142,9 +142,10 @@ public class Inscription extends HttpServlet {
 
     private void BoxInscription(PrintWriter out, boolean FlagErreurInscription) {
 
-        out.println("<div style=\"padding-top:15px; margin: 0 auto;\">");
+        out.println("<div style=\"padding-top:15px; margin: 0 auto; text-align:center;\">");
         if (FlagErreurInscription) {
-            out.println("Erreur dans les paramètre d'inscription");
+            out.println("<p style=\"color:red;\"><b> Erreur dans les paramètres d'inscription </b></p>");
+            
         }
         out.println(  "<div class=\"container\" style=\" margin: 0 auto;\">\n"
                     + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
