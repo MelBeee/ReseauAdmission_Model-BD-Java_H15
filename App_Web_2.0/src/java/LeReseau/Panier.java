@@ -111,7 +111,7 @@ public class Panier extends HttpServlet {
                if (idclient == null) {
                 response.sendRedirect("/App_Web_2.0/ConnectionOracle");
             } else {
-                
+                //Fonction faire apparaitre panier
             }
 
             out.println("</div>");

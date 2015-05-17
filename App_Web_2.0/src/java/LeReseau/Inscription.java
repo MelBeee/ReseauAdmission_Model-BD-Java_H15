@@ -146,8 +146,8 @@ public class Inscription extends HttpServlet {
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
-<<<<<<< HEAD
-        out.println("<form action=\"InscriptionOracle\" method=\"post\">");
+        
+        out.println("<form action=\"Inscription\" method=\"post\">");
         out.println("<table style=\"position:relative; left:40%;\">");
         out.println("<tr>");
         out.println("<td>");
@@ -192,7 +192,7 @@ public class Inscription extends HttpServlet {
         out.println("</tr>");
         out.println("</table>");
         out.println("</form>");
-=======
+        
         out.println(  "<div class=\"container\">\n"
                     + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
                     + "     <div style=\"width:230px;\"> "
@@ -217,7 +217,7 @@ public class Inscription extends HttpServlet {
         out.println("       </form>\n"
                 + "         </div> ");
         out.println("</div>");
->>>>>>> origin/master
+
     }
 
     private Integer GetClientID(String Username) {
