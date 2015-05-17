@@ -439,6 +439,7 @@ public class Acceuil extends HttpServlet {
          
           out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
           
+          
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
            out.println("<script> GestionSetting(\"Artiste\",\""+request.getParameter("Artiste")+"\")</script>");
