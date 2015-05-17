@@ -73,7 +73,7 @@ public class Historique extends HttpServlet {
             } else {
                 out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Deconnection  </a></li>\n");
             }
-            out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Panier  </a></li>\n"
+            out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Panier\">  Panier  </a></li>\n"
                     + "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n"
                     + "                </ul>\n"
                     + "            </div>\n"
@@ -92,6 +92,7 @@ public class Historique extends HttpServlet {
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
 
             //pas touche ^
+            
             out.println("<div style=\"height:600px; width:70%; overflow:auto; background-color:lightgrey; margin:auto;\">");
             out.println("<div style=\"width:95%;\">");
 
