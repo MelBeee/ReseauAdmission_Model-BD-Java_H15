@@ -22,9 +22,10 @@ import oracle.jdbc.pool.OracleDataSource;
 @WebServlet(name = "Acceuil", urlPatterns = {"/Acceuil"})
 public class Acceuil extends HttpServlet {
  Connection conn = null;
-     Integer idclient;
+     Integer idclient = null;
      Cookie lastRecherche = null;
      Cookie gestionLastRecherche = null;
+     
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
@@ -146,10 +147,12 @@ public class Acceuil extends HttpServlet {
 
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
                         
-                SetResearch(request,out,response);
+            SetResearch(request,out,response);
             out.println( "</section>");  
             
-                SetSetting(request,out,response);
+            SetSetting(request,out,response);
+          
+            AjoutDansPanier(request,response);
             
             out.println("</body>");
             out.println("</html>");
@@ -174,8 +177,7 @@ public class Acceuil extends HttpServlet {
         }catch(SQLException ez)
         {
             
-        }
-        
+        }        
         CloseConnection();
         return LeID;
     }
@@ -202,7 +204,7 @@ public class Acceuil extends HttpServlet {
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
                     "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
                     "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "                <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
                     "            </div>\n" +
                     "            <span class=\"clearfix borda\"></span>\n" +
                     "        </article>\n" );                
@@ -255,7 +257,6 @@ public class Acceuil extends HttpServlet {
                                     rst.getString(1) +
                             "   </label>" +
                             " </div> </td>");
-
                cpt += 1;
             }
       }
@@ -266,27 +267,40 @@ public class Acceuil extends HttpServlet {
       }
     }
      private void SetResearch(HttpServletRequest request,PrintWriter out,HttpServletResponse response){
-         
-    
+             
          if(gestionLastRecherche == null){  
           Cookie[] tab = request.getCookies();
-             for (Cookie cookie :tab) {       
-               if(cookie.getName().equals("Salle"))   
-                   SetResearchBySalle(out,cookie.getValue());
+             for (Cookie cookie :tab) {    
+                if(cookie!=null)
+               if(cookie.getName().equals("Last")){  
+                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))
+                       SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
+               }
+                   
              }
          }
          
-      if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
-           SetResearchBySalle(out,request.getParameter("Salle"));
-           
-           if(  lastRecherche== null){
-           lastRecherche = new Cookie("Salle",request.getParameter("Salle"));
+      if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
+               
+           if(  lastRecherche == null){
+            lastRecherche = new Cookie("Last","Salle,"+request.getParameter("Salle"));
            lastRecherche.setMaxAge(2592000);
            
            response.addCookie(lastRecherche);
            SetResearchBySalle(out,request.getParameter("Salle"));
            }
-                                  
+           else{
+              SetResearchBySalle(out,request.getParameter("Salle"));
+            Cookie[] tab = request.getCookies();
+             for (Cookie cookie :tab) {       
+               if(cookie.getName().equals("Last")){  
+                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle")){
+                    cookie.setValue("Salle,"+request.getParameter("Salle"));
+                    response.addCookie(cookie);
+                  }                      
+                }
+             }                         
+         }
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
           SetResearchArtiste(out,request.getParameter("Artiste"));
@@ -325,9 +339,9 @@ public class Acceuil extends HttpServlet {
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
                     "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
                     "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "                <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
                     "            </div>\n" +
-                    "            <span class=\"clearfix borda\"></span>\n" +
+                    "            <span class=\"clearfix borda\"></spans>\n" +
                     "        </article>\n" );                
             }
           }
@@ -361,7 +375,7 @@ public class Acceuil extends HttpServlet {
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
                     "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
                     "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "                <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
                     "            </div>\n" +
                     "            <span class=\"clearfix borda\"></span>\n" +
                     "        </article>\n" );                
@@ -405,7 +419,7 @@ public class Acceuil extends HttpServlet {
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
                     "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
                     "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><a href=\"#\" title=\"Lorem ipsum\"><i class=\"glyphicon glyphicon-plus\"></i></a></span>\n" +
+                    "                 <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
                     "            </div>\n" +
                     "            <span class=\"clearfix borda\"></span>\n" +
                     "        </article>\n" );                
@@ -415,8 +429,7 @@ public class Acceuil extends HttpServlet {
          }
         finally{
         CloseConnection();
-      }
-     
+      }    
      }
       
      private void SetSetting(HttpServletRequest request,PrintWriter out ,HttpServletResponse response){
@@ -425,21 +438,21 @@ public class Acceuil extends HttpServlet {
          if( gestionLastRecherche == null){   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
           Cookie[] tab = request.getCookies();
           for (Cookie cookie :tab) {       
-          if(cookie.getName().equals("Salle")){          
-          out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue()+"\")</script>");   
-           gestionLastRecherche = new Cookie("Gestion","true"); //cookie temporaire qui me permet de savoir quon a deja ete chercher la dernier recherche
-           gestionLastRecherche.setMaxAge(-1);
-           response.addCookie(gestionLastRecherche);
-            
+          if(cookie.getName().equals("Last")){
+                if(cookie.getName().equals("Last")){  
+                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))                  
+                 out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");   
+               gestionLastRecherche = new Cookie("Gestion","true"); //cookie temporaire qui me permet de savoir quon a deja ete chercher la dernier recherche
+               gestionLastRecherche.setMaxAge(0);
+               response.addCookie(gestionLastRecherche);           
           }
          }
         }
-         
+       } 
       if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
          
           out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
-          
-          
+                    
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
            out.println("<script> GestionSetting(\"Artiste\",\""+request.getParameter("Artiste")+"\")</script>");
@@ -452,7 +465,7 @@ public class Acceuil extends HttpServlet {
                i++;
               }
                value = value.substring(1,value.length() - 2);
-            out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
+              out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
            }
       }           
     private String getImageAleatoire()
@@ -482,12 +495,34 @@ public class Acceuil extends HttpServlet {
                 break;
             default: imageaAfficher = "BanniereCirque";
                 break;
-        }
-        
-        
+        }               
         return imageaAfficher;
     }
-                 
+     private void AjoutDansPanier(HttpServletRequest request,HttpServletResponse response){
+       if(request.getParameter("id")!=null&&!request.getParameter("id").isEmpty()){
+          OpenConnection();
+          try{
+           if(idclient!=null){    
+          CallableStatement Callist = conn.prepareCall("{ call   FACTURATION.AJOUTERPANIER(?,?,?)}");
+          Callist.setInt(1, idclient);
+          Callist.setInt(2, Integer.parseInt(request.getParameter("id")));
+            Callist.setInt(3,1);
+            Callist.executeUpdate();
+           }
+           else{
+        
+            response.sendRedirect("/App_Web_2.0/ConnectionOracle");
+           }
+          }
+          catch(IOException e){}                              
+          catch(SQLException se){}
+        
+        CloseConnection();
+       
+      
+     
+     } 
+     }
  /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void OpenConnection(){    

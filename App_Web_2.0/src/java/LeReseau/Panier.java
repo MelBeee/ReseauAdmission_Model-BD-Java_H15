@@ -7,7 +7,6 @@ package LeReseau;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
@@ -30,7 +28,6 @@ import oracle.jdbc.pool.OracleDataSource;
 public class Panier extends HttpServlet {
     Integer idclient;
     Connection conn = null;
-    boolean FlagListeVide =true;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -111,13 +108,10 @@ public class Panier extends HttpServlet {
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
             //Pas touche ^
             
-            out.println("<div style=\"height:600px; width:70%; overflow:auto; background-color:lightgrey; margin:auto;\">");
-            out.println("<div style=\"width:95%;\">");
-
-            if (idclient == null) {
+               if (idclient == null) {
                 response.sendRedirect("/App_Web_2.0/ConnectionOracle");
             } else {
-                GetPanier(out);
+                //Fonction faire apparaitre panier
             }
 
             out.println("</div>");
@@ -125,83 +119,15 @@ public class Panier extends HttpServlet {
 
             out.println("<div style=\"height:50px; width:100%; overflow:auto; background-color:white; margin:auto;\">");
             out.println("</div>");
-
+            
+            
+            
             out.println("</body>");
             out.println("</html>");
             
         }
     }
-    private void GetPanier(PrintWriter out)
-    {
-        FlagListeVide = true;
-        OpenConnection();
-        try {
-             CallableStatement Callist = conn.prepareCall("{call facturation.SELECTPANIER(?, ?) }");
-            Callist.setInt(1, idclient);
-            Callist.registerOutParameter(2, OracleTypes.CURSOR);
-            Callist.execute();
-            ResultSet rst = (ResultSet) Callist.getObject(2);
-            out.println("<div>");
-            out.println("<form action =\"Panier\" method=\"post\">");
-            
-            out.println("<div>");
-            out.println("<table>");
-            out.println("<tr>");
-            out.println("<td>SPECTACLE </td>");
-            out.println("<td>SALLE </td>");
-            out.println("<td>SECTION </td>");
-            out.println("<td>DATE ET HEURE </td>");
-            out.println("<td>NOMBRE DE BILLET </td>"); 
-            out.println("<td>PRIX </td>"); 
-            out.println(" </tr>");
-             while (rst.next()) {
-                 FlagListeVide = false;                 
-                    out.println("<tr>");
-                        out.println("<td  style=\"padding-right:2px\">");
-                            out.println(rst.getString(1));
-                        out.println("</td>");
-                         out.println("<td  style=\"padding-right:2px\">");
-                            out.println(rst.getString(2));
-                        out.println("</td>");
-                         out.println("<td  style=\"padding-right:2px\">");
-                            out.println(rst.getString(3));
-                        out.println("</td>");
-                         out.println("<td  style=\"padding-right:2px\">");
-                            out.println(rst.getString(4));
-                        out.println("</td>");
-                          out.println("<td  style=\"padding-right:2px\">");
-                            out.println("<input type=\"number\" name=\""+rst.getInt(7)+"\" value =\"" + rst.getString(5) + "\">" );
-                        out.println("</td>");    
-                          out.println("<td  style=\"padding-right:2px\">");
-                            out.println(rst.getString(6));
-                        out.println("</td>");                            
-                         out.println("<td  style=\"padding-right:2px\">");
-                            out.println("<input type=\"radio\" name=\"RB_Supp\"  value=\""+rst.getInt(7)+"\">" );
-                        out.println("</td>");                        
-                    out.println("</tr>");
-                 
-             }            
-             out.println("</table>");
-             out.println("</div>");                
-            out.println("<input type=\"checkbox\" name=\"CB_Imp\"> Imprimer les billets");
-            out.println("<input type=\"submit\" name=\"action\" value=\"Mise a jour\">");
-            out.println("<input type=\"submit\" name=\"action\" value=\"Achat\">");
-            out.println("<input type=\"submit\" name=\"action\" value=\"Supprimer\">");
-            out.println("</form>");
-            out.println("</div>");
-        }
-        catch(SQLException ex)
-        {
-            
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-    
-    
-  private Integer GetClientID(String Username)
+      private Integer GetClientID(String Username)
     {
         Integer LeID = null;
         OpenConnection();
@@ -304,131 +230,7 @@ public class Panier extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if(request.getParameter("action").equals("Mise a jour") && !FlagListeVide)
-        {
-            if(MettreAJour(request))
-            {
-                processRequest(request, response);
-            }            
-        }
-        else  if(request.getParameter("action").equals("Achat") && !FlagListeVide)
-        {            
-            if(AchatBillet(request))
-            {
-                response.sendRedirect("/App_Web_2.0/Historique");                
-            }
-            
-        }
-        else  if(request.getParameter("action").equals("Supprimer") && request.getParameter("RB_Supp")!=null && !FlagListeVide)
-        {
-            if(SupprimerBillet(request))
-            {
-                processRequest(request, response);
-            }                    
-        }
         processRequest(request, response);
-        
-    }
-    private String CheckCheckBox(HttpServletRequest request)
-    {
-        String imprimer;
-        if(request.getParameter("CB_Imp") == null)
-        {
-           imprimer = "0";
-        }else
-        {
-           imprimer = "1";
-        }
-        return imprimer;
-    }
-    private boolean AchatBillet(HttpServletRequest request)
-    {
-        boolean AchatBillet = false;
-        OpenConnection();       
-        try
-        {
-             CallableStatement CallAchat = conn.prepareCall("{call facturation.AJOUTERFACTURE(?, ?)}");             
-             CallAchat.setString(1,CheckCheckBox(request));            
-             CallAchat.setInt(2, idclient);             
-             CallAchat.executeUpdate();
-             AchatBillet=true;
-             CallAchat.close();
-            
-        }catch(SQLException ef)
-        {
-            System.out.println(ef);
-            
-        }finally
-        {
-            CloseConnection();
-        }
-        
-        return AchatBillet;
-    }
-    private boolean SupprimerBillet(HttpServletRequest request)
-    {
-        boolean BilletSupprimer = false;
-        OpenConnection();
-        try
-        {
-            CallableStatement CallSupprimer = conn.prepareCall("{call facturation.SUPPRIMERPANIER(?, ?) }");
-            CallSupprimer.setInt(1, idclient);            
-            CallSupprimer.setInt(2, Integer.parseInt(request.getParameter("RB_Supp")));            
-            CallSupprimer.execute();
-            BilletSupprimer =true;
-            CallSupprimer.close();                      
-        }
-        catch(SQLException eg)
-        {
-            
-        }finally
-        {
-            CloseConnection();
-        }
-               
-        
-        return BilletSupprimer;
-    }
-    private boolean MettreAJour(HttpServletRequest request)
-    {
-        boolean MitAJour = false;
-        OpenConnection();
-        try
-        {
-            CallableStatement CallSelectSimplePanier = conn.prepareCall("{call facturation.SELECTPANIERSIMPLE(?, ?) }");
-            CallSelectSimplePanier.setInt(1, idclient);
-            CallSelectSimplePanier.registerOutParameter(2, OracleTypes.CURSOR);
-            CallSelectSimplePanier.execute();
-            ResultSet rst = (ResultSet) CallSelectSimplePanier.getObject(2);          
-            
-            while(rst.next())
-            {
-                CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");           
-                CallMod.setInt(1, idclient);                
-                int  testint = rst.getInt(2);
-                CallMod.setInt(2, rst.getInt(2));
-                String test = request.getParameter(rst.getInt(2)+"");                        
-                CallMod.setInt(3, Integer.parseInt(test));
-                CallMod.execute();
-                CallMod.close();
-            }
-            MitAJour = true;
-            rst.close();
-            CallSelectSimplePanier.close();
-            
-                  
-        }catch(SQLException eh)           
-        {
-            
-        }
-        finally
-        {
-            
-            CloseConnection();
-        }
-        
-        return MitAJour;
     }
 
     /**
