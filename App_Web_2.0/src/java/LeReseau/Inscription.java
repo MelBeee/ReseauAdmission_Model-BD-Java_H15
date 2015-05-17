@@ -182,7 +182,7 @@ public class Inscription extends HttpServlet {
         out.println("<tr>");
         out.println("<td>");
         out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
-                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"button\" >\n"
+                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
                 + " S'inscrire "
                 + "                           </button>\n"
                 + "                       </span>");
