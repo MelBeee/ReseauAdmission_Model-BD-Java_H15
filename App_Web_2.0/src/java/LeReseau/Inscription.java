@@ -31,8 +31,8 @@ public class Inscription extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             HttpSession session = request.getSession();
-
             idclient = GetClientID((String) session.getAttribute("UserName"));
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -141,41 +141,55 @@ public class Inscription extends HttpServlet {
     }
 
     private void BoxInscription(PrintWriter out, boolean FlagErreurInscription) {
+
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
-        out.println("<section id=\"login\" style=\"padding-top: 15px\">");
-        out.println("	<div class=\"container\">\n"
-                + "        <div class=\"row\">\n"
-                + "            <div class=\"col-xs-12\">\n"
-                + "                <div class=\"form-wrap\">\n"
-                + "                    <div class=\"col-xs-2 col-xs-12\" style=\"margin-left: 10px\">\n"
-                + "                        <form role=\"form\" action=\"javascript:;\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
-                + "                            <div class=\"form-group\">\n"
-                + "                                <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
-                + "                            </div>\n"
-                + "                            <div class=\"form-group\">\n"
-                + "                                <input type=\"password\" name=\"Password\" maxlength=\"20\" class=\"form-control\" placeholder=\"Mot de passe\">\n"
-                + "                            </div>\n"
-                + "                            <div class=\"form-group\">\n"
-                + "                                <input type=\"text\" name=\"Adresse\" maxlength=\"100\" class=\"form-control\" placeholder=\"Adresse\">\n"
-                + "                            </div>\n"
-                + "                            <div class=\"form-group\">\n"
-                + "                                <input type=\"text\" name=\"Telephone\" maxlength=\"10\" class=\"form-control\" placeholder=\"Telephone\" onkeypress=\"return isNumber(event)\">\n"
-                + "                            </div>\n");
+        out.println("<form action=\"Inscription\" method=\"post\">");
+        out.println("<table style=\"position:relative; left:40%;\">");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("Username :");
+        out.println("</td>");
+        out.println("<td>");
+        out.println("<input type=\"text\" maxlength=\"20\" name=\"Username\"><br>");
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("Password :");
+        out.println("</td>");
+        out.println("<td>");
+        out.println("<input type=\"Password\" maxlength=\"20\" name=\"Password\"><br>");
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("Addresse :");
+        out.println("</td>");
+        out.println("<td>");
+        out.println("<input type=\"text\" maxlength=\"100\" name=\"Adresse\"><br>");
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("Telephone :");
+        out.println("</td>");
+        out.println("<td>");
+        out.println("<input type=\"text\" maxlength=\"10\" value=\"\" id=\"extra7\" name=\"extra7\" onkeypress=\"return isNumber(event)\" /><br>");
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<td>");
         out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
-                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
+                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"button\" >\n"
                 + " S'inscrire "
                 + "                           </button>\n"
                 + "                       </span>");
-        out.println("                        </form>\n"
-                + "                    </div>\n"
-                + "                </div>\n"
-                + "            </div> \n"
-                + "        </div> \n"
-                + "    </div> ");
-        out.println("</section>");
-
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("</table>");
+        out.println("</form>");
     }
 
     private Integer GetClientID(String Username) {
@@ -227,6 +241,7 @@ public class Inscription extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
+
             Username = request.getParameter("Username");
             Password = request.getParameter("Password");
             Adresse = request.getParameter("Adresse");
