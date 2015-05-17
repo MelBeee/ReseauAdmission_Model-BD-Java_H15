@@ -69,10 +69,18 @@ function GestionSetting(){
     else{
         var  combo = document.getElementById("combo");
         	for(var i=0; i<=combo.length; i++){
-                 if (combo[i].text === arguments[1]){
+                 if (combo[i].value === arguments[1]){
                      combo.selectedIndex = i;
                  }                    
          }   
     }
        
+}
+
+function AjoutPanier(event){
+    
+  var id =  event.getAttribute("id");
+  alert(id);
+     window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil?id=' + id;
+    
 }
