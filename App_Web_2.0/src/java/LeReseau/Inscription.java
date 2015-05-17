@@ -145,7 +145,7 @@ public class Inscription extends HttpServlet {
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
-        out.println("<form action=\"Inscription\" method=\"post\">");
+        out.println("<form action=\"InscriptionOracle\" method=\"post\">");
         out.println("<table style=\"position:relative; left:40%;\">");
         out.println("<tr>");
         out.println("<td>");
