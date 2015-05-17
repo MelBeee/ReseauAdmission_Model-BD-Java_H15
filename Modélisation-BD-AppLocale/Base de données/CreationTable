@@ -40,7 +40,7 @@ CREATE TABLE Facture
     IDFacture NUMBER (5) NOT NULL ,
     DateAchat VARCHAR2(20 CHAR) ,
     Imprimé   CHAR (1 CHAR) ,
-    Total     NUMBER (5,2) ,
+    Total     NUMBER (8,2) ,
     IDClient  NUMBER (5) NOT NULL
   ) ;
 ALTER TABLE Facture ADD CONSTRAINT Facture_PK PRIMARY KEY ( IDFacture ) ;
