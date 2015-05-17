@@ -146,9 +146,9 @@ public class Inscription extends HttpServlet {
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
-        out.println(  "<div class=\"container\">\n"
+        out.println(  "<div class=\"container\" style=\" margin: 0 auto;\">\n"
                     + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
-                    + "     <div style=\"width:230px;\"> "
+                    + "     <div style=\"width:230px;  margin: 0 auto;\"> "
                     + "         <div class=\"form-group\">\n"
                     + "             <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
                     + "         </div>\n"
@@ -160,13 +160,13 @@ public class Inscription extends HttpServlet {
                     + "         </div>\n"
                     + "         <div class=\"form-group\">\n"
                     + "             <input type=\"text\" name=\"Telephone\" maxlength=\"10\" class=\"form-control\" placeholder=\"Telephone\" onkeypress=\"return isNumber(event)\">\n"
-                    + "         </div>\n"
-                    + "     </div>");
+                    + "         </div>\n");
         out.println("           <span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
                     + "             <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
                     + "                 S'inscrire "
                     + "             </button>\n"
-                    + "         </span>");
+                    + "         </span>"
+                    + "     </div>");
         out.println("       </form>\n"
                 + "         </div> ");
         out.println("</div>");
