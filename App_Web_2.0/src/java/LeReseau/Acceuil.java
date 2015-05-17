@@ -199,6 +199,8 @@ public class Acceuil extends HttpServlet {
                     "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
                     "                </ul>\n" +
                     "            </div>\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
@@ -334,6 +336,8 @@ public class Acceuil extends HttpServlet {
                     "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
                     "                </ul>\n" +
                     "            </div>\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
@@ -370,6 +374,8 @@ public class Acceuil extends HttpServlet {
                     "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
                     "                </ul>\n" +
                     "            </div>\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
@@ -414,6 +420,8 @@ public class Acceuil extends HttpServlet {
                     "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
                     "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
+                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
                     "                </ul>\n" +
                     "            </div>\n" +
                     "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
