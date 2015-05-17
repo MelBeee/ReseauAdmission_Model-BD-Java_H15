@@ -24,7 +24,7 @@ public class Acceuil extends HttpServlet {
  Connection conn = null;
      Integer idclient;
      Cookie lastRecherche = null;
-
+     Cookie gestionLastRecherche = null;
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
@@ -266,26 +266,27 @@ public class Acceuil extends HttpServlet {
       }
     }
      private void SetResearch(HttpServletRequest request,PrintWriter out,HttpServletResponse response){
+         
+    
+         if(gestionLastRecherche == null){  
+          Cookie[] tab = request.getCookies();
+             for (Cookie cookie :tab) {       
+               if(cookie.getName().equals("Salle"))   
+                   SetResearchBySalle(out,cookie.getValue());
+             }
+         }
+         
       if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
            SetResearchBySalle(out,request.getParameter("Salle"));
-           if(  lastRecherche!= null){
+           
+           if(  lastRecherche== null){
             lastRecherche = new Cookie("Salle",request.getParameter("Salle"));
-           lastRecherche.setMaxAge(100000000);
+           lastRecherche.setMaxAge(2592000);
            
            response.addCookie(lastRecherche);
            SetResearchBySalle(out,request.getParameter("Salle"));
            }
-           else
-           {
-                lastRecherche.setValue(request.getParameter("Salle"));
-               
-             Cookie[] tab = request.getCookies();
-             for (Cookie cookie :tab) {       
-               if(cookie.getName().equals("Salle"))   
-                   SetResearchBySalle(out,cookie.getValue());
-           }
-           
-           }     
+                                  
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
           SetResearchArtiste(out,request.getParameter("Artiste"));
@@ -294,8 +295,9 @@ public class Acceuil extends HttpServlet {
           SetResearchByCat(request,out);
       }
       else{
+         if(gestionLastRecherche != null )
           ResearchAll(out);
-      }
+        }
         
       }
        private void SetResearchArtiste(PrintWriter out,String Artiste){
@@ -371,18 +373,14 @@ public class Acceuil extends HttpServlet {
         CloseConnection();
       }
       
-      }
-      
+      }    
       private void SetResearchByCat(HttpServletRequest request,PrintWriter out){    
           int i = 0;
            while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
               ResearchByCat(out,request.getParameter("cat"+i));
               i++;
-           }
-          
-          
-      }
-      
+           }                 
+      }      
      private void ResearchByCat(PrintWriter out,String cat){
       OpenConnection();
       try{
@@ -422,14 +420,21 @@ public class Acceuil extends HttpServlet {
      }
       
      private void SetSetting(HttpServletRequest request,PrintWriter out ,HttpServletResponse response){
-         
+           
+           
+         if( gestionLastRecherche == null){   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
           Cookie[] tab = request.getCookies();
           for (Cookie cookie :tab) {       
-          if(cookie.getName().equals("Salle"))           
-          out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue()+"\")</script>");
-          
+          if(cookie.getName().equals("Salle")){          
+          out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue()+"\")</script>");   
+           gestionLastRecherche = new Cookie("Gestion","true"); //cookie temporaire qui me permet de savoir quon a deja ete chercher la dernier recherche
+           gestionLastRecherche.setMaxAge(-1);
+           response.addCookie(gestionLastRecherche);
+            
           }
-          
+         }
+        }
+         
       if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
          
           out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
@@ -448,9 +453,7 @@ public class Acceuil extends HttpServlet {
                value = value.substring(1,value.length() - 2);
             out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
            }
-      }
-     
-        
+      }           
     private String getImageAleatoire()
     {
         int maximum = 7;
@@ -483,9 +486,7 @@ public class Acceuil extends HttpServlet {
         
         return imageaAfficher;
     }
-     
-       
-       
+                 
  /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void OpenConnection(){    
