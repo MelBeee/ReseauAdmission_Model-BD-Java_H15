@@ -146,53 +146,6 @@ public class Inscription extends HttpServlet {
         if (FlagErreurInscription) {
             out.println("Erreur dans les paramètre d'inscription");
         }
-        
-        out.println("<form action=\"Inscription\" method=\"post\">");
-        out.println("<table style=\"position:relative; left:40%;\">");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Username :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"20\" name=\"Username\"><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Password :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"Password\" maxlength=\"20\" name=\"Password\"><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Addresse :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"100\" name=\"Adresse\"><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("Telephone :");
-        out.println("</td>");
-        out.println("<td>");
-        out.println("<input type=\"text\" maxlength=\"10\" value=\"\" id=\"extra7\" name=\"extra7\" onkeypress=\"return isNumber(event)\" /><br>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("<tr>");
-        out.println("<td>");
-        out.println("<span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
-                + "                           <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
-                + " S'inscrire "
-                + "                           </button>\n"
-                + "                       </span>");
-        out.println("</td>");
-        out.println("</tr>");
-        out.println("</table>");
-        out.println("</form>");
-        
         out.println(  "<div class=\"container\">\n"
                     + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
                     + "     <div style=\"width:230px;\"> "
