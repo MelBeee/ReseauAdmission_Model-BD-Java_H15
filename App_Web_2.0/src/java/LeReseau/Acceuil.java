@@ -280,7 +280,7 @@ public class Acceuil extends HttpServlet {
            SetResearchBySalle(out,request.getParameter("Salle"));
            
            if(  lastRecherche== null){
-            lastRecherche = new Cookie("Salle",request.getParameter("Salle"));
+           lastRecherche = new Cookie("Salle",request.getParameter("Salle"));
            lastRecherche.setMaxAge(2592000);
            
            response.addCookie(lastRecherche);
