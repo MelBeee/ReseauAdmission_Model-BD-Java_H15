@@ -170,7 +170,7 @@ public class Panier extends HttpServlet {
                             out.println(rst.getString(4));
                         out.println("</td>");
                           out.println("<td  style=\"padding-right:2px\">");
-                            out.println("<input type=\"number\" name=\""+rst.getInt(7)+"\" value =\"" + rst.getString(5) + "\">" );
+                            out.println("<input type=\"number\" min=\"1\" max=\"100000\" name=\""+rst.getInt(7)+"\" value =\"" + rst.getString(5) + "\">" );
                         out.println("</td>");    
                           out.println("<td  style=\"padding-right:2px\">");
                             out.println(rst.getString(6));
@@ -181,8 +181,8 @@ public class Panier extends HttpServlet {
                     out.println("</tr>");
                  
              }            
-             out.println("</table>");
-             out.println("</div>");                
+            out.println("</table>");
+            out.println("</div>");                
             out.println("<input type=\"checkbox\" name=\"CB_Imp\"> Imprimer les billets");
             out.println("<input type=\"submit\" name=\"action\" value=\"Mise a jour\">");
             out.println("<input type=\"submit\" name=\"action\" value=\"Achat\">");
@@ -305,9 +305,10 @@ public class Panier extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        PrintWriter out = response.getWriter();
         if(request.getParameter("action").equals("Mise a jour") && !FlagListeVide)
         {
-            if(MettreAJour(request))
+            if(MettreAJour(request,out))
             {
                 processRequest(request, response);
             }            
@@ -382,6 +383,7 @@ public class Panier extends HttpServlet {
         catch(SQLException eg)
         {
             
+            
         }finally
         {
             CloseConnection();
@@ -390,7 +392,33 @@ public class Panier extends HttpServlet {
         
         return BilletSupprimer;
     }
-    private boolean MettreAJour(HttpServletRequest request)
+    private boolean NombreDeBillet(int idbillet, int NbreDeBillet)
+    {
+        boolean NombreBillet = false;
+        try
+        {
+           CallableStatement CallNbBillet = conn.prepareCall("{call facturation.GetNbrePlace(?, ?) }"); 
+           CallNbBillet.setInt(1, idbillet);
+           CallNbBillet.registerOutParameter(2, OracleTypes.CURSOR);
+           CallNbBillet.execute();
+           ResultSet rst = (ResultSet) CallNbBillet.getObject(2);
+           if(rst.next())
+           {
+                  int nombre = rst.getInt(4);
+                  if(rst.wasNull() || NbreDeBillet<=nombre)
+                  {
+                      NombreBillet = true;
+                  }
+                             
+           }
+        }catch(SQLException ej)
+        {
+            
+        }      
+        
+        return NombreBillet;
+    }
+    private boolean MettreAJour(HttpServletRequest request, PrintWriter out)
     {
         boolean MitAJour = false;
         OpenConnection();
@@ -404,14 +432,23 @@ public class Panier extends HttpServlet {
             
             while(rst.next())
             {
-                CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");           
-                CallMod.setInt(1, idclient);                
-                int  testint = rst.getInt(2);
-                CallMod.setInt(2, rst.getInt(2));
-                String test = request.getParameter(rst.getInt(2)+"");                        
-                CallMod.setInt(3, Integer.parseInt(test));
-                CallMod.execute();
-                CallMod.close();
+                String nbbillet = request.getParameter(rst.getInt(2)+"");
+                if(NombreDeBillet(rst.getInt(2),Integer.parseInt(nbbillet)))
+                {
+                        CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");           
+                        CallMod.setInt(1, idclient);                
+                        int  IDbillet = rst.getInt(2);
+                        CallMod.setInt(2, IDbillet);
+                                                
+                        CallMod.setInt(3, Integer.parseInt(nbbillet));
+                        CallMod.execute();
+                        CallMod.close();
+                }
+                else
+                {
+                    out.println("<script> alert(\"Il n'y a plus assez de billet\"); </script>");
+                }
+              
             }
             MitAJour = true;
             rst.close();
