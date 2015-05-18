@@ -270,20 +270,24 @@ public class Acceuil extends HttpServlet {
     }
      private void SetResearch(HttpServletRequest request,PrintWriter out,HttpServletResponse response){
              
-        // if(!verif){  
-          //Cookie[] tab = request.getCookies();
-            // for (Cookie cookie :tab) {    
-              //  if(cookie!=null)
-               //if(cookie.getName().equals("Last")){  
-                 //  if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))
-                   //    SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
-                   
-              // }
-                   
-            // }
-        // }
+         if(!verif){  
+             int i = 0;
+          Cookie[] tab = request.getCookies();
+             for (Cookie cookie :tab) {    
+                if(cookie!=null)
+               if(cookie.getName().equals("Last")){  
+                  if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))
+                       SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
+                 else  if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste"))
+                    SetResearchArtiste(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
+                 //  else  if(cookie.getValue().substring(0,i = cookie.getValue().indexOf(',')).equals("Categorie"))
+                      //   while(i < cookie.getValue().lastIndexOf(',')){   ResearchByCat(out,cookie.getValue().substring(i+1,i = cookie.getValue().indexOf(',',i)));   }
+              }
+                  
+            }
+         }
          
-     if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
+     else if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
                
            if(  lastRecherche == null){
             lastRecherche = new Cookie("Last","Salle,"+request.getParameter("Salle"));
