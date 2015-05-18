@@ -29,6 +29,7 @@ import oracle.jdbc.pool.OracleDataSource;
 @WebServlet(name = "Panier", urlPatterns = {"/Panier"})
 public class Panier extends HttpServlet {
     Integer idclient;
+    Integer prixTotal = 0;
     Connection conn = null;
     boolean FlagListeVide =true;
     /**
@@ -112,7 +113,7 @@ public class Panier extends HttpServlet {
             //Pas touche ^
             
             out.println("<div style=\"height:600px; width:70%; overflow:auto; background-color:lightgrey; margin:auto;\">");
-            out.println("<div style=\"width:95%;\">");
+            out.println("<div style=\"width:95%; margin:auto;\">");
 
             if (idclient == null) {
                 response.sendRedirect("/App_Web_2.0/ConnectionOracle");
@@ -141,54 +142,88 @@ public class Panier extends HttpServlet {
             Callist.registerOutParameter(2, OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet) Callist.getObject(2);
-            out.println("<div>");
+            out.println("<div style=\"margin:auto;\">");
             out.println("<form action =\"Panier\" method=\"post\">");
             
-            out.println("<div>");
-            out.println("<table>");
+            out.println("<div style=\"margin:auto;\">");
+            out.println("<table style=\"width:99%; margin:auto;\">");
             out.println("<tr>");
-            out.println("<td>SPECTACLE </td>");
-            out.println("<td>SALLE </td>");
-            out.println("<td>SECTION </td>");
-            out.println("<td>DATE ET HEURE </td>");
-            out.println("<td>NOMBRE DE BILLET </td>"); 
-            out.println("<td>PRIX </td>"); 
+            out.println("<td><b></b></td>");
+            out.println("<td><b>Spectacle</b></td>");
+            out.println("<td><b>Salle</b></td>");
+            out.println("<td><b>Section</b></td>");
+            out.println("<td><b>Date et Heure</b></td>");
+            out.println("<td><b>Nombre de billet</b></td>"); 
+            out.println("<td><b>Prix unitaire</b></td>"); 
+            out.println("<td><b>Prix du lot</b></td>");
             out.println(" </tr>");
+            int cpt = 1;
+            prixTotal = 0;
              while (rst.next()) {
                  FlagListeVide = false;                 
-                    out.println("<tr>");
-                        out.println("<td  style=\"padding-right:2px\">");
+                if (cpt % 2 == 0) {
+                    out.println("<tr style=\"background-color:#C5CADE;\">");
+                } else {
+                    out.println("<tr style=\"background-color:#BACEDB;\">");
+                }
+                cpt++;
+                        out.println("<td  style=\"padding:5px; text-align:center;\">");
+                            out.println("<input type=\"radio\" name=\"RB_Supp\"  value=\""+rst.getInt(7)+"\">" );
+                        out.println("</td>");           
+                        out.println("<td  style=\"\">");
                             out.println(rst.getString(1));
                         out.println("</td>");
-                         out.println("<td  style=\"padding-right:2px\">");
+                         out.println("<td  style=\"\">");
                             out.println(rst.getString(2));
                         out.println("</td>");
-                         out.println("<td  style=\"padding-right:2px\">");
+                         out.println("<td  style=\"\">");
                             out.println(rst.getString(3));
                         out.println("</td>");
-                         out.println("<td  style=\"padding-right:2px\">");
+                         out.println("<td  style=\"\">");
                             out.println(rst.getString(4));
                         out.println("</td>");
-                          out.println("<td  style=\"padding-right:2px\">");
+                          out.println("<td  style=\"\">");
                             out.println("<input type=\"number\" min=\"1\" max=\"100000\" name=\""+rst.getInt(7)+"\" value =\"" + rst.getString(5) + "\">" );
                         out.println("</td>");    
-                          out.println("<td  style=\"padding-right:2px\">");
-                            out.println(rst.getString(6));
+                          out.println("<td  style=\"\">");
+                            out.println(rst.getString(6) + "$");
                         out.println("</td>");                            
-                         out.println("<td  style=\"padding-right:2px\">");
-                            out.println("<input type=\"radio\" name=\"RB_Supp\"  value=\""+rst.getInt(7)+"\">" );
-                        out.println("</td>");                        
+                        out.println("<td>");
+                            out.println(""+ Integer.parseInt(rst.getString(5))*Integer.parseInt(rst.getString(6)) + "$");
+                            prixTotal += Integer.parseInt(rst.getString(5))*Integer.parseInt(rst.getString(6));
+                        out.println("</td>");
                     out.println("</tr>");
                  
              }          
              Callist.close();
              rst.close();
             out.println("</table>");
-            out.println("</div>");                
-            out.println("<input type=\"checkbox\" name=\"CB_Imp\"> Imprimer les billets");
-            out.println("<input type=\"submit\" name=\"action\" value=\"Mise a jour\">");
-            out.println("<input type=\"submit\" name=\"action\" value=\"Achat\">");
-            out.println("<input type=\"submit\" name=\"action\" value=\"Supprimer\">");
+            out.println("</div>"); 
+            out.println("<div style=\"text-align:center; padding-top:15px;\">");
+            out.println("<h4><b>Prix total : " + prixTotal + "$</b></h4>");
+            out.println("</div>");
+            out.println("<div style=\"margin:auto; padding-top:10px; padding-bottom:10px; text-align:center;\">");
+            out.println("<input type=\"checkbox\" name=\"CB_Imp\"> <b>Cochez pour faire imprimer et envoyer les billets</b>");
+                        out.println("</div>");
+            out.println("<div style=\"margin: 0 auto; width:250px;\">");
+            out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
+                    +   "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Mise a jour\" >\n"
+                    +   "       Mettre à jour "
+                    +   "   </button>\n"
+                    +   "</span>");
+            out.println("</br>");
+            out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
+                    +   "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Supprimer\" >\n"
+                    +   "       Supprimer "
+                    +   "   </button>\n"
+                    +   "</span>");
+            out.println("</br>");
+            out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
+                    +   "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Achat\" >\n"
+                    +   "       Finaliser l'achat "
+                    +   "   </button>\n"
+                    +   "</span>");
+            out.println("</div>");
             out.println("</form>");
             out.println("</div>");
         }

@@ -147,8 +147,11 @@ public class Acceuil extends HttpServlet {
 
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
                         
+            out.println("<div class=\"container\">");
+            out.println("<section class=\"col-xs-12 col-sm-6 col-md-12\">");
             SetResearch(request,out,response);
-            out.println( "</section>");  
+            out.println("</section>");
+            out.println("</div>");
             
             SetSetting(request,out,response);
           
@@ -189,29 +192,7 @@ public class Acceuil extends HttpServlet {
             Callist.registerOutParameter(1,OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(1);        
-            while(rst.next()){
-               
-                 out.println("<article class=\"search-result row\">\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
-                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
-                    "                <ul class=\"meta-search\">\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
-                    "                </ul>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
-                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
-                    "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
-                    "            </div>\n" +
-                    "            <span class=\"clearfix borda\"></span>\n" +
-                    "        </article>\n" );                
-            }
+            AfficherLesResultats(rst,out);
             Callist.close();
             rst.close();
           }
@@ -375,36 +356,14 @@ public class Acceuil extends HttpServlet {
       }
        private void SetResearchArtiste(PrintWriter out,String Artiste){
        
-         OpenConnection();
-      try{
+        OpenConnection();
+        try{
             CallableStatement Callist = conn.prepareCall("{ call  RECHERCHE.SelectByArtiste(?,?)}");
             Callist.setString(1,"%"+Artiste+"%");
             Callist.registerOutParameter(2,OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(2);        
-            while(rst.next()){
-               
-                 out.println("<article class=\"search-result row\">\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
-                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
-                    "                <ul class=\"meta-search\">\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
-                    "                </ul>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
-                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
-                    "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
-                    "            </div>\n" +
-                    "            <span class=\"clearfix borda\"></spans>\n" +
-                    "        </article>\n" );                
-            }
+            AfficherLesResultats(rst,out);
             Callist.close();
             rst.close();
           }
@@ -422,29 +381,7 @@ public class Acceuil extends HttpServlet {
             Callist.registerOutParameter(2,OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(2);        
-            while(rst.next()){
-               
-                 out.println("<article class=\"search-result row\">\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
-                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
-                    "                <ul class=\"meta-search\">\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
-                    "                </ul>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
-                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
-                    "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
-                    "            </div>\n" +
-                    "            <span class=\"clearfix borda\"></span>\n" +
-                    "        </article>\n" );                
-            }
+            AfficherLesResultats(rst,out);
             Callist.close();
             rst.close();
           }
@@ -470,29 +407,7 @@ public class Acceuil extends HttpServlet {
             Callist.registerOutParameter(2,OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet)Callist.getObject(2);        
-            while(rst.next()){
-               
-                 out.println("<article class=\"search-result row\">\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
-                    "                <a href=\"#\" title=\"Lorem ipsum\" class=\"thumbnail\"><img src=\"http://lorempixel.com/250/140/people\" alt=\"Lorem ipsum\" /></a>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
-                    "                <ul class=\"meta-search\">\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-time\"></i> <span>" +rst.getInt(1)+"$" +"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(4)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(7)+"</span></li>\n" +
-                    "                    <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9)+"</span></li>\n" +
-                    "                </ul>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
-                    "                <h3><a href=\"#\" title=\"\">"+rst.getString(2)+"</a></h3>\n" +
-                    "                <p>"+rst.getString(6)+".</p>\n" +
-                    "                 <span class=\"plus\"><i id=\""+rst.getInt(8)+"\"class=\"glyphicon glyphicon-plus\" onclick=\" AjoutPanier(this)\"></i></span>\n" +
-                    "            </div>\n" +
-                    "            <span class=\"clearfix borda\"></span>\n" +
-                    "        </article>\n" );                
-            }
+            AfficherLesResultats(rst,out);
             Callist.close();
             rst.close();
           }
@@ -501,6 +416,44 @@ public class Acceuil extends HttpServlet {
         finally{
         CloseConnection();
       }    
+     }
+     
+     private void AfficherLesResultats(ResultSet rst, PrintWriter out)
+     {
+         try
+         {
+            while(rst.next())
+            {
+                out.println("<article class=\"search-result row\">\n" +
+                            "   <div class=\"col-xs-12 col-sm-12 col-md-3\">\n" +
+                            "       <a href=\"#\" title=\"Logo\" class=\"thumbnail\"><img src=\""+rst.getString(5) +"\" alt=\"Logo\" /></a>\n" +
+                            "   </div>\n" +
+                            "   <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
+                            "       <ul class=\"meta-search list-unstyled \">\n" +
+                            "           <li><i class=\"glyphicon glyphicon-star\"></i> <span>"+rst.getString(3) +"</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-usd\"></i> <span>"+rst.getString(1) +"$</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-home\"></i> <span>"+rst.getString(4) +"</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-calendar\"></i> <span>"+rst.getString(7) +"</span></li>\n" +
+                            "           <li><i class=\"glyphicon glyphicon-tags\"></i> <span>"+rst.getString(9) +"</span></li>\n" +
+                            "       </ul>\n" +
+                            "   </div>\n" +
+                            "   <div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\">\n" +
+                            "       <h3><b>"+rst.getString(2) +"</b></h3>\n" +
+                            "       <p>"+rst.getString(6) +"</p>\n" +
+                            "       <span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\">\n" +
+                            "           <button id=\""+rst.getString(8) +"\" style=\" width:230px; \" class=\"btn btn-info\" onclick=\"AjoutPanier(this)\">\n" +
+                            "               Choisir\n" +
+                            "           </button>\n" +
+                            "       </span>\n" +
+                            "   </div>\n" +
+                            "   <span class=\"clearfix borda\"></span>\n" +
+                            "</article>"); 
+            }
+         }
+         catch(SQLException ex)
+         {
+             
+         }
      }
       
      private void SetSetting(HttpServletRequest request,PrintWriter out ,HttpServletResponse response){
