@@ -180,7 +180,9 @@ public class Panier extends HttpServlet {
                         out.println("</td>");                        
                     out.println("</tr>");
                  
-             }            
+             }          
+             Callist.close();
+             rst.close();
             out.println("</table>");
             out.println("</div>");                
             out.println("<input type=\"checkbox\" name=\"CB_Imp\"> Imprimer les billets");
@@ -411,6 +413,8 @@ public class Panier extends HttpServlet {
                   }
                              
            }
+           CallNbBillet.close();
+           rst.close();
         }catch(SQLException ej)
         {
             
@@ -451,10 +455,8 @@ public class Panier extends HttpServlet {
               
             }
             MitAJour = true;
-            rst.close();
             CallSelectSimplePanier.close();
-            
-                  
+            rst.close();
         }catch(SQLException eh)           
         {
             

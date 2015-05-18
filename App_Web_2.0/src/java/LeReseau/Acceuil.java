@@ -174,6 +174,7 @@ public class Acceuil extends HttpServlet {
             {
                 LeID = rst.getInt(1);
             }            
+            stmGetClientID.close();
         }catch(SQLException ez)
         {
             
@@ -211,6 +212,8 @@ public class Acceuil extends HttpServlet {
                     "            <span class=\"clearfix borda\"></span>\n" +
                     "        </article>\n" );                
             }
+            Callist.close();
+            rst.close();
           }
         catch(SQLException se){
          }
@@ -229,6 +232,8 @@ public class Acceuil extends HttpServlet {
             while(rst.next()){
                out.println( "  <option value=\"" + rst.getString(1)+"\">"+rst.getString(1)+"</option>\n");                     
             }
+            Callist.close();
+            rst.close();
       }
       catch(SQLException se){
          }
@@ -261,6 +266,8 @@ public class Acceuil extends HttpServlet {
                             " </div> </td>");
                cpt += 1;
             }
+            Callist.close();
+            rst.close();
       }
       catch(SQLException se){
          }
@@ -398,6 +405,8 @@ public class Acceuil extends HttpServlet {
                     "            <span class=\"clearfix borda\"></spans>\n" +
                     "        </article>\n" );                
             }
+            Callist.close();
+            rst.close();
           }
         catch(SQLException se){
          }
@@ -436,6 +445,8 @@ public class Acceuil extends HttpServlet {
                     "            <span class=\"clearfix borda\"></span>\n" +
                     "        </article>\n" );                
             }
+            Callist.close();
+            rst.close();
           }
         catch(SQLException se){
          }
@@ -482,6 +493,8 @@ public class Acceuil extends HttpServlet {
                     "            <span class=\"clearfix borda\"></span>\n" +
                     "        </article>\n" );                
             }
+            Callist.close();
+            rst.close();
           }
         catch(SQLException se){
          }
@@ -493,43 +506,47 @@ public class Acceuil extends HttpServlet {
      private void SetSetting(HttpServletRequest request,PrintWriter out ,HttpServletResponse response){
            
            
-         if( !verif){   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
-          Cookie[] tab = request.getCookies();
-          for (Cookie cookie :tab) {       
-          if(cookie.getName().equals("Last")){
-                if(cookie.getName().equals("Last")){  
-                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))               
-                   out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");  
-                   else if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste"))  
-                   out.println("<script> GestionSetting(\"Artiste\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");  
-                     else if(cookie.getValue().substring(0,cookie.getValue().indexOf(',')).equals("Categorie"))  
-                       out.println("<script> GestionSetting(\"categorie\",\""+cookie.getValue().substring(cookie.getValue().indexOf(',')+ 1,cookie.getValue().length())+"\")</script>");
-                         
-              
-          }
-         }
+        if( !verif){   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
+            Cookie[] tab = request.getCookies();
+            for (Cookie cookie :tab) 
+            {       
+                if(cookie.getName().equals("Last"))
+                {
+                    if(cookie.getName().equals("Last"))
+                    {  
+                        if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))               
+                            out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");  
+                        else if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste"))  
+                            out.println("<script> GestionSetting(\"Artiste\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");  
+                        else if(cookie.getValue().substring(0,cookie.getValue().indexOf(',')).equals("Categorie"))  
+                            out.println("<script> GestionSetting(\"categorie\",\""+cookie.getValue().substring(cookie.getValue().indexOf(',')+ 1,cookie.getValue().length())+"\")</script>");
+                    }
+                }
+            }
+            verif = true;
+        } 
+        if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() )
+        {
+            out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
         }
-           verif = true;
-       } 
-      if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
-         
-          out.println("<script> GestionSetting(\"Salle\",\""+request.getParameter("Salle")+"\")</script>");
-                    
-      }
-      else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
-           out.println("<script> GestionSetting(\"Artiste\",\""+request.getParameter("Artiste")+"\")</script>");
-      }
-      else if( request.getParameter("cat0")!=null&&!request.getParameter("cat0").isEmpty()){
-           int i = 0;
-           String value ="";
-           while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
-                 value+= "\"" + request.getParameter("cat"+i)+ "\"" + ",";
-               i++;
-              }
-               value = value.substring(1,value.length() - 2);
-              out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
-           }
-      }           
+        else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty())
+        {
+            out.println("<script> GestionSetting(\"Artiste\",\""+request.getParameter("Artiste")+"\")</script>");
+        }
+        else if( request.getParameter("cat0")!=null&&!request.getParameter("cat0").isEmpty())
+        {
+            int i = 0;
+            String value = "";
+            while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty())
+            {
+                value+= "\"" + request.getParameter("cat"+i)+ "\"" + ",";
+                i++;
+            }
+            value = value.substring(1,value.length() - 2);
+            out.println("<script> GestionSetting(\"categorie\",\""+ value+"\")</script>");
+        }
+    }         
+     
     private String getImageAleatoire()
     {
         int maximum = 7;
@@ -560,31 +577,34 @@ public class Acceuil extends HttpServlet {
         }               
         return imageaAfficher;
     }
-     private void AjoutDansPanier(HttpServletRequest request,HttpServletResponse response){
-       if(request.getParameter("id")!=null&&!request.getParameter("id").isEmpty()){
-          OpenConnection();
-          try{
-           if(idclient!=null){    
-          CallableStatement Callist = conn.prepareCall("{ call   FACTURATION.AJOUTERPANIER(?,?,?)}");
-          Callist.setInt(1, idclient);
-          Callist.setInt(2, Integer.parseInt(request.getParameter("id")));
-            Callist.setInt(3,1);
-            Callist.executeUpdate();
-           }
-           else{
-        
-            response.sendRedirect("/App_Web_2.0/ConnectionOracle");
-           }
-          }
-          catch(IOException e){}                              
-          catch(SQLException se){}
-        
-        CloseConnection();
-       
-      
-     
-     } 
-     }
+    
+    private void AjoutDansPanier(HttpServletRequest request,HttpServletResponse response){
+        if(request.getParameter("id")!=null&&!request.getParameter("id").isEmpty()){
+            OpenConnection();
+            try
+            {
+                if(idclient!=null)
+                {    
+                    CallableStatement Callist = conn.prepareCall("{ call   FACTURATION.AJOUTERPANIER(?,?,?)}");
+                    Callist.setInt(1, idclient);
+                    Callist.setInt(2, Integer.parseInt(request.getParameter("id")));
+                    Callist.setInt(3,1);
+                    Callist.executeUpdate();
+                    Callist.close();
+                }
+                else
+                {
+                    response.sendRedirect("/App_Web_2.0/ConnectionOracle");
+                }
+            }
+            catch(IOException e){}                              
+            catch(SQLException se){}
+            finally
+            {
+                CloseConnection();
+            }
+        } 
+    }
  /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void OpenConnection(){    

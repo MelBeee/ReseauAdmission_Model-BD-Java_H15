@@ -185,6 +185,7 @@ public class Inscription extends HttpServlet {
             while (rst.next()) {
                 LeID = rst.getInt(1);
             }
+            
         } catch (SQLException ez) {
 
         }
@@ -263,11 +264,14 @@ public class Inscription extends HttpServlet {
                             InscriptionReussie = true;
 
                             InscriptionStm.clearParameters();
+                            InscriptionStm.close();
                         }
                     }
                 }
 
                 CheckUsername.clearParameters();
+                CheckUsername.close();
+                rst.close();
             }
         } catch (SQLException ez) {
 

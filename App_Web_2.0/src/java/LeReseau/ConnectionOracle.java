@@ -25,7 +25,7 @@ public class ConnectionOracle extends HttpServlet {
     String Password;
     Integer idclient;
     Connection conn = null;
-    boolean FlagErreurConnection =false;
+    boolean FlagErreurConnection = false;
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -221,7 +221,7 @@ public class ConnectionOracle extends HttpServlet {
              {
                 ConnexionReussie = true; 
              }            
-             
+             ConnexionStm.close();
         }catch(SQLException connEX)
         {           
             
