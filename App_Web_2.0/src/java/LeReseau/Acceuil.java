@@ -280,8 +280,8 @@ public class Acceuil extends HttpServlet {
                        SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
                  else  if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste"))
                     SetResearchArtiste(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
-                 //  else  if(cookie.getValue().substring(0,i = cookie.getValue().indexOf(',')).equals("Categorie"))
-                      //   while(i < cookie.getValue().lastIndexOf(',')){   ResearchByCat(out,cookie.getValue().substring(i+1,i = cookie.getValue().indexOf(',',i)));   }
+                //  else  if(cookie.getValue().substring(0,i = cookie.getValue().indexOf(',')).equals("Categorie"))
+                    //  while(i < cookie.getValue().lastIndexOf(',')){   ResearchByCat(out,cookie.getValue().substring(i+1,i = cookie.getValue().indexOf(',',i)));   }
               }
                   
             }
@@ -505,10 +505,11 @@ public class Acceuil extends HttpServlet {
                      else if(cookie.getValue().substring(0,cookie.getValue().indexOf(',')).equals("Categorie"))  
                        out.println("<script> GestionSetting(\"categorie\",\""+cookie.getValue().substring(cookie.getValue().indexOf(',')+ 1,cookie.getValue().length())+"\")</script>");
                          
-               verif = true;
+              
           }
          }
         }
+           verif = true;
        } 
       if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){
          
