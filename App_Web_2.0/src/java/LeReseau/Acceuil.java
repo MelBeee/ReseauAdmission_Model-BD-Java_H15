@@ -25,7 +25,7 @@ public class Acceuil extends HttpServlet {
      Integer idclient = null;
      Cookie lastRecherche = null;
      Cookie gestionLastRecherche = null;
-     
+     boolean verif = false;
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
@@ -270,19 +270,20 @@ public class Acceuil extends HttpServlet {
     }
      private void SetResearch(HttpServletRequest request,PrintWriter out,HttpServletResponse response){
              
-         if(gestionLastRecherche == null){  
+         if(!verif){  
           Cookie[] tab = request.getCookies();
              for (Cookie cookie :tab) {    
                 if(cookie!=null)
                if(cookie.getName().equals("Last")){  
                    if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))
                        SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
+                   
                }
                    
              }
          }
          
-      if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
+     else if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
                
            if(  lastRecherche == null){
             lastRecherche = new Cookie("Last","Salle,"+request.getParameter("Salle"));
@@ -311,7 +312,7 @@ public class Acceuil extends HttpServlet {
           SetResearchByCat(request,out);
       }
       else{
-         if(gestionLastRecherche != null )
+         if(verif )
           ResearchAll(out);
         }
         
@@ -443,7 +444,7 @@ public class Acceuil extends HttpServlet {
      private void SetSetting(HttpServletRequest request,PrintWriter out ,HttpServletResponse response){
            
            
-         if( gestionLastRecherche == null){   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
+         if( !verif){   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
           Cookie[] tab = request.getCookies();
           for (Cookie cookie :tab) {       
           if(cookie.getName().equals("Last")){
@@ -452,7 +453,8 @@ public class Acceuil extends HttpServlet {
                  out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");   
                gestionLastRecherche = new Cookie("Gestion","true"); //cookie temporaire qui me permet de savoir quon a deja ete chercher la dernier recherche
                gestionLastRecherche.setMaxAge(0);
-               response.addCookie(gestionLastRecherche);           
+               response.addCookie(gestionLastRecherche);    
+               verif = true;
           }
          }
         }
