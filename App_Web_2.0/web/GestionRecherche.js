@@ -80,7 +80,7 @@ function GestionSetting(){
 function AjoutPanier(event){
     
   var id =  event.getAttribute("id");
-  alert(id);
+  //alert(id);
      window.location.href = 'http://localhost:8084/App_Web_2.0/Acceuil?id=' + id;
     
 }
