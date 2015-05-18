@@ -270,20 +270,20 @@ public class Acceuil extends HttpServlet {
     }
      private void SetResearch(HttpServletRequest request,PrintWriter out,HttpServletResponse response){
              
-         if(!verif){  
-          Cookie[] tab = request.getCookies();
-             for (Cookie cookie :tab) {    
-                if(cookie!=null)
-               if(cookie.getName().equals("Last")){  
-                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))
-                       SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
+        // if(!verif){  
+          //Cookie[] tab = request.getCookies();
+            // for (Cookie cookie :tab) {    
+              //  if(cookie!=null)
+               //if(cookie.getName().equals("Last")){  
+                 //  if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))
+                   //    SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
                    
-               }
+              // }
                    
-             }
-         }
+            // }
+        // }
          
-     else if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
+     if(request.getParameter("Salle")!=null &&!request.getParameter("Salle").isEmpty() ){       
                
            if(  lastRecherche == null){
             lastRecherche = new Cookie("Last","Salle,"+request.getParameter("Salle"));
@@ -297,22 +297,67 @@ public class Acceuil extends HttpServlet {
             Cookie[] tab = request.getCookies();
              for (Cookie cookie :tab) {       
                if(cookie.getName().equals("Last")){  
-                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle")){
+                  // if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle")){
                     cookie.setValue("Salle,"+request.getParameter("Salle"));
                     response.addCookie(cookie);
-                  }                      
+                //  }                      
                 }
              }                         
          }
       }
       else if( request.getParameter("Artiste")!=null&&!request.getParameter("Artiste").isEmpty()){
+                 
+           if(  lastRecherche == null){
+            lastRecherche = new Cookie("Last","Artiste,"+request.getParameter("Artiste"));
+           lastRecherche.setMaxAge(2592000);
+           
+           response.addCookie(lastRecherche);
           SetResearchArtiste(out,request.getParameter("Artiste"));
+           }
+          else{
+              SetResearchBySalle(out,request.getParameter("Artiste"));
+            Cookie[] tab = request.getCookies();
+             for (Cookie cookie :tab) {       
+               if(cookie.getName().equals("Last")){  
+                  // if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste")){
+                    cookie.setValue("Artiste,"+request.getParameter("Artiste"));
+                    response.addCookie(cookie);
+                //  }                      
+                }
+             }                         
+         }
+         
       }
       else if( request.getParameter("cat0")!=null&&!request.getParameter("cat0").isEmpty()){
           SetResearchByCat(request,out);
+          int i = 0;
+          String value = "";          
+          while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
+                 value+= "\"" + request.getParameter("cat"+i)+ "\"" + ",";
+               i++;
+              }
+           value = value.substring(1,value.length() - 2);              
+              if(  lastRecherche == null){
+              lastRecherche = new Cookie("Last","Categorie,"+ value);
+             lastRecherche.setMaxAge(2592000);          
+             response.addCookie(lastRecherche);
+             SetResearchByCat(request,out);
+             }
+                else{
+              SetResearchByCat(request,out);
+            Cookie[] tab = request.getCookies();
+             for (Cookie cookie :tab) {       
+               if(cookie.getName().equals("Last")){  
+                  // if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste")){
+                    cookie.setValue("Categorie,"+value);
+                    response.addCookie(cookie);
+                //  }                      
+                }
+             }                         
+         }
       }
       else{
-         if(verif )
+       //  if(verif )
           ResearchAll(out);
         }
         
@@ -449,11 +494,13 @@ public class Acceuil extends HttpServlet {
           for (Cookie cookie :tab) {       
           if(cookie.getName().equals("Last")){
                 if(cookie.getName().equals("Last")){  
-                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))                  
-                 out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");   
-               gestionLastRecherche = new Cookie("Gestion","true"); //cookie temporaire qui me permet de savoir quon a deja ete chercher la dernier recherche
-               gestionLastRecherche.setMaxAge(0);
-               response.addCookie(gestionLastRecherche);    
+                   if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle"))               
+                   out.println("<script> GestionSetting(\"Salle\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");  
+                   else if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste"))  
+                   out.println("<script> GestionSetting(\"Artiste\",\""+cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length())+"\")</script>");  
+                     else if(cookie.getValue().substring(0,cookie.getValue().indexOf(',')).equals("Categorie"))  
+                       out.println("<script> GestionSetting(\"categorie\",\""+cookie.getValue().substring(cookie.getValue().indexOf(',')+ 1,cookie.getValue().length())+"\")</script>");
+                         
                verif = true;
           }
          }
