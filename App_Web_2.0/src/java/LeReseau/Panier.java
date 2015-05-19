@@ -477,7 +477,7 @@ public class Panier extends HttpServlet {
             {
                 
                 String nbbillet = request.getParameter(rst.getInt(2)+"");
-                if(nbbillet != "")
+                if(nbbillet == "")
                 { 
                     nbbillet="1";
                 }
