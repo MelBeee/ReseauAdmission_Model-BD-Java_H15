@@ -478,7 +478,9 @@ public class Panier extends HttpServlet {
                 
                 String nbbillet = request.getParameter(rst.getInt(2)+"");
                 if(nbbillet != "")
-                {
+                { 
+                    nbbillet="0";
+                }
                  if(NombreDeBillet(rst.getInt(2),Integer.parseInt(nbbillet)))
                 {
                         CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");           
@@ -494,7 +496,7 @@ public class Panier extends HttpServlet {
                 {
                     out.println("<script> alert(\"Il n'y a plus assez de billet\"); </script>");
                 }
-                }
+              
            
               
             }
