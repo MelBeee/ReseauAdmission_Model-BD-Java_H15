@@ -462,7 +462,9 @@ public class Panier extends HttpServlet {
     private boolean MettreAJour(HttpServletRequest request, PrintWriter out)
     {
         boolean MitAJour = false;
-        OpenConnection();
+        
+        
+                OpenConnection();
         try
         {
             CallableStatement CallSelectSimplePanier = conn.prepareCall("{call facturation.SELECTPANIERSIMPLE(?, ?) }");
@@ -473,8 +475,11 @@ public class Panier extends HttpServlet {
             
             while(rst.next())
             {
+                
                 String nbbillet = request.getParameter(rst.getInt(2)+"");
-                if(NombreDeBillet(rst.getInt(2),Integer.parseInt(nbbillet)))
+                if(nbbillet != "")
+                {
+                 if(NombreDeBillet(rst.getInt(2),Integer.parseInt(nbbillet)))
                 {
                         CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");           
                         CallMod.setInt(1, idclient);                
@@ -489,6 +494,8 @@ public class Panier extends HttpServlet {
                 {
                     out.println("<script> alert(\"Il n'y a plus assez de billet\"); </script>");
                 }
+                }
+           
               
             }
             MitAJour = true;
