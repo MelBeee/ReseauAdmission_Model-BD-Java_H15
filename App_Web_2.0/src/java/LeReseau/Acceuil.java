@@ -161,6 +161,7 @@ public class Acceuil extends HttpServlet {
             
             out.println("</body>");
             out.println("</html>");
+            
                         
         }
     }
@@ -534,22 +535,26 @@ public class Acceuil extends HttpServlet {
     }
     
     private void AjoutDansPanier(HttpServletRequest request,HttpServletResponse response){
+       
+        
         if(request.getParameter("id")!=null&&!request.getParameter("id").isEmpty()){
             OpenConnection();
             try
             {
-                if(idclient!=null)
+                 PrintWriter out = response.getWriter();
+                if(idclient==null)
                 {    
+                    out.println("<script>  window.location = \"http://localhost:8084/App_Web_2.0/ConnectionOracle\"</script>");
+                    //  response.sendRedirect("/App_Web_2.0/ConnectionOracle");
+                }
+                else
+                {
                     CallableStatement Callist = conn.prepareCall("{ call   FACTURATION.AJOUTERPANIER(?,?,?)}");
                     Callist.setInt(1, idclient);
                     Callist.setInt(2, Integer.parseInt(request.getParameter("id")));
                     Callist.setInt(3,1);
                     Callist.executeUpdate();
                     Callist.close();
-                }
-                else
-                {
-                    response.sendRedirect("/App_Web_2.0/ConnectionOracle");
                 }
             }
             catch(IOException e){}                              
