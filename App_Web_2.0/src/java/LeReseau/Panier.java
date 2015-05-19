@@ -205,6 +205,7 @@ public class Panier extends HttpServlet {
             out.println("<h4><b>Prix total : " + prixTotal + "$</b></h4>");
             out.println("</div>");
             out.println("<div style=\"margin:auto; padding-top:10px; padding-bottom:10px; text-align:center;\">");
+            out.println("<input type=\"checkbox\" name=\"CB_Imp\"> <b>Cochez pour faire imprimer et envoyer les billets (20$ de frais)</b>");
                         out.println("</div>");
             out.println("<div style=\"margin: 0 auto; width:250px;\">");
             out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
