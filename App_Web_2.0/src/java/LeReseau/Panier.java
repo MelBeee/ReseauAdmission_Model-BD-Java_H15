@@ -388,7 +388,7 @@ public class Panier extends HttpServlet {
         OpenConnection();       
         try
         {
-            MettreAJour(request, out);
+            
              CallableStatement CallAchat = conn.prepareCall("{call facturation.AJOUTERFACTURE(?, ?)}");             
              CallAchat.setString(1,CheckCheckBox(request));            
              CallAchat.setInt(2, idclient);             
