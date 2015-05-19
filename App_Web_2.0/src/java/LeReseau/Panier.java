@@ -462,8 +462,7 @@ public class Panier extends HttpServlet {
     }
     private boolean MettreAJour(HttpServletRequest request, PrintWriter out)
     {
-        boolean MitAJour = false;
-        
+        boolean MitAJour = false;       
         
                 OpenConnection();
         try
@@ -480,7 +479,7 @@ public class Panier extends HttpServlet {
                 String nbbillet = request.getParameter(rst.getInt(2)+"");
                 if(nbbillet != "")
                 { 
-                    nbbillet="0";
+                    nbbillet="1";
                 }
                  if(NombreDeBillet(rst.getInt(2),Integer.parseInt(nbbillet)))
                 {
