@@ -307,7 +307,7 @@ public class Acceuil extends HttpServlet {
           SetResearchArtiste(out,request.getParameter("Artiste"));
            }
           else{
-              SetResearchBySalle(out,request.getParameter("Artiste"));
+              SetResearchArtiste(out,request.getParameter("Artiste"));
             Cookie[] tab = request.getCookies();
              for (Cookie cookie :tab) {       
                if(cookie.getName().equals("Last")){  
@@ -321,7 +321,7 @@ public class Acceuil extends HttpServlet {
          
       }
       else if( request.getParameter("cat0")!=null&&!request.getParameter("cat0").isEmpty()){
-          SetResearchByCat(request,out);
+        //  SetResearchByCat(request,out);
           int i = 0;
           String value = "";          
           while(request.getParameter("cat"+i)!=null&&!request.getParameter("cat"+i).isEmpty()){
