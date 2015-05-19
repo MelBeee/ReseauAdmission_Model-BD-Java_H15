@@ -428,7 +428,9 @@ public class Acceuil extends HttpServlet {
             while(rst.next())
             {
                 out.println("<article class=\"search-result row\">\n" +
-                            "   <div class=\"thumbnail col-xs-12 col-sm-12 col-md-3\" style=\"background-image: url(Image/" +  rst.getString(5) + ".png);\">\n" +
+                            "   <div class=\"thumbnail col-xs-12 col-sm-12 col-md-3\" style=\"width:250px; height:100px; overflow:hidden;     background-repeat: no-repeat;\n" +
+" background-position: center; background-image: url(Image/" +  rst.getString(5) + ".png);\">\n" +
+                            "   <img src=\"Image/" +  rst.getString(5) + ".png\">"+
                             "   </div>\n" +
                             "   <div class=\"col-xs-12 col-sm-12 col-md-2\">\n" +
                             "       <ul class=\"meta-search list-unstyled \">\n" +
