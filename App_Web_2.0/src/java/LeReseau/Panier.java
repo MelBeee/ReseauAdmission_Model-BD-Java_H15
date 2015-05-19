@@ -205,7 +205,6 @@ public class Panier extends HttpServlet {
             out.println("<h4><b>Prix total : " + prixTotal + "$</b></h4>");
             out.println("</div>");
             out.println("<div style=\"margin:auto; padding-top:10px; padding-bottom:10px; text-align:center;\">");
-            out.println("<input type=\"checkbox\" name=\"CB_Imp\"> <b>Cochez pour faire imprimer et envoyer les billets</b>");
                         out.println("</div>");
             out.println("<div style=\"margin: 0 auto; width:250px;\">");
             out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
@@ -354,7 +353,7 @@ public class Panier extends HttpServlet {
         }
         else  if(request.getParameter("action").equals("Achat") && !FlagListeVide)
         {            
-            if(AchatBillet(request))
+            if(AchatBillet(request, out))
             {
                 response.sendRedirect("/App_Web_2.0/Historique");                
             }
@@ -382,12 +381,13 @@ public class Panier extends HttpServlet {
         }
         return imprimer;
     }
-    private boolean AchatBillet(HttpServletRequest request)
+    private boolean AchatBillet(HttpServletRequest request, PrintWriter out)
     {
         boolean AchatBillet = false;
         OpenConnection();       
         try
         {
+            MettreAJour(request, out);
              CallableStatement CallAchat = conn.prepareCall("{call facturation.AJOUTERFACTURE(?, ?)}");             
              CallAchat.setString(1,CheckCheckBox(request));            
              CallAchat.setInt(2, idclient);             
