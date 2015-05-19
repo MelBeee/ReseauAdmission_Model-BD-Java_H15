@@ -129,6 +129,7 @@ namespace ReseauAdmissionAppLocale
             {
                FileInfo file = new FileInfo(OFD_Affiche.FileName);
                file.CopyTo(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Affiches\\" + nomfichier + ".png");
+               file.CopyTo(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\..\\..\\App_Web_2.0\\src\\java\\LeReseau\\Image\\" + nomfichier + ".png");
 
                MessageBox.Show("Insertion reussite");
                this.Close();
