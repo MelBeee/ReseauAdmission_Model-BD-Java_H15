@@ -253,7 +253,11 @@ public class Acceuil extends HttpServlet {
             CloseConnection();
         }
     }
-
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////elle verifie si un cookie existe si oui elle fait la recherche pour la premiere avec la valeur du cookie sinon elle
+    //////////////verifie la valeur des parametres passer set la valeur du cookie et fait la recherche voulu si aucun parametre est 
+    /////////////passé il fait une recherche de tout les spectacle///////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void SetResearch(HttpServletRequest request, PrintWriter out, HttpServletResponse response) {
 
         if (!verif) {
@@ -269,10 +273,6 @@ public class Acceuil extends HttpServlet {
                         } else if (cookie.getValue().substring(0, i = cookie.getValue().indexOf(',')).equals("Categorie")) {
                             String value = "";
                             ResearchAll(out);
-                    // while(i != -1){  
-                            //  value += cookie.getValue().substring(i+1,i = cookie.getValue().indexOf(','));
-                            // ResearchByCat(out,value); 
-                            //}
                         }
                     }
                 }
@@ -291,10 +291,8 @@ public class Acceuil extends HttpServlet {
                 Cookie[] tab = request.getCookies();
                 for (Cookie cookie : tab) {
                     if (cookie.getName().equals("Last")) {
-                        // if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Salle")){
                         cookie.setValue("Salle," + request.getParameter("Salle"));
-                        response.addCookie(cookie);
-                        //  }                      
+                        response.addCookie(cookie);                     
                     }
                 }
             }
@@ -311,10 +309,8 @@ public class Acceuil extends HttpServlet {
                 Cookie[] tab = request.getCookies();
                 for (Cookie cookie : tab) {
                     if (cookie.getName().equals("Last")) {
-                        // if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste")){
                         cookie.setValue("Artiste," + request.getParameter("Artiste"));
-                        response.addCookie(cookie);
-                        //  }                      
+                        response.addCookie(cookie);                  
                     }
                 }
             }
@@ -453,8 +449,13 @@ public class Acceuil extends HttpServlet {
         }
     }
 
+         //////////////////////////////////////////////////////////////////////////////////////////////
+        ////verifie si on a un cookie si oui on envoir la valeur du cookie au fonction qui set l'etat pour la premiere recherche
+        ////par la suite elle verifie la valeur des parametres pour pouvoir remettre l'etat des controles de la derniere recherche
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void SetSetting(HttpServletRequest request, PrintWriter out, HttpServletResponse response) {
 
+        
         if (!verif) {   //verifie si on a un cookie si oui on set les setting de recherche a sa value        
             Cookie[] tab = request.getCookies();
             for (Cookie cookie : tab) {
