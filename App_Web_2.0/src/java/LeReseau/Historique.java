@@ -1,4 +1,3 @@
-
 package LeReseau;
 
 import java.io.IOException;
@@ -14,13 +13,14 @@ import java.util.Random;
 import javax.servlet.http.HttpSession;
 import oracle.jdbc.OracleTypes;
 
-
+/**
+ * Page Historique affiche tout les achats completés d'un usager
+ */
 @WebServlet(name = "Historique", urlPatterns = {"/Historique"})
 public class Historique extends HttpServlet {
 
     Connection conn = null;
     boolean EstConnecte = true;
-
     Integer idclient;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -29,9 +29,9 @@ public class Historique extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
 
             HttpSession session = request.getSession();
-
             idclient = GetClientID((String) session.getAttribute("UserName"));
 
+            // Affichage de la page Historique
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -74,13 +74,14 @@ public class Historique extends HttpServlet {
                 out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Deconnection  </a></li>\n");
             }
             out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Panier\">  Panier  </a></li>\n"
-                    + "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n"+
-            "                </ul>\n");
-            if(session.getAttribute("UserName")!=null)
-            out.println("<p style=\"text-align:right; color:White; font-size:25px\">"+session.getAttribute("UserName") +"</p>");
-            out.println("            </div>\n" +
-            "        </div>\n" +
-            "    </div>");
+                    + "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n"
+                    + "                </ul>\n");
+            if (session.getAttribute("UserName") != null) {
+                out.println("<p style=\"text-align:right; color:White; font-size:25px\">" + session.getAttribute("UserName") + "</p>");
+            }
+            out.println("            </div>\n"
+                    + "        </div>\n"
+                    + "    </div>");
             out.println("<div class=\"jumbotron\">\n"
                     + "</div>\n");
 
@@ -94,7 +95,6 @@ public class Historique extends HttpServlet {
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
 
             //pas touche ^
-            
             out.println("<div style=\"height:600px; width:70%; overflow:auto; background-color:lightgrey; margin:auto;\">");
             out.println("<div style=\"width:95%;\">");
 
@@ -115,18 +115,20 @@ public class Historique extends HttpServlet {
         }
     }
 
+    // GetClientID va chercher le id du client selon son username puisque ce username est unique
     private Integer GetClientID(String Username) {
         Integer LeID = null;
         OpenConnection();
         ResultSet rst;
         try {
+            // Pas en callable statement parce qu,on a pas eu le temps de le changer 
             Statement stmGetClientID = conn.createStatement();
             stmGetClientID.execute("Select idclient from client where Username = '" + Username + "'");
             rst = stmGetClientID.getResultSet();
             while (rst.next()) {
                 LeID = rst.getInt(1);
             }
-            
+
             stmGetClientID.close();
             rst.close();
         } catch (SQLException ez) {
@@ -137,6 +139,7 @@ public class Historique extends HttpServlet {
         return LeID;
     }
 
+    // Belle fonction qui va chercher une image aleatoire pour la banniere d'entete
     private String getImageAleatoire() {
         int maximum = 7;
         int minimum = 1;
@@ -175,15 +178,16 @@ public class Historique extends HttpServlet {
         return imageaAfficher;
     }
 
+    // GetFacture va chercher une facture a la fois pour un utilisateur donné (celui connecté) 
     private void GetFacture(PrintWriter out) {
         OpenConnection();
         try {
-
             CallableStatement Callist = conn.prepareCall("{call facturation.getlesfactures(?, ?) }");
             Callist.setInt(1, idclient);
             Callist.registerOutParameter(2, OracleTypes.CURSOR);
             Callist.execute();
-            ResultSet rst = (ResultSet) Callist.getObject(2); 
+            ResultSet rst = (ResultSet) Callist.getObject(2);
+            // Affichage des informations general de la facture. 
             while (rst.next()) {
                 out.println(" <article class=\"row\">\n"
                         + "   <div class=\"col-md-2\" style=\"text-align:left;\" >\n"
@@ -197,13 +201,14 @@ public class Historique extends HttpServlet {
                 out.println("<div class=\"col-xs-12 col-sm-12 col-md-7 excerpet\" style=\"width:80%;\">\n"
                         + "   <table style=\"width: 100%; color: black; font-size: 15px;\">");
                 out.println("<tr style=\"font-weight:bold;\"><td>Spectacle</td><td>Salle</td><td>Section</td><td>Date et Heure</td><td>Nombre</td><td>Prix/Billet</td></tr>");
+                // Appel de la fonction pour aller chercher les billets de cet facture la 
                 GetVenteBillet(rst.getInt(1), out);
                 out.println("   </table>\n"
                         + "</div>");
                 out.println(" </article>\n"
                         + " <hr style=\"height: 1px; border: none; margin: 0px; color: gray; background-color: gray;\" />");
             }
-            
+
             rst.close();
             Callist.close();
         } catch (SQLException se) {
@@ -213,6 +218,7 @@ public class Historique extends HttpServlet {
         }
     }
 
+    // GetVenteBilelt va chercher tout les billets selon un ID de facture pour les affichers dans l'histoirque
     private void GetVenteBillet(int idfacture, PrintWriter out) {
         OpenConnection();
         try {
@@ -222,6 +228,7 @@ public class Historique extends HttpServlet {
             Callist.execute();
             ResultSet rst = (ResultSet) Callist.getObject(2);
             int cpt = 1;
+            // Affichage des informations de chaque billet
             while (rst.next()) {
                 if (cpt % 2 == 0) {
                     out.println("<tr style=\"background-color:#C5CADE;\">");
@@ -242,11 +249,12 @@ public class Historique extends HttpServlet {
         } catch (SQLException se) {
 
         } finally {
-            
+
             CloseConnection();
         }
     }
 
+    // Verifie si on recoit 1 ou 0 pour imprimer ou pas imprimer pour afficher une string et non pas un chiffre qui veut rien dire pour l'utilisateur 
     private String AnalyseImprime(String imprime) {
         String imprimeoupas = "Pas Imprime";
 
@@ -256,8 +264,8 @@ public class Historique extends HttpServlet {
         return imprimeoupas;
     }
 
- /////////////Gestion Connection//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // OpenConnection ouvre la connexion à la BD 
+    // On l'apelle toujours avant les requetes a la BD 
     private void OpenConnection() {
         try {
             OracleDataSource ods = new OracleDataSource();
@@ -270,6 +278,8 @@ public class Historique extends HttpServlet {
 
     }
 
+  // CloseConnection ferme la connexion a la BD 
+    // On l'apelle toujours apres les requetes a la BD 
     private void CloseConnection() {
 
         try {

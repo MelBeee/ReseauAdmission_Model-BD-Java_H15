@@ -13,6 +13,10 @@ import javax.servlet.http.HttpSession;
 import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
 
+/**
+ * Page Inscription qui permet a un utilisateur sans compte de se créer un
+ * compte utilisateur
+ */
 @WebServlet(name = "Inscription", urlPatterns = {"/Inscription"})
 public class Inscription extends HttpServlet {
 
@@ -33,6 +37,7 @@ public class Inscription extends HttpServlet {
             HttpSession session = request.getSession();
             idclient = GetClientID((String) session.getAttribute("UserName"));
 
+            // Affichage de la page (le code HTML) de la page inscription
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -77,14 +82,15 @@ public class Inscription extends HttpServlet {
             out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Panier\">  Panier  </a></li>\n"
                     + "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n"
                     + "                </ul>\n");
-                    if(session.getAttribute("UserName")!=null)
-                    out.println("<p style=\"text-align:left\">"+session.getAttribute("UserName") +"</p>");
-                    out.println("            </div>\n"
+            if (session.getAttribute("UserName") != null) {
+                out.println("<p style=\"text-align:left\">" + session.getAttribute("UserName") + "</p>");
+            }
+            out.println("            </div>\n"
                     + "        </div>\n"
                     + "    </div>");
             out.println("<div class=\"jumbotron\">\n"
                     + "</div>\n");
-             
+
             out.println("<section style=\"  color: #000000;\n"
                     + "                   font-size: 18px;\n"
                     + "                   text-align: center;\n"
@@ -101,9 +107,9 @@ public class Inscription extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-
     }
 
+    // Belle fonction qui va chercher une image aleatoire pour la banniere d'entete
     private String getImageAleatoire() {
         int maximum = 7;
         int minimum = 1;
@@ -142,52 +148,55 @@ public class Inscription extends HttpServlet {
         return imageaAfficher;
     }
 
+    // Affichage du formulaire d'inscription qui prend un Flag en parametre parce que si l'utilisateur a mal entré qque chose il va afficher une erreur 
     private void BoxInscription(PrintWriter out, boolean FlagErreurInscription) {
 
         out.println("<div style=\"padding-top:15px; margin: 0 auto; text-align:center;\">");
         if (FlagErreurInscription) {
             out.println("<p style=\"color:red;\"><b> Erreur dans les paramètres d'inscription </b></p>");
-            
+
         }
-        out.println(  "<div class=\"container\" style=\" margin: 0 auto;\">\n"
-                    + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
-                    + "     <div style=\"width:230px;  margin: 0 auto;\"> "
-                    + "         <div class=\"form-group\">\n"
-                    + "             <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
-                    + "         </div>\n"
-                    + "         <div class=\"form-group\">\n"
-                    + "             <input type=\"password\" name=\"Password\" maxlength=\"20\" class=\"form-control\" placeholder=\"Mot de passe\">\n"
-                    + "         </div>\n"
-                    + "         <div class=\"form-group\">\n"
-                    + "             <input type=\"text\" name=\"Adresse\" maxlength=\"100\" class=\"form-control\" placeholder=\"Adresse\">\n"
-                    + "         </div>\n"
-                    + "         <div class=\"form-group\">\n"
-                    + "             <input type=\"text\" name=\"Telephone\" maxlength=\"10\" class=\"form-control\" placeholder=\"Telephone\" onkeypress=\"return isNumber(event)\">\n"
-                    + "         </div>\n");
+        out.println("<div class=\"container\" style=\" margin: 0 auto;\">\n"
+                + "     <form role=\"form\" action=\"Inscription\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
+                + "     <div style=\"width:230px;  margin: 0 auto;\"> "
+                + "         <div class=\"form-group\">\n"
+                + "             <input type=\"text\" name=\"Username\" maxlength=\"20\" class=\"form-control\" placeholder=\"Nom d'usager\">\n"
+                + "         </div>\n"
+                + "         <div class=\"form-group\">\n"
+                + "             <input type=\"password\" name=\"Password\" maxlength=\"20\" class=\"form-control\" placeholder=\"Mot de passe\">\n"
+                + "         </div>\n"
+                + "         <div class=\"form-group\">\n"
+                + "             <input type=\"text\" name=\"Adresse\" maxlength=\"100\" class=\"form-control\" placeholder=\"Adresse\">\n"
+                + "         </div>\n"
+                + "         <div class=\"form-group\">\n"
+                + "             <input type=\"text\" name=\"Telephone\" maxlength=\"10\" class=\"form-control\" placeholder=\"Telephone\" onkeypress=\"return isNumber(event)\">\n"
+                + "         </div>\n");
         out.println("           <span class=\"input-group-btn\" style=\"padding-top:5px; width:250px;\" >\n"
-                    + "             <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
-                    + "                 S'inscrire "
-                    + "             </button>\n"
-                    + "         </span>"
-                    + "     </div>");
+                + "             <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" >\n"
+                + "                 S'inscrire "
+                + "             </button>\n"
+                + "         </span>"
+                + "     </div>");
         out.println("       </form>\n"
                 + "         </div> ");
         out.println("</div>");
 
     }
 
+    // GetClientID va chercher le id du client selon son username puisque ce username est unique
     private Integer GetClientID(String Username) {
         Integer LeID = null;
         OpenConnection();
         ResultSet rst;
         try {
+            // Pas en callable statement parce qu,on a pas eu le temps de le changer 
             Statement stmGetClientID = conn.createStatement();
             stmGetClientID.execute("Select idclient from client where Username = '" + Username + "'");
             rst = stmGetClientID.getResultSet();
             while (rst.next()) {
                 LeID = rst.getInt(1);
             }
-            
+
         } catch (SQLException ez) {
 
         }
@@ -196,6 +205,8 @@ public class Inscription extends HttpServlet {
         return LeID;
     }
 
+  // OpenConnection ouvre la connexion à la BD 
+    // On l'apelle toujours avant les requetes a la BD 
     private void OpenConnection() {
         try {
             OracleDataSource ods = new OracleDataSource();
@@ -205,9 +216,10 @@ public class Inscription extends HttpServlet {
             this.conn = ods.getConnection();
         } catch (SQLException se) {
         }
-
     }
 
+  // CloseConnection ferme la connexion a la BD 
+    // On l'apelle toujours apres les requetes a la BD 
     private void CloseConnection() {
 
         try {
@@ -227,14 +239,17 @@ public class Inscription extends HttpServlet {
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
 
+            // get le contenu des textbox 
             Username = request.getParameter("Username");
             Password = request.getParameter("Password");
             Adresse = request.getParameter("Adresse");
             Telephone = request.getParameter("Telephone");
 
+            // si l'utilisateur essaie de se connecter avec des informations vides ca ne fonctionnera pas 
             if (Username != "" && Password != "" && Adresse != "" && Telephone != "") {
+                // si l'inscription est reussi on renvoit a Connection pour que l'utilisateur se connecte sinon on met un flag
                 if (InscriptionClient(Username, Password, Adresse, Telephone)) {
-                    response.sendRedirect("Acceuil");
+                    response.sendRedirect("ConnectionOracle");
                 } else {
                     FlagErreurInscription = true;
                     processRequest(request, response);
@@ -246,10 +261,12 @@ public class Inscription extends HttpServlet {
         }
     }
 
+    // InscriptionClient permet de creer le compte utilisateur dans la BD pour qu'il puisse pse connecter et acheter des billets 
     private boolean InscriptionClient(String Username1, String Password, String Adresse, String Telephone) {
         boolean InscriptionReussie = false;
         try {
             OpenConnection();
+            // Verifie si l'utilisateur a choisi un nom qui existe deja dans la BD 
             try (CallableStatement CheckUsername = conn.prepareCall("{ call GESTIONUSAGER.USAGEREXISTE(?, ?)}")) {
                 CheckUsername.setString(1, Username1);
                 CheckUsername.registerOutParameter(2, OracleTypes.CURSOR);
@@ -257,6 +274,7 @@ public class Inscription extends HttpServlet {
                 ResultSet rst = (ResultSet) CheckUsername.getObject(2);
                 if (rst.next()) {
                     if (rst.getString(1) != Username1) {
+                        // Envoit les informations a la BD pour s'incrire 
                         try (CallableStatement InscriptionStm = conn.prepareCall("{call GESTIONUSAGER.AUTHENTIFICATI0N(?,?,?,?)}")) {
                             InscriptionStm.setString(1, Adresse);
                             InscriptionStm.setString(2, Telephone);

@@ -23,15 +23,18 @@ import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
- *
- * @author Charlie
+ * Page PANIER qui affiche les billets que l'utilisateur connecté à choisi.
+ * Permet d'acheter, modifier le nombre de billet et de supprimer des billets
+ * choisi.
  */
 @WebServlet(name = "Panier", urlPatterns = {"/Panier"})
 public class Panier extends HttpServlet {
+
     Integer idclient;
     Integer prixTotal = 0;
     Connection conn = null;
-    boolean FlagListeVide =true;
+    boolean FlagListeVide = true;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,75 +48,72 @@ public class Panier extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-             HttpSession session  = request.getSession();              
-             idclient = GetClientID((String) session.getAttribute("UserName")); 
-            
-                       
+            HttpSession session = request.getSession();
+            idclient = GetClientID((String) session.getAttribute("UserName"));
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println(" <script src=\"GestionRecherche.js\"> </script> ");
-            out.println("<title>Servlet Acceuil</title>"); 
-            out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">\n" +
-                        "\n" +
-                        "<!-- Optional theme -->\n" +
-                        "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css\">\n" +
-                        "\n" +
-                        "<!-- Latest compiled and minified JavaScript -->\n" +
-                        "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
+            out.println("<title>Servlet Acceuil</title>");
+            out.println("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\">\n"
+                    + "\n"
+                    + "<!-- Optional theme -->\n"
+                    + "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css\">\n"
+                    + "\n"
+                    + "<!-- Latest compiled and minified JavaScript -->\n"
+                    + "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>");
             out.println("<style>");
-            out.println(".jumbotron {\n" +
-                        "    height:300px;\n" +
-                        "    overflow:hidden;\n" +
-                        "    background-size:cover;\n" +
-                        "    background-image: url(Image/" + getImageAleatoire() + ".png); \n" +
-                        "}");
+            out.println(".jumbotron {\n"
+                    + "    height:300px;\n"
+                    + "    overflow:hidden;\n"
+                    + "    background-size:cover;\n"
+                    + "    background-image: url(Image/" + getImageAleatoire() + ".png); \n"
+                    + "}");
             out.println("</style>");
-             out.println("</head>"); 
-             
-             out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">\n" +
-                        "        <div class=\"container\">\n" +
-                        "            <div class=\"navbar-header\">\n" +
-                        "                <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n" +
-                        "                    <span class=\"icon-bar\"></span>\n" +
-                        "                    <span class=\"icon-bar\"></span>\n" +
-                        "                    <span class=\"icon-bar\"></span>\n" +
-                        "                </button>\n" +
-                        "                <p style=\"color:white; font-size:30px;\"> Reseau Admission </p> " +
-                        "            </div>\n" +
-                        "            <div class=\"navbar-collapse collapse\">\n" +
-                        "                <ul class=\"nav navbar-nav\">\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n");        
-                        if(idclient == null)
-                        {
-                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n");
-                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n"); 
-                        }
-                        else
-                        {
-                            out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Deconnection  </a></li>\n");
-                        }                   
-                        out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Panier\">  Panier  </a></li>\n" +
-                        "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n" +
-                        "                </ul>\n");
-                        if(session.getAttribute("UserName")!=null)
-                        out.println("<p style=\"text-align:right; color:White; font-size:25px\">"+session.getAttribute("UserName") +"</p>");
-                        out.println("            </div>\n" +
-                        "        </div>\n" +
-                        "    </div>");
-            out.println("<div class=\"jumbotron\">\n" +
-                        "</div>\n");
-              
-            out.println("<section style=\"  color: #000000;\n" +
-                        "                   font-size: 18px;\n" +
-                        "                   text-align: center;\n" +
-                        "                   font-weight: bold;\">\n" +
-                        "    <h1 style=\"text-align:center; font-size:50px;\">Panier</h1> \n" +
-                        "</section>"); 
-            
+            out.println("</head>");
+
+            out.println("<div class=\"navbar navbar-inverse navbar-fixed-top\">\n"
+                    + "        <div class=\"container\">\n"
+                    + "            <div class=\"navbar-header\">\n"
+                    + "                <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\n"
+                    + "                    <span class=\"icon-bar\"></span>\n"
+                    + "                    <span class=\"icon-bar\"></span>\n"
+                    + "                    <span class=\"icon-bar\"></span>\n"
+                    + "                </button>\n"
+                    + "                <p style=\"color:white; font-size:30px;\"> Reseau Admission </p> "
+                    + "            </div>\n"
+                    + "            <div class=\"navbar-collapse collapse\">\n"
+                    + "                <ul class=\"nav navbar-nav\">\n"
+                    + "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Acceuil\">  Accueil  </a></li>\n");
+            if (idclient == null) {
+                out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Connexion  </a></li>\n");
+                out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/Inscription\">  Inscription  </a></li>\n");
+            } else {
+                out.println("<li><a href=\"http://localhost:8084/App_Web_2.0/ConnectionOracle\">  Deconnection  </a></li>\n");
+            }
+            out.println(" <li><a href=\"http://localhost:8084/App_Web_2.0/Panier\">  Panier  </a></li>\n"
+                    + "                    <li><a href=\"http://localhost:8084/App_Web_2.0/Historique\">  Historique  </a></li>\n"
+                    + "                </ul>\n");
+            if (session.getAttribute("UserName") != null) {
+                out.println("<p style=\"text-align:right; color:White; font-size:25px\">" + session.getAttribute("UserName") + "</p>");
+            }
+            out.println("            </div>\n"
+                    + "        </div>\n"
+                    + "    </div>");
+            out.println("<div class=\"jumbotron\">\n"
+                    + "</div>\n");
+
+            out.println("<section style=\"  color: #000000;\n"
+                    + "                   font-size: 18px;\n"
+                    + "                   text-align: center;\n"
+                    + "                   font-weight: bold;\">\n"
+                    + "    <h1 style=\"text-align:center; font-size:50px;\">Panier</h1> \n"
+                    + "</section>");
+
             out.println("<hr style=\"height: 2px; border: none; margin: 10px; color: gray; background-color: gray;\" />");
             //Pas touche ^
-            
+
             out.println("<div style=\"height:600px; width:70%; overflow:auto; background-color:lightgrey; margin:auto;\">");
             out.println("<div style=\"width:95%; margin:auto;\">");
 
@@ -131,22 +131,24 @@ public class Panier extends HttpServlet {
 
             out.println("</body>");
             out.println("</html>");
-            
+
         }
     }
-    private void GetPanier(PrintWriter out)
-    {
+
+    // GetPanier va chercher tout les billets dans le panier pour l'utilisateur connecté et les affiches dans la page web 
+    private void GetPanier(PrintWriter out) {
         FlagListeVide = true;
         OpenConnection();
         try {
-             CallableStatement Callist = conn.prepareCall("{call facturation.SELECTPANIER(?, ?) }");
+            CallableStatement Callist = conn.prepareCall("{call facturation.SELECTPANIER(?, ?) }");
             Callist.setInt(1, idclient);
             Callist.registerOutParameter(2, OracleTypes.CURSOR);
             Callist.execute();
             ResultSet rst = (ResultSet) Callist.getObject(2);
+
+            // Affichage du tableau contenant les informations
             out.println("<div style=\"margin:auto;\">");
             out.println("<form action =\"Panier\" method=\"post\">");
-            
             out.println("<div style=\"margin:auto;\">");
             out.println("<table style=\"width:99%; margin:auto;\">");
             out.println("<tr>");
@@ -155,165 +157,170 @@ public class Panier extends HttpServlet {
             out.println("<td><b>Salle</b></td>");
             out.println("<td><b>Section</b></td>");
             out.println("<td><b>Date et Heure</b></td>");
-            out.println("<td><b>Nombre de billet</b></td>"); 
-            out.println("<td><b>Prix unitaire</b></td>"); 
+            out.println("<td><b>Nombre de billet</b></td>");
+            out.println("<td><b>Prix unitaire</b></td>");
             out.println("<td><b>Prix du lot</b></td>");
             out.println(" </tr>");
+
             int cpt = 1;
             prixTotal = 0;
-             while (rst.next()) {
-                 FlagListeVide = false;                 
+
+            // pour chaque billet
+            while (rst.next()) {
+                FlagListeVide = false;
                 if (cpt % 2 == 0) {
                     out.println("<tr style=\"background-color:#C5CADE;\">");
                 } else {
                     out.println("<tr style=\"background-color:#BACEDB;\">");
                 }
                 cpt++;
-                        out.println("<td  style=\"padding:5px; text-align:center;\">");
-                            out.println("<input type=\"radio\" name=\"RB_Supp\"  value=\""+rst.getInt(7)+"\">" );
-                        out.println("</td>");           
-                        out.println("<td  style=\"\">");
-                            out.println(rst.getString(1));
-                        out.println("</td>");
-                         out.println("<td  style=\"\">");
-                            out.println(rst.getString(2));
-                        out.println("</td>");
-                         out.println("<td  style=\"\">");
-                            out.println(rst.getString(3));
-                        out.println("</td>");
-                         out.println("<td  style=\"\">");
-                            out.println(rst.getString(4));
-                        out.println("</td>");
-                          out.println("<td  style=\"\">");
-                            out.println("<input type=\"number\" min=\"1\" max=\"100000\" name=\""+rst.getInt(7)+"\" value =\"" + rst.getString(5) + "\">" );
-                        out.println("</td>");    
-                          out.println("<td  style=\"\">");
-                            out.println(rst.getString(6) + "$");
-                        out.println("</td>");                            
-                        out.println("<td>");
-                            out.println(""+ Integer.parseInt(rst.getString(5))*Integer.parseInt(rst.getString(6)) + "$");
-                            prixTotal += Integer.parseInt(rst.getString(5))*Integer.parseInt(rst.getString(6));
-                        out.println("</td>");
-                    out.println("</tr>");
-                 
-             }          
-             Callist.close();
-             rst.close();
+                out.println("<td  style=\"padding:5px; text-align:center;\">");
+                out.println("<input type=\"radio\" name=\"RB_Supp\"  value=\"" + rst.getInt(7) + "\">");
+                out.println("</td>");
+                out.println("<td  style=\"\">");
+                out.println(rst.getString(1));
+                out.println("</td>");
+                out.println("<td  style=\"\">");
+                out.println(rst.getString(2));
+                out.println("</td>");
+                out.println("<td  style=\"\">");
+                out.println(rst.getString(3));
+                out.println("</td>");
+                out.println("<td  style=\"\">");
+                out.println(rst.getString(4));
+                out.println("</td>");
+                out.println("<td  style=\"\">");
+                out.println("<input type=\"number\" min=\"1\" max=\"100000\" name=\"" + rst.getInt(7) + "\" value =\"" + rst.getString(5) + "\">");
+                out.println("</td>");
+                out.println("<td  style=\"\">");
+                out.println(rst.getString(6) + "$");
+                out.println("</td>");
+                out.println("<td>");
+                out.println("" + Integer.parseInt(rst.getString(5)) * Integer.parseInt(rst.getString(6)) + "$");
+                prixTotal += Integer.parseInt(rst.getString(5)) * Integer.parseInt(rst.getString(6));
+                out.println("</td>");
+                out.println("</tr>");
+
+            }
+            Callist.close();
+            rst.close();
             out.println("</table>");
-            out.println("</div>"); 
+            out.println("</div>");
             out.println("<div style=\"text-align:center; padding-top:15px;\">");
             out.println("<h4><b>Prix total : " + prixTotal + "$</b></h4>");
             out.println("</div>");
             out.println("<div style=\"margin:auto; padding-top:10px; padding-bottom:10px; text-align:center;\">");
             out.println("<input type=\"checkbox\" name=\"CB_Imp\"> <b>Cochez pour faire imprimer et envoyer les billets (20$ de frais)</b>");
-                        out.println("</div>");
+            out.println("</div>");
             out.println("<div style=\"margin: 0 auto; width:250px;\">");
             out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
-                    +   "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Mise a jour\" >\n"
-                    +   "       Mettre à jour "
-                    +   "   </button>\n"
-                    +   "</span>");
+                    + "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Mise a jour\" >\n"
+                    + "       Mettre à jour "
+                    + "   </button>\n"
+                    + "</span>");
             out.println("</br>");
             out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
-                    +   "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Supprimer\" >\n"
-                    +   "       Supprimer "
-                    +   "   </button>\n"
-                    +   "</span>");
+                    + "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Supprimer\" >\n"
+                    + "       Supprimer "
+                    + "   </button>\n"
+                    + "</span>");
             out.println("</br>");
             out.println("<span class=\"input-group-btn\" style=\"margin:auto; width:250px;\" >\n"
-                    +   "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Achat\" >\n"
-                    +   "       Finaliser l'achat "
-                    +   "   </button>\n"
-                    +   "</span>");
+                    + "   <button style=\"width:230px; \" class=\"btn btn-info\" type=\"submit\" name=\"action\" value=\"Achat\" >\n"
+                    + "       Finaliser l'achat "
+                    + "   </button>\n"
+                    + "</span>");
             out.println("</div>");
             out.println("</form>");
             out.println("</div>");
-        }
-        catch(SQLException ex)
-        {
-            
-        }
-        finally
-        {
+        } catch (SQLException ex) {
+
+        } finally {
             CloseConnection();
         }
     }
-    
-    
-  private Integer GetClientID(String Username)
-    {
+
+    // GetClientID va chercher le id du client selon son username puisque ce username est unique
+    private Integer GetClientID(String Username) {
         Integer LeID = null;
         OpenConnection();
         ResultSet rst;
-        try
-        {
+        try {
+            // Pas en callable statement parce qu,on a pas eu le temps de le changer 
             Statement stmGetClientID = conn.createStatement();
-            stmGetClientID.execute("Select idclient from client where Username = '"+Username+"'");
+            stmGetClientID.execute("Select idclient from client where Username = '" + Username + "'");
             rst = stmGetClientID.getResultSet();
-            while(rst.next())
-            {
+            while (rst.next()) {
                 LeID = rst.getInt(1);
-            }            
-        }catch(SQLException ez)
-        {
-            
+            }
+        } catch (SQLException ez) {
+
         }
-        
+
         CloseConnection();
         return LeID;
     }
-    
-    private void OpenConnection(){    
-        try{
-        OracleDataSource ods = new OracleDataSource();
-        ods.setURL("jdbc:oracle:thin:@205.237.244.251:1521:orcl");
-        ods.setUser("BoucherM");
-        ods.setPassword("ORACLE2");
-        this.conn = ods.getConnection();       
+
+  // OpenConnection ouvre la connexion à la BD 
+    // On l'apelle toujours avant les requetes a la BD 
+    private void OpenConnection() {
+        try {
+            OracleDataSource ods = new OracleDataSource();
+            ods.setURL("jdbc:oracle:thin:@205.237.244.251:1521:orcl");
+            ods.setUser("BoucherM");
+            ods.setPassword("ORACLE2");
+            this.conn = ods.getConnection();
+        } catch (SQLException se) {
         }
-        catch(SQLException se){       
+
+    }
+
+  // CloseConnection ferme la connexion a la BD 
+    // On l'apelle toujours apres les requetes a la BD 
+    private void CloseConnection() {
+
+        try {
+            this.conn.close();
+        } catch (SQLException se) {
         }
-        
     }
-    
-    private void CloseConnection(){
-    
-     try{
-         this.conn.close();
-     }
-     catch(SQLException se){
-     }
-    }
-    private String getImageAleatoire()
-    {
+
+    // Belle fonction qui va chercher une image aleatoire pour la banniere d'entete
+    private String getImageAleatoire() {
         int maximum = 7;
         int minimum = 1;
         Random rn = new Random();
         int range = maximum - minimum + 1;
-        int randomNum =  rn.nextInt(range) + minimum;
+        int randomNum = rn.nextInt(range) + minimum;
         String imageaAfficher = "BanniereCirque";
-        
-        switch(randomNum)
-        {
-            case 1: imageaAfficher = "BanniereCinema";
+
+        switch (randomNum) {
+            case 1:
+                imageaAfficher = "BanniereCinema";
                 break;
-            case 2: imageaAfficher = "BanniereArts";
+            case 2:
+                imageaAfficher = "BanniereArts";
                 break;
-            case 3: imageaAfficher = "BanniereFestival";
+            case 3:
+                imageaAfficher = "BanniereFestival";
                 break;
-            case 4: imageaAfficher = "BanniereMusique";
+            case 4:
+                imageaAfficher = "BanniereMusique";
                 break;
-            case 5: imageaAfficher = "BanniereSport";
+            case 5:
+                imageaAfficher = "BanniereSport";
                 break;
-            case 6: imageaAfficher = "BanniereTheatre";
+            case 6:
+                imageaAfficher = "BanniereTheatre";
                 break;
-            case 7: imageaAfficher = "BanniereCirque";
+            case 7:
+                imageaAfficher = "BanniereCirque";
                 break;
-            default: imageaAfficher = "BanniereCirque";
+            default:
+                imageaAfficher = "BanniereCirque";
                 break;
         }
-        
-        
+
         return imageaAfficher;
     }
 
@@ -343,176 +350,146 @@ public class Panier extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         PrintWriter out = response.getWriter();
-        if(request.getParameter("action").equals("Mise a jour") && !FlagListeVide)
-        {
-            if(MettreAJour(request,out))
-            {
+        if (request.getParameter("action").equals("Mise a jour") && !FlagListeVide) {
+            // si l'utilisateur clique sur mettre a jour
+            if (MettreAJour(request, out)) {
                 processRequest(request, response);
-            }            
-        }
-        else  if(request.getParameter("action").equals("Achat") && !FlagListeVide)
-        {            
-            if(AchatBillet(request, out))
-            {
-                response.sendRedirect("/App_Web_2.0/Historique");                
             }
-            
-        }
-        else  if(request.getParameter("action").equals("Supprimer") && request.getParameter("RB_Supp")!=null && !FlagListeVide)
-        {
-            if(SupprimerBillet(request))
-            {
+        } else if (request.getParameter("action").equals("Achat") && !FlagListeVide) {
+            // si l'utilisateur clique sur finaliser l'achat
+            if (AchatBillet(request, out)) {
+                response.sendRedirect("/App_Web_2.0/Historique");
+            }
+
+        } else if (request.getParameter("action").equals("Supprimer") && request.getParameter("RB_Supp") != null && !FlagListeVide) {
+            // si l'utilisateur clique sur suppression d'un billet
+            if (SupprimerBillet(request)) {
                 processRequest(request, response);
-            }                    
+            }
         }
         processRequest(request, response);
-        
+
     }
-    private String CheckCheckBox(HttpServletRequest request)
-    {
+
+    // Verifie si le checkbox de faire imprimer les billets est cocher ou non 
+    private String CheckCheckBox(HttpServletRequest request) {
         String imprimer;
-        if(request.getParameter("CB_Imp") == null)
-        {
-           imprimer = "0";
-        }else
-        {
-           imprimer = "1";
+        if (request.getParameter("CB_Imp") == null) {
+            imprimer = "0";
+        } else {
+            imprimer = "1";
         }
         return imprimer;
     }
-    private boolean AchatBillet(HttpServletRequest request, PrintWriter out)
-    {
+
+    // AchatBillet permet de transferer ce qu'il y a dans le panier dans vente et de créer une nouvelle facture pour l'achat fait 
+    private boolean AchatBillet(HttpServletRequest request, PrintWriter out) {
         boolean AchatBillet = false;
-        OpenConnection();       
-        try
-        {
-            
-             CallableStatement CallAchat = conn.prepareCall("{call facturation.AJOUTERFACTURE(?, ?)}");             
-             CallAchat.setString(1,CheckCheckBox(request));            
-             CallAchat.setInt(2, idclient);             
-             CallAchat.executeUpdate();
-             AchatBillet=true;
-             CallAchat.close();
-            
-        }catch(SQLException ef)
-        {
+        OpenConnection();
+        try {
+            CallableStatement CallAchat = conn.prepareCall("{call facturation.AJOUTERFACTURE(?, ?)}");
+            CallAchat.setString(1, CheckCheckBox(request));
+            CallAchat.setInt(2, idclient);
+            CallAchat.executeUpdate();
+            AchatBillet = true;
+            CallAchat.close();
+        } catch (SQLException ef) {
             System.out.println(ef);
-            
-        }finally
-        {
+
+        } finally {
             CloseConnection();
         }
-        
+
         return AchatBillet;
     }
-    private boolean SupprimerBillet(HttpServletRequest request)
-    {
+
+    // SupprimerBillet permet de supprimer un seul billet dans le Panier
+    private boolean SupprimerBillet(HttpServletRequest request) {
         boolean BilletSupprimer = false;
         OpenConnection();
-        try
-        {
+        try {
             CallableStatement CallSupprimer = conn.prepareCall("{call facturation.SUPPRIMERPANIER(?, ?) }");
-            CallSupprimer.setInt(1, idclient);            
-            CallSupprimer.setInt(2, Integer.parseInt(request.getParameter("RB_Supp")));            
+            CallSupprimer.setInt(1, idclient);
+            CallSupprimer.setInt(2, Integer.parseInt(request.getParameter("RB_Supp")));
             CallSupprimer.execute();
-            BilletSupprimer =true;
-            CallSupprimer.close();                      
-        }
-        catch(SQLException eg)
-        {
-            
-            
-        }finally
-        {
+            BilletSupprimer = true;
+            CallSupprimer.close();
+        } catch (SQLException eg) {
+
+        } finally {
             CloseConnection();
         }
-               
-        
+
         return BilletSupprimer;
     }
-    private boolean NombreDeBillet(int idbillet, int NbreDeBillet)
-    {
+
+    // NombreDeBillet va chercher le nombre de place qu'il reste disponible pour le billet choisi
+    // Verifie egalement si le nombre de billet choisi est plus grand que le nbre restant 
+    // Empeche un utilisateur d'acheter plus de billet qu'il en a disponible
+    private boolean NombreDeBillet(int idbillet, int NbreDeBillet) {
         boolean NombreBillet = false;
-        try
-        {
-           CallableStatement CallNbBillet = conn.prepareCall("{call facturation.GetNbrePlace(?, ?) }"); 
-           CallNbBillet.setInt(1, idbillet);
-           CallNbBillet.registerOutParameter(2, OracleTypes.CURSOR);
-           CallNbBillet.execute();
-           ResultSet rst = (ResultSet) CallNbBillet.getObject(2);
-           if(rst.next())
-           {
-                  int nombre = rst.getInt(4);
-                  if(rst.wasNull() || NbreDeBillet<=nombre)
-                  {
-                      NombreBillet = true;
-                  }
-                             
-           }
-           CallNbBillet.close();
-           rst.close();
-        }catch(SQLException ej)
-        {
-            
-        }      
-        
+        try {
+            CallableStatement CallNbBillet = conn.prepareCall("{call facturation.GetNbrePlace(?, ?) }");
+            CallNbBillet.setInt(1, idbillet);
+            CallNbBillet.registerOutParameter(2, OracleTypes.CURSOR);
+            CallNbBillet.execute();
+            ResultSet rst = (ResultSet) CallNbBillet.getObject(2);
+            if (rst.next()) {
+                int nombre = rst.getInt(4);
+                if (rst.wasNull() || NbreDeBillet <= nombre) {
+                    NombreBillet = true;
+                }
+
+            }
+            CallNbBillet.close();
+            rst.close();
+        } catch (SQLException ej) {
+
+        }
+
         return NombreBillet;
     }
-    private boolean MettreAJour(HttpServletRequest request, PrintWriter out)
-    {
-        boolean MitAJour = false;       
-        
-                OpenConnection();
-        try
-        {
+
+    // MettreAJour permet de changer le nombre de billet dans le panier pour chaque billet qui existe dans le panier de l'utilisateur connecté
+    private boolean MettreAJour(HttpServletRequest request, PrintWriter out) {
+        boolean MitAJour = false;
+        OpenConnection();
+        try {
             CallableStatement CallSelectSimplePanier = conn.prepareCall("{call facturation.SELECTPANIERSIMPLE(?, ?) }");
             CallSelectSimplePanier.setInt(1, idclient);
             CallSelectSimplePanier.registerOutParameter(2, OracleTypes.CURSOR);
             CallSelectSimplePanier.execute();
-            ResultSet rst = (ResultSet) CallSelectSimplePanier.getObject(2);          
-            
-            while(rst.next())
-            {
-                
-                String nbbillet = request.getParameter(rst.getInt(2)+"");
-                if(nbbillet == "")
-                { 
-                    nbbillet="1";
+            ResultSet rst = (ResultSet) CallSelectSimplePanier.getObject(2);
+
+            while (rst.next()) {
+                String nbbillet = request.getParameter(rst.getInt(2) + "");
+                if (nbbillet == "") {
+                    nbbillet = "1";
                 }
-                 if(NombreDeBillet(rst.getInt(2),Integer.parseInt(nbbillet)))
-                {
-                        CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");           
-                        CallMod.setInt(1, idclient);                
-                        int  IDbillet = rst.getInt(2);
-                        CallMod.setInt(2, IDbillet);
-                                                
-                        CallMod.setInt(3, Integer.parseInt(nbbillet));
-                        CallMod.execute();
-                        CallMod.close();
-                }
-                else
-                {
+                if (NombreDeBillet(rst.getInt(2), Integer.parseInt(nbbillet))) {
+                    CallableStatement CallMod = conn.prepareCall("{call facturation.MODIFIERPANIER(?, ?, ?) }");
+                    CallMod.setInt(1, idclient);
+                    int IDbillet = rst.getInt(2);
+                    CallMod.setInt(2, IDbillet);
+                    CallMod.setInt(3, Integer.parseInt(nbbillet));
+                    CallMod.execute();
+                    CallMod.close();
+                } else {
                     out.println("<script> alert(\"Il n'y a plus assez de billet\"); </script>");
                 }
-              
-           
-              
             }
             MitAJour = true;
             CallSelectSimplePanier.close();
             rst.close();
-        }catch(SQLException eh)           
-        {
-            
-        }
-        finally
-        {
-            
+        } catch (SQLException eh) {
+
+        } finally {
+
             CloseConnection();
         }
-        
+
         return MitAJour;
     }
 
