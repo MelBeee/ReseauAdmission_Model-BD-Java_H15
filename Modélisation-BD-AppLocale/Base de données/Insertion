@@ -6,11 +6,11 @@ insert into Categorie values (SEQ_Categorie.nextval, 'Humour');
 insert into Categorie values (SEQ_Categorie.nextval, 'Sport');
 insert into Categorie values (SEQ_Categorie.nextval, 'Festival');
 insert into Categorie values (SEQ_Categorie.nextval, 'Arts');
-insert into Categorie values (SEQ_Categorie.nextval, 'Cinéma');
+insert into Categorie values (SEQ_Categorie.nextval, 'Cinema');
 
 insert into Salle values (Seq_NumSalle.nextval, 'Centre Bell');
 insert into Salle values (Seq_NumSalle.nextval, 'Place des arts');
-insert into Salle values (Seq_NumSalle.nextval, 'Métropolis');
+insert into Salle values (Seq_NumSalle.nextval, 'Metropolis');
 insert into Salle values (Seq_NumSalle.nextval, 'Parc Jean-Drapeau');
 insert into Salle values (Seq_NumSalle.nextval, 'Stade Olympique');
 insert into Salle values (Seq_NumSalle.nextval, 'Theatre St-Denis');
@@ -35,41 +35,5 @@ insert into section values (SEQ_NumSection.nextval, 7, 550,   'Parterre');
 insert into section values (SEQ_NumSection.nextval, 7, 350,   'Balcon');
 insert into section values (SEQ_NumSection.nextval, 8, 500,   'Plancher');
 insert into section values (SEQ_NumSection.nextval, 8, 150,   'VIP Zone');
-
--- INSERTION DE TEST A ENLEVER AVANT REMIS DU PROJET
-
-insert into spectacle values (SEQ_NumSpectacle.nextval, 'Martin Garix',           'Musique techno', 'blabla.png', 4);
-insert into spectacle values (SEQ_NumSpectacle.nextval, 'Canadiens vs Senateurs', 'Match de Hockey','blabla.png', 7);
-insert into spectacle values (SEQ_NumSpectacle.nextval, 'U2 Innoncence',          'Musique fif',    'blabla.png', 4);
-
-alter session set nls_date_format = 'YYYY-MM-DD HH:MI:SS';
-
-insert into billet values (SEQ_NumBillet.nextval, 2, 19, 75,  '2015-04-29 07:30:00');
-insert into billet values (SEQ_NumBillet.nextval, 2, 20, 100, '2015-04-29 07:30:00');
-insert into billet values (SEQ_NumBillet.nextval, 3, 2, 300, '2015-04-29 07:30:00');
-insert into billet values (SEQ_NumBillet.nextval, 3, 3, 200, '2015-04-29 07:30:00');
-insert into billet values (SEQ_NumBillet.nextval, 3, 4, 100, '2015-04-29 07:30:00');
-insert into billet values (SEQ_NumBillet.nextval, 3, 5, 80, '2015-04-29 07:30:00');
-insert into billet values (SEQ_NumBillet.nextval, 3, 6, 50, '2015-04-29 07:30:00');
-INSERT INTO BILLET VALUES (SEQ_NumBillet.nextval, 4, 12, 130, '2015-04-29 07:30:00');
-
-INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '100 rue des tests', '4505125860', 'MelBeee', 'asdf');
-INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '101 rue des tests', '4385125860', 'Charlie', 'asdf');
-INSERT INTO CLIENT VALUES (SEQ_NumClient.nextval, '101 rue des tests', '4195125860', 'Fred',    'asdf');
-
-INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29', '1', 100, 2);
-INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29', '0', 100, 3);
-INSERT INTO FACTURE VALUES (SEQ_FACTURE.nextval, '2015-04-29', '0', 200, 4);
-
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 2, 2, 10);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 2, 3, 5);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 2, 4, 2);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 2, 2);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 3, 8);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 3, 4, 7);
-INSERT INTO VENTE VALUES(SEQ_Vente.nextval, 4, 2, 22);
-insert into vente values(SEQ_Vente.nextval, 4, 3, 5);
-insert into vente values(SEQ_Vente.nextval, 4, 4, 1);
-insert into vente values(SEQ_Vente.nextval, 9, 4, 5);
 
 commit;

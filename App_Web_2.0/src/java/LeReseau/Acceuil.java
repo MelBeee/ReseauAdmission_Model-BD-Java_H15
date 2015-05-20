@@ -358,7 +358,7 @@ public class Acceuil extends HttpServlet {
          }
       }
       else{
-         if(verif )
+         //if(verif )
           ResearchAll(out);
         }
         

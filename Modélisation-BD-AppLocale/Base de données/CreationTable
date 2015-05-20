@@ -83,7 +83,7 @@ CREATE TABLE Vente
   (
     IDVente number (8) NOT NULL,
     IDBillet   NUMBER (4) NOT NULL ,
-    IDFacture  NUMBER (5) NOT NULL ,
+    IDFacture  NUMBER (10) NOT NULL ,
     NbreBillet NUMBER (5) NOT NULL
   ) ;
 

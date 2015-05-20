@@ -107,7 +107,7 @@ public class ConnectionOracle extends HttpServlet {
     {
         out.println("<div style=\"padding-top:15px; margin: 0 auto; text-align:center;\">");
         if(FlagErreurConnection)
-            out.println("Erreur dans vos paremètre de connexion!");
+            out.println("<p style=\"color:red;\"><b> Erreur dans les paramètres de connexion </b></p>");
         
         out.println(  "<div class=\"container\" style=\" margin: 0 auto;\">\n"
                     + "     <form role=\"form\" action=\"ConnectionOracle\" method=\"post\" id=\"login-form\" autocomplete=\"off\">\n"
