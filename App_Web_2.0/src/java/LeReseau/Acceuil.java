@@ -271,13 +271,14 @@ public class Acceuil extends HttpServlet {
                        SetResearchBySalle(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
                  else  if(cookie.getValue().substring(0,cookie.getValue().lastIndexOf(',')).equals("Artiste"))
                     SetResearchArtiste(out,cookie.getValue().substring(cookie.getValue().lastIndexOf(',')+ 1,cookie.getValue().length()));
-                  //else  if(cookie.getValue().substring(0,i = cookie.getValue().indexOf(',')).equals("Categorie")){
-                 //     String value = "";
-                  //   while(i < cookie.getValue().lastIndexOf(',')){  
-                   //      value = cookie.getValue().substring(i+1, cookie.getValue().length());
-                    //     ResearchByCat(out,value); 
-                   //  }
-                 // }
+                  else  if(cookie.getValue().substring(0,i = cookie.getValue().indexOf(',')).equals("Categorie")){
+                      String value = "";
+                         ResearchAll(out);
+                    // while(i != -1){  
+                       //  value += cookie.getValue().substring(i+1,i = cookie.getValue().indexOf(','));
+                        // ResearchByCat(out,value); 
+                     //}
+                  }
               }
                   
             }
@@ -357,7 +358,7 @@ public class Acceuil extends HttpServlet {
          }
       }
       else{
-       //  if(verif )
+         if(verif )
           ResearchAll(out);
         }
         
